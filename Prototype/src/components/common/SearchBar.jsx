@@ -124,7 +124,7 @@ const SearchBar = ({
               size="sm"
               variant="ghost"
               onClick={handleVoiceSearch}
-              className="h-10 w-10 p-0 rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors dark:bg-gray-100 dark:text-black dark:hover:bg-black dark:hover:text-white"
+              className="h-10 w-10 p-0 rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors"
             >
               <Mic className="w-4 h-4" />
             </Button>
@@ -132,7 +132,7 @@ const SearchBar = ({
           <Button
             type="submit"
             size="sm"
-            className="h-10 px-3 rounded-full bg-gray-100 hover:bg-black hover:text-white text-black transition-colors dark:bg-gray-100 dark:text-black dark:hover:bg-black dark:hover:text-white"
+            className="h-10 px-3 rounded-full bg-gray-100 hover:bg-black hover:text-white text-black transition-colors"
           >
             <Search className="w-4 h-4" />
           </Button>
@@ -142,10 +142,10 @@ const SearchBar = ({
               size="sm"
               variant="ghost"
               onClick={handleAIMatch}
-              className="h-10 px-3 rounded-full text-xs bg-gray-100 text-black hover:bg-gradient-to-r hover:from-green-400 hover:to-green-600 hover:text-white transition-all group dark:bg-gray-100 dark:text-black"
+              className="h-10 px-3 rounded-full text-xs bg-gray-100 text-black hover:bg-[#efffba] hover:text-black transition-all"
             >
-              <Sparkles className="w-3 h-3 mr-1 text-green-500 group-hover:text-white" />
-              AI
+              <Sparkles className="w-3 h-3 mr-1 text-black animate-pulse" />
+              Match with AI
             </Button>
           )}
         </div>

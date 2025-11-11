@@ -1,0 +1,432 @@
+import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import SearchBar from '@/components/common/SearchBar'
+import ExpertCard from '@/components/common/ExpertCard'
+import ScrollingTicker from '@/components/common/ScrollingTicker'
+import SectionTitle from '@/components/common/SectionTitle'
+import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight } from 'lucide-react'
+import homepageData from '@/data/homepage.json'
+import styles from './HomePage.module.scss'
+
+const HomePage = () => {
+  const { hero, valuePropositions, featuredSection, categories, ctaSection, stats, reviews } = homepageData
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
+  const [currentExpertPage, setCurrentExpertPage] = useState(0)
+  const heroRef = useRef(null)
+  
+  const reviewsPerPage = 3
+  const totalPages = Math.ceil(reviews.testimonials.length / reviewsPerPage)
+  
+  const expertsPerPage = 12
+  const expertTotalPages = Math.ceil(featuredSection.experts.length / expertsPerPage)
+
+  // Advanced parallax effect for hero background
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const scrolled = window.pageYOffset
+        const rate = scrolled * -0.3
+        const opacity = 1 - scrolled / window.innerHeight
+        
+        // Apply parallax transform to background
+        heroRef.current.style.transform = `translate3d(0, ${rate}px, 0)`
+        heroRef.current.style.opacity = Math.max(opacity, 0.1)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+  
+  const nextReviews = () => {
+    setCurrentReviewIndex((prev) => (prev + 1) % totalPages)
+  }
+  
+  const prevReviews = () => {
+    setCurrentReviewIndex((prev) => (prev - 1 + totalPages) % totalPages)
+  }
+  
+  const getCurrentReviews = () => {
+    const start = currentReviewIndex * reviewsPerPage
+    return reviews.testimonials.slice(start, start + reviewsPerPage)
+  }
+
+  const nextExperts = () => {
+    setCurrentExpertPage((prev) => (prev + 1) % expertTotalPages)
+  }
+  
+  const prevExperts = () => {
+    setCurrentExpertPage((prev) => (prev - 1 + expertTotalPages) % expertTotalPages)
+  }
+
+  const getCurrentExperts = () => {
+    const start = currentExpertPage * expertsPerPage
+    return featuredSection.experts.slice(start, start + expertsPerPage)
+  }
+
+  const handleSearch = (query) => {
+    console.log('Searching for:', query)
+    // Implementation for search functionality
+  }
+
+  const handleCategoryClick = (category) => {
+    console.log('Category clicked:', category)
+    // Implementation for category navigation
+  }
+
+  const handleExpertClick = (expert) => {
+    console.log('Expert clicked:', expert)
+    // Implementation for expert profile navigation
+  }
+
+  return (
+    <div className={styles.homepage}>
+      {/* Hero Section */}
+      <section className={`${styles.heroSection} ${styles.sectionPadding}`}>
+        <div className={`${styles.container} ${styles.heroContainer}`}>
+          <motion.div 
+            className={styles.heroContent}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
+            {/* Hero Content */}
+            <div className={styles.heroText}>
+              <motion.h1 
+                className={styles.heroTitle}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                {hero.title}
+              </motion.h1>
+              <motion.p 
+                className={styles.heroSubtitle}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                {hero.subtitle}
+              </motion.p>
+            </div>
+
+            {/* Massive Search Bar */}
+            <motion.div 
+              className={styles.searchContainer}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <SearchBar
+                placeholder="I'm looking for..."
+                animatedPlaceholders={[
+                  "I'm looking for startup advice...",
+                  "I'm looking for marketing strategy...",
+                  "I'm looking for design feedback...",
+                  "I'm looking for tech mentorship...",
+                  "I'm looking for fundraising help...",
+                  "I'm looking for product guidance..."
+                ]}
+                onSearch={handleSearch}
+                size="lg"
+                className="w-full"
+              />
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div 
+              className={styles.ctaButtons}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/browse" className={styles.primaryButton}>
+                  {hero.primaryCta}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/join-expert" className={styles.secondaryButton}>
+                  {hero.secondaryCta}
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Browse Categories Ticker */}
+      <section className={styles.tickerSection}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <ScrollingTicker 
+            items={categories.map(cat => ({
+              category: cat.name,
+              count: cat.expertCount
+            }))}
+          />
+        </motion.div>
+      </section>
+
+      {/* Featured Experts */}
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div 
+            className={styles.sectionContent}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Header with navigation */}
+            <div className={styles.sectionHeader}>
+              <SectionTitle 
+                miniTitle="Featured Experts"
+                title={featuredSection.title}
+                description={featuredSection.subtitle}
+                className={styles.sectionTitle}
+              />
+              
+            </div>
+
+            {/* Expert Grid */}
+            <div className={styles.expertGrid}>
+              <div className={styles.expertContainer}>
+                {getCurrentExperts().map((expert, index) => (
+                  <motion.div 
+                    key={expert.id} 
+                    className={styles.expertItem}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <ExpertCard
+                      expert={expert}
+                      showActions={true}
+                      showCrown={index === 0}
+                      showCharity={index === 1}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pagination Dots */}
+            <div className={styles.paginationDots}>
+              {Array.from({ length: expertTotalPages }, (_, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => setCurrentExpertPage(i)}
+                  className={`${styles.dot} ${i === currentExpertPage ? styles.active : ''}`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle 
+              miniTitle="How It Works"
+              title="Three simple steps to expert advice"
+              description="Get connected with the right expert in minutes"
+              className="mb-12"
+            />
+            <div className={styles.stepsGrid}>
+              {valuePropositions.map((prop, index) => (
+                <motion.div 
+                  key={index} 
+                  className={styles.stepCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className={styles.stepNumber}>
+                    {prop.number}
+                  </div>
+                  <h3 className={styles.stepTitle}>
+                    {prop.title}
+                  </h3>
+                  <p className={styles.stepDescription}>
+                    {prop.description}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Header */}
+            <div className={styles.sectionHeader}>
+              <SectionTitle 
+                miniTitle="What Our Users Say"
+                title={reviews.title}
+                description={reviews.subtitle}
+                className={styles.sectionTitle}
+              />
+            </div>
+            
+            <div className={styles.reviewsGrid}>
+              {getCurrentReviews().map((testimonial, index) => (
+                <motion.div 
+                  key={testimonial.id} 
+                  className={styles.reviewCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className={styles.reviewStars}>
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-black text-black" />
+                    ))}
+                  </div>
+                  <p className={styles.reviewText}>
+                    "{testimonial.text}"
+                  </p>
+                  <div className={styles.reviewAuthor}>
+                    <div className={styles.authorAvatar}>
+                      {testimonial.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div className={styles.authorInfo}>
+                      <div className={styles.authorName}>{testimonial.name}</div>
+                      <div className={styles.authorTitle}>{testimonial.title}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className={styles.paginationDots}>
+              {Array.from({ length: totalPages }, (_, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => setCurrentReviewIndex(i)}
+                  className={`${styles.dot} ${i === currentReviewIndex ? styles.active : ''}`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.statsGrid}>
+              {[
+                { icon: Users, value: stats.experts, label: "Verified Experts" },
+                { icon: Clock, value: stats.sessions, label: "Sessions Completed" },
+                { icon: Star, value: stats.satisfaction, label: "Average Rating" },
+                { icon: Globe, value: stats.countries, label: "Countries Served" }
+              ].map(({ icon: Icon, value, label }, index) => (
+                <motion.div 
+                  key={index}
+                  className={styles.statItem}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={styles.statIcon}>
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div className={styles.statValue}>
+                    {value}
+                  </div>
+                  <div className={styles.statLabel}>
+                    {label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.ctaCard}>
+              <div className={styles.ctaContent}>
+                <h2 className={styles.ctaTitle}>
+                  {ctaSection.title}
+                </h2>
+                <p className={styles.ctaSubtitle}>
+                  {ctaSection.subtitle}
+                </p>
+                <p className={styles.ctaDescription}>
+                  {ctaSection.description}
+                </p>
+              </div>
+              
+              <div className={styles.ctaButtonContainer}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link to="/browse" className={styles.primaryButton}>
+                    {ctaSection.buttonText}
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  )
+}
+
+export default HomePage

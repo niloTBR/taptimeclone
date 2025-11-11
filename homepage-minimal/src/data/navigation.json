@@ -1,0 +1,69 @@
+{
+  "header": {
+    "brand": "TapTime",
+    "logo": "/api/placeholder/120/40",
+    "links": [
+      {
+        "label": "Browse Experts",
+        "href": "/browse",
+        "active": false
+      },
+      {
+        "label": "Join As An Expert",
+        "href": "/join-expert",
+        "active": false
+      }
+    ],
+    "hiddenLinks": [
+      {
+        "label": "Your Journey", 
+        "href": "/journey",
+        "active": false,
+        "note": "Hidden - logged in user feature"
+      }
+    ],
+    "actions": [
+      {
+        "type": "button",
+        "label": "Log In",
+        "variant": "ghost",
+        "href": "/login"
+      },
+      {
+        "type": "button", 
+        "label": "Sign up",
+        "variant": "default",
+        "href": "/signup"
+      }
+    ]
+  },
+  "footer": {
+    "brand": "taptime",
+    "description": "Time is your most valuable asset and we help you use it wisely. Get matched with experts who've done the work, and are ready to share it.",
+    "sections": [
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About", "href": "/about" },
+          { "label": "Contact", "href": "/contact" },
+          { "label": "FAQ", "href": "/faq" },
+          { "label": "Feedback", "href": "/feedback" },
+          { "label": "Blog", "href": "/blog" }
+        ]
+      },
+      {
+        "title": "Resources", 
+        "links": [
+          { "label": "How it Works", "href": "/how-it-works" },
+          { "label": "Join as Expert", "href": "/join-expert" },
+          { "label": "Browse Experts", "href": "/browse" }
+        ]
+      }
+    ],
+    "legal": [
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms of Services", "href": "/terms" }
+    ],
+    "copyright": "Copyright © 2025 Taptime"
+  }
+}

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import SearchBar from '@/components/common/SearchBar'
 import ExpertCard from '@/components/common/ExpertCard'
 import ScrollingTicker from '@/components/common/ScrollingTicker'
 import SectionTitle from '@/components/common/SectionTitle'
-import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react'
 import homepageData from '@/data/homepage.json'
 import styles from './HomePage.module.scss'
 
@@ -13,12 +13,41 @@ const HomePage = () => {
   const { hero, valuePropositions, featuredSection, categories, ctaSection, stats, reviews } = homepageData
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
   const [currentExpertPage, setCurrentExpertPage] = useState(0)
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  const heroRef = useRef(null)
   
-  const reviewsPerPage = 3
-  const totalPages = Math.ceil(reviews.testimonials.length / reviewsPerPage)
+  // Reviews: 3 on desktop, 1.5 on mobile
+  const getReviewsVisible = () => window.innerWidth >= 768 ? 3 : 1.5
+  const reviewsPerPage = 1
+  const maxReviewPages = Math.max(0, reviews.testimonials.length - Math.floor(getReviewsVisible()) + 1)
+  const totalPages = maxReviewPages
   
-  const expertsPerPage = 12
-  const expertTotalPages = Math.ceil(featuredSection.experts.length / expertsPerPage)
+  // Experts: 4.5 visible, move one at a time
+  const getExpertsVisible = () => window.innerWidth >= 768 ? 4.5 : 1.5
+  const expertsPerPage = 1
+  const maxExpertPages = Math.max(0, featuredSection.experts.length - Math.floor(getExpertsVisible()) + 1)
+  const expertTotalPages = maxExpertPages
+
+  // Advanced parallax effect for hero background + back to top visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      if (heroRef.current) {
+        const scrolled = window.pageYOffset
+        const rate = scrolled * -0.3
+        const opacity = 1 - scrolled / window.innerHeight
+        
+        // Apply parallax transform to background
+        heroRef.current.style.transform = `translate3d(0, ${rate}px, 0)`
+        heroRef.current.style.opacity = Math.max(opacity, 0.1)
+      }
+      
+      // Show back to top button after scrolling 300px
+      setShowBackToTop(window.pageYOffset > 300)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   
   const nextReviews = () => {
     setCurrentReviewIndex((prev) => (prev + 1) % totalPages)
@@ -34,16 +63,21 @@ const HomePage = () => {
   }
 
   const nextExperts = () => {
-    setCurrentExpertPage((prev) => (prev + 1) % expertTotalPages)
+    setCurrentExpertPage(prev => (prev + 1) % expertTotalPages)
   }
   
   const prevExperts = () => {
-    setCurrentExpertPage((prev) => (prev - 1 + expertTotalPages) % expertTotalPages)
+    setCurrentExpertPage(prev => (prev - 1 + expertTotalPages) % expertTotalPages)
   }
 
-  const getCurrentExperts = () => {
-    const start = currentExpertPage * expertsPerPage
-    return featuredSection.experts.slice(start, start + expertsPerPage)
+  const getCarouselTransform = () => {
+    const isMobile = window.innerWidth < 768
+    const cardsVisible = isMobile ? 1.5 : 4.5
+    const cardsToMove = 1 // Move one card at a time for smooth navigation
+    
+    const cardWidth = 100 / cardsVisible
+    const offset = currentExpertPage * cardWidth * cardsToMove
+    return `translateX(-${offset}%)`
   }
 
   const handleSearch = (query) => {
@@ -61,11 +95,16 @@ const HomePage = () => {
     // Implementation for expert profile navigation
   }
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
     <div className={styles.homepage}>
       {/* Hero Section */}
       <section className={`${styles.heroSection} ${styles.sectionPadding}`}>
-        <div className={`${styles.container} ${styles.heroContainer}`}>
+        <div className="page-container"
+        >
           <motion.div 
             className={styles.heroContent}
             initial={{ opacity: 0, y: 30 }}
@@ -162,57 +201,38 @@ const HomePage = () => {
       </section>
 
       {/* Featured Experts */}
-      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
-        <div className={styles.container}>
+      <section className="content-section section-padding">
+        <div className="page-container">
           <motion.div 
-            className={styles.sectionContent}
+            className="section-content"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Header with navigation */}
-            <div className={styles.sectionHeader}>
+            {/* Header */}
+            <div className="section-header">
               <SectionTitle 
                 miniTitle="Featured Experts"
                 title={featuredSection.title}
                 description={featuredSection.subtitle}
                 className={styles.sectionTitle}
               />
-              
-              {/* Pagination Controls */}
-              <div className={styles.sectionNav}>
-                <motion.button
-                  className={styles.navButton}
-                  onClick={prevExperts}
-                  disabled={expertTotalPages <= 1}
-                  whileHover={expertTotalPages > 1 ? { scale: 1.05 } : {}}
-                  whileTap={expertTotalPages > 1 ? { scale: 0.95 } : {}}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </motion.button>
-                <motion.button
-                  className={styles.navButton}
-                  onClick={nextExperts}
-                  disabled={expertTotalPages <= 1}
-                  whileHover={expertTotalPages > 1 ? { scale: 1.05 } : {}}
-                  whileTap={expertTotalPages > 1 ? { scale: 0.95 } : {}}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </motion.button>
-              </div>
             </div>
 
-            {/* Expert Grid */}
+            {/* ACTUAL CAROUSEL */}
             <div className={styles.expertGrid}>
-              <div className={styles.expertContainer}>
-                {getCurrentExperts().map((expert, index) => (
+              <div 
+                className={styles.expertContainer}
+                style={{ transform: getCarouselTransform() }}
+              >
+                {featuredSection.experts.map((expert, index) => (
                   <motion.div 
                     key={expert.id} 
                     className={styles.expertItem}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: (index % expertsPerPage) * 0.1 }}
                     viewport={{ once: true }}
                   >
                     <ExpertCard
@@ -226,153 +246,208 @@ const HomePage = () => {
               </div>
             </div>
 
-            {/* Pagination Dots */}
-            <div className={styles.paginationDots}>
-              {Array.from({ length: expertTotalPages }, (_, i) => (
-                <motion.button
-                  key={i}
-                  onClick={() => setCurrentExpertPage(i)}
-                  className={`${styles.dot} ${i === currentExpertPage ? styles.active : ''}`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
+            {/* Pagination Controls */}
+            <div className={styles.paginationControls}>
+              <div className={styles.paginationArrows}>
+                <button
+                  onClick={() => {
+                    console.log('PREV CLICKED', currentExpertPage)
+                    prevExperts()
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
+                  style={{ zIndex: 999, pointerEvents: 'auto' }}
+                >
+                  <ChevronLeft />
+                </button>
+                <button
+                  onClick={() => {
+                    console.log('NEXT CLICKED', currentExpertPage)
+                    nextExperts()
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
+                  style={{ zIndex: 999, pointerEvents: 'auto' }}
+                >
+                  <ChevronRight />
+                </button>
+              </div>
+              <div className={styles.paginationDots}>
+                {Array.from({ length: expertTotalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      console.log('DOT CLICKED', i)
+                      setCurrentExpertPage(i)
+                    }}
+                    className={`${styles.dot} ${i === currentExpertPage ? styles.active : ''}`}
+                    style={{ zIndex: 999, pointerEvents: 'auto' }}
+                  />
+                ))}
+              </div>
             </div>
+
           </motion.div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
-        <div className={styles.container}>
+      {/* How It Works - Cool Carousel */}
+      <section className="content-section-alternate section-padding">
+        <div className="page-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <SectionTitle 
-              miniTitle="How It Works"
-              title="Three simple steps to expert advice"
-              description="Get connected with the right expert in minutes"
-              className="mb-12"
-            />
-            <div className={styles.stepsGrid}>
-              {valuePropositions.map((prop, index) => (
-                <motion.div 
-                  key={index} 
-                  className={styles.stepCard}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -4 }}
-                >
-                  <div className={styles.stepNumber}>
-                    {prop.number}
-                  </div>
-                  <h3 className={styles.stepTitle}>
-                    {prop.title}
-                  </h3>
-                  <p className={styles.stepDescription}>
-                    {prop.description}
-                  </p>
-                </motion.div>
-              ))}
+            <div className={styles.howItWorksHeader}>
+              <SectionTitle 
+                miniTitle="How It Works"
+                title="Three simple steps to expert advice"
+                description="Get connected with the right expert in minutes"
+                className="mb-12"
+              />
+            </div>
+            
+            {/* Steps Carousel */}
+            <div className={styles.stepsCarousel}>
+              <div className={styles.stepsContainer}>
+                {valuePropositions.map((prop, index) => (
+                  <motion.div 
+                    key={index} 
+                    className={styles.stepCard}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2, duration: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* Image Placeholder */}
+                    <div className={styles.stepImagePlaceholder}>
+                    </div>
+                    
+                    {/* Step Content */}
+                    <div className={styles.stepContent}>
+                      <div className={styles.stepNumber}>
+                        {prop.number}
+                      </div>
+                      <h3 className={styles.stepTitle}>
+                        {prop.title}
+                      </h3>
+                      <p className={styles.stepDescription}>
+                        {prop.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Reviews Section */}
-      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
-        <div className={styles.container}>
+      <section className="content-section section-padding">
+        <div className="page-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            {/* Header with pagination controls */}
-            <div className={styles.sectionHeader}>
+            {/* Header */}
+            <div className="section-header">
               <SectionTitle 
                 miniTitle="What Our Users Say"
                 title={reviews.title}
                 description={reviews.subtitle}
                 className={styles.sectionTitle}
               />
-              
-              {/* Pagination Controls */}
-              <div className={styles.sectionNav}>
-                <motion.button
-                  className={styles.navButton}
-                  onClick={prevReviews}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </motion.button>
-                <motion.button
-                  className={styles.navButton}
-                  onClick={nextReviews}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </motion.button>
+            </div>
+            
+            {/* Reviews Carousel - Same as Expert Carousel */}
+            <div className={styles.reviewsCarousel}>
+              <div 
+                className={styles.reviewsContainer}
+                style={{ transform: `translateX(-${currentReviewIndex * (100/getReviewsVisible())}%)` }}
+              >
+                {reviews.testimonials.map((testimonial, index) => (
+                  <motion.div 
+                    key={testimonial.id} 
+                    className={styles.reviewCard}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: (index % 3) * 0.1, duration: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    <div className={styles.reviewStars}>
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-black text-black" />
+                      ))}
+                    </div>
+                    <p className={styles.reviewText}>
+                      "{testimonial.text}"
+                    </p>
+                    <div className={styles.reviewAuthor}>
+                      <div className={styles.authorAvatar}>
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div className={styles.authorInfo}>
+                        <div className={styles.authorName}>{testimonial.name}</div>
+                        <div className={styles.authorTitle}>{testimonial.title}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
             </div>
             
-            <div className={styles.reviewsGrid}>
-              {getCurrentReviews().map((testimonial, index) => (
-                <motion.div 
-                  key={testimonial.id} 
-                  className={styles.reviewCard}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -4 }}
+            {/* Reviews Pagination - Same as Expert Carousel */}
+            <div className={styles.paginationControls} style={{ marginTop: '2rem' }}>
+              <div className={styles.paginationArrows}>
+                <button
+                  onClick={() => {
+                    console.log('PREV REVIEW CLICKED', currentReviewIndex)
+                    prevReviews()
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
+                  style={{ zIndex: 999, pointerEvents: 'auto' }}
                 >
-                  <div className={styles.reviewStars}>
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <p className={styles.reviewText}>
-                    "{testimonial.text}"
-                  </p>
-                  <div className={styles.reviewAuthor}>
-                    <div className={styles.authorAvatar}>
-                      {testimonial.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div className={styles.authorInfo}>
-                      <div className={styles.authorName}>{testimonial.name}</div>
-                      <div className={styles.authorTitle}>{testimonial.title}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-            
-            <div className={styles.paginationDots}>
-              {Array.from({ length: totalPages }, (_, i) => (
-                <motion.button
-                  key={i}
-                  onClick={() => setCurrentReviewIndex(i)}
-                  className={`${styles.dot} ${i === currentReviewIndex ? styles.active : ''}`}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                />
-              ))}
+                  <ChevronLeft />
+                </button>
+                <button
+                  onClick={() => {
+                    console.log('NEXT REVIEW CLICKED', currentReviewIndex)
+                    nextReviews()
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
+                  style={{ zIndex: 999, pointerEvents: 'auto' }}
+                >
+                  <ChevronRight />
+                </button>
+              </div>
+              <div className={styles.paginationDots}>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      console.log('REVIEW DOT CLICKED', i)
+                      setCurrentReviewIndex(i)
+                    }}
+                    className={`${styles.dot} ${i === currentReviewIndex ? styles.active : ''}`}
+                    style={{ zIndex: 999, pointerEvents: 'auto' }}
+                  />
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
-        <div className={styles.container}>
+      <section className="content-section-alternate section-padding">
+        <div className="page-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -410,43 +485,38 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
-        <div className={styles.container}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <div className={styles.ctaCard}>
-              <div className={styles.ctaContent}>
-                <h2 className={styles.ctaTitle}>
-                  {ctaSection.title}
-                </h2>
-                <p className={styles.ctaSubtitle}>
-                  {ctaSection.subtitle}
-                </p>
-                <p className={styles.ctaDescription}>
-                  {ctaSection.description}
-                </p>
-              </div>
-              
-              <div className={styles.ctaButtonContainer}>
-                <motion.div
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Link to="/browse" className={styles.primaryButton}>
-                    {ctaSection.buttonText}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </motion.div>
-              </div>
+      {/* Sleek Footer CTA Bar */}
+      <div className={styles.footerCta}>
+        <div className={styles.footerCtaContent}>
+          <div>
+            <div className={styles.footerCtaText}>
+              <h3 className={styles.footerCtaTitle}>Your Next Breakthrough Awaits</h3>
+              <p className={styles.footerCtaSubtitle}>
+                Join thousands of ambitious professionals who've accelerated their success with expert guidance. Stop wondering 'what if' and start making it happen.
+              </p>
             </div>
-          </motion.div>
+            <Link to="/browse" className={styles.footerCtaButton}>
+              Find Your Expert
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
-      </section>
+      </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <motion.button
+          onClick={scrollToTop}
+          className={styles.backToTop}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <ChevronUp />
+        </motion.button>
+      )}
     </div>
   )
 }

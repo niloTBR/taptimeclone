@@ -11,15 +11,34 @@ import styles from './Header.module.scss'
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isOnDarkSection, setIsOnDarkSection] = useState(false)
   const location = useLocation()
   const { header } = navigationData
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
+      
+      // Check if header is over a dark section
+      const darkSections = document.querySelectorAll('.content-section-alternate')
+      const headerHeight = 80 // Approximate header height
+      
+      let onDarkSection = false
+      darkSections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        // Check if header overlaps with dark section
+        if (rect.top <= headerHeight && rect.bottom >= 0) {
+          onDarkSection = true
+        }
+      })
+      
+      setIsOnDarkSection(onDarkSection)
     }
     
     window.addEventListener('scroll', handleScroll)
+    // Call initially to set correct state
+    handleScroll()
+    
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -33,7 +52,7 @@ const Header = () => {
 
   return (
     <motion.header 
-      className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}
+      className={`${styles.header} ${isScrolled ? styles.scrolled : ''} ${isOnDarkSection ? styles.onDarkSection : ''}`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3, ease: 'easeOut' }}

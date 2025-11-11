@@ -1,0 +1,444 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800;900&family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* iOS-inspired color palette */
+    --background: 255 255 255;
+    --foreground: 28 28 30;
+    --card: 255 255 255;
+    --card-foreground: 28 28 30;
+    --popover: 255 255 255;
+    --popover-foreground: 28 28 30;
+    --primary: 0 122 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 242 242 247;
+    --secondary-foreground: 28 28 30;
+    --muted: 242 242 247;
+    --muted-foreground: 99 99 102;
+    --accent: 0 122 255;
+    --accent-foreground: 255 255 255;
+    --destructive: 255 59 48;
+    --destructive-foreground: 255 255 255;
+    --border: 209 213 219;
+    --input: 242 242 247;
+    --ring: 0 122 255;
+    --radius: 0.75rem;
+    
+    /* iOS-style elevation shadows */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  .dark {
+    /* iOS Dark Mode colors */
+    --background: 0 0 0;
+    --foreground: 255 255 255;
+    --card: 28 28 30;
+    --card-foreground: 255 255 255;
+    --popover: 44 44 46;
+    --popover-foreground: 255 255 255;
+    --primary: 10 132 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 44 44 46;
+    --secondary-foreground: 255 255 255;
+    --muted: 44 44 46;
+    --muted-foreground: 174 174 178;
+    --accent: 10 132 255;
+    --accent-foreground: 255 255 255;
+    --destructive: 255 69 58;
+    --destructive-foreground: 255 255 255;
+    --border: 58 58 60;
+    --input: 44 44 46;
+    --ring: 10 132 255;
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground)) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    line-height: 1.6;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Ensure text is visible */
+  p, span, div {
+    color: inherit;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  
+  /* Force muted text to be visible */
+  .text-muted-foreground,
+  [class*="muted-foreground"] {
+    color: rgb(var(--muted-foreground)) !important;
+  }
+  
+  /* Dark mode text fixes */
+  .dark .text-gray-700 {
+    color: white !important;
+  }
+  
+  .dark .text-gray-100 {
+    color: white !important;
+  }
+  
+  .dark .text-black {
+    color: white !important;
+  }
+  
+  /* Background colors dark mode */
+  .dark .bg-gray-100 {
+    background-color: #081d34 !important;
+  }
+  
+  .dark .bg-gray-800 {
+    background-color: #1f2937 !important;
+  }
+  
+  .dark .hover\:bg-gray-200:hover {
+    background-color: #0a2142 !important;
+  }
+  
+  .dark .hover\:bg-red-50:hover {
+    background-color: rgba(185, 28, 28, 0.2) !important;
+  }
+  
+  /* Category badge stays exactly the same in dark mode */
+  .dark .bg-white\/90 {
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  /* Category badge text stays black in dark mode - more specific selectors */
+  .dark .bg-white\/90.text-black {
+    color: black !important;
+  }
+  
+  .dark .bg-white\/90 {
+    color: black !important;
+  }
+  
+  .dark [class*="bg-white/90"] {
+    color: black !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+  }
+  
+  .dark .bg-white\/25 {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+  }
+  
+  .dark .hover\:bg-white\/25:hover {
+    background-color: rgba(255, 255, 255, 0.25) !important;
+  }
+  
+  .dark .bg-white {
+    background-color: white !important;
+  }
+  
+  /* Book button stays with black text in dark mode - more specific */
+  .dark .bg-\[#efffba\] {
+    background-color: #efffba !important;
+    color: black !important;
+  }
+  
+  .dark .bg-\[#efffba\].text-black {
+    color: black !important;
+  }
+  
+  .dark [class*="bg-[#efffba]"] {
+    background-color: #efffba !important;
+    color: black !important;
+  }
+  
+  .dark [class*="bg-[#efffba]"] span {
+    color: black !important;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  
+  h1 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 700; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; }
+  h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); font-weight: 600; }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes gradient-text {
+  0% {
+    background-position: -200% 50%;
+  }
+  50% {
+    background-position: 200% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.animate-gradient-text {
+  background-size: 200% 200%;
+  animation: gradient-text 2s ease-in-out infinite;
+}
+
+/* iOS-style utility classes */
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .dark .glass-card {
+    background: rgba(28, 28, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .ios-button {
+    border-radius: 50px !important;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border: 1px solid;
+    box-shadow: var(--shadow-sm);
+    padding: 0.75rem 1.5rem;
+    
+    &.primary {
+      background: rgb(var(--primary));
+      color: rgb(var(--primary-foreground));
+      border-color: rgb(var(--primary));
+      
+      &:hover {
+        background: rgb(var(--primary) / 0.9);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+    
+    &.outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgb(var(--foreground));
+      border-color: rgb(var(--border));
+      backdrop-filter: blur(10px);
+      
+      &:hover {
+        background: rgb(var(--foreground));
+        color: rgb(var(--background));
+        border-color: rgb(var(--foreground));
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+    
+    /* Custom button styles for header */
+    &.login {
+      background: #efffba !important;
+      color: #000 !important;
+      border-color: #efffba !important;
+      font-weight: 700 !important;
+      
+      &:hover {
+        background: #000 !important;
+        color: #fff !important;
+        border-color: #000 !important;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+      
+    }
+    
+    &.signup {
+      background: transparent !important;
+      color: #000 !important;
+      border-color: #000 !important;
+      font-weight: 700 !important;
+      
+      &:hover {
+        background: #000 !important;
+        color: #fff !important;
+        border-color: #000 !important;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+  }
+  
+  /* Dark mode for signup button - separate selector */
+  .dark .ios-button.signup {
+    background: transparent !important;
+    color: #fff !important;
+    border-color: #fff !important;
+    
+    &:hover {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  
+  /* Dark mode for login button - separate selector */
+  .dark .ios-button.login {
+    background: #efffba !important;
+    color: #000 !important;
+    border-color: #efffba !important;
+    
+    &:hover {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  
+  .ios-button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+  }
+  
+  .section-padding {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+  }
+  
+  .container-responsive {
+    max-width: min(90rem, calc(100% - 2rem));
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animation-delay-100 { animation-delay: 0.1s; }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+}
+
+/* Search input and textarea green outline in dark mode */
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #efffba !important;
+  ring-color: #efffba !important;
+  box-shadow: 0 0 0 2px rgba(239, 255, 186, 0.2) !important;
+}
+
+/* AI button dark mode styling */
+.dark button:has(.lucide-sparkles) {
+  background-color: #081d34 !important;
+  color: white !important;
+}
+
+.dark button:has(.lucide-sparkles):hover {
+  background-color: #efffba !important;
+  color: black !important;
+}
+
+.dark button:has(.lucide-sparkles) svg {
+  color: white !important;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+.dark button:has(.lucide-sparkles):hover svg {
+  color: black !important;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* Ensure animation works in light mode too */
+button:has(.lucide-sparkles) svg {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* Expert cards dark mode background override */
+.dark [data-testid="card"], 
+.dark .bg-card,
+.dark [class*="Card"],
+.dark .bg-gray-100,
+.dark .hover\:bg-gray-200:hover {
+  background-color: #081d34 !important;
+  color: white !important;
+}
+
+/* Force dark mode card backgrounds */
+.dark .group.hover\:shadow-xl {
+  background-color: #081d34 !important;
+}
+
+.dark .group.hover\:shadow-xl:hover {
+  background-color: #0a2142 !important;
+}
+
+/* Motion reduce for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
