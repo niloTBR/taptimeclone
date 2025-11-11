@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700;800;900&family=SF+Pro+Display:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,62 +6,98 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 0%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 0 0% 0%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 100%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 0 0% 96%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 0 0% 89%;
-    --input: 0 0% 89%;
-    --ring: 0 0% 0%;
-    --radius: 0.5rem;
+    /* iOS-inspired color palette */
+    --background: 255 255 255;
+    --foreground: 28 28 30;
+    --card: 255 255 255;
+    --card-foreground: 28 28 30;
+    --popover: 255 255 255;
+    --popover-foreground: 28 28 30;
+    --primary: 0 122 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 242 242 247;
+    --secondary-foreground: 28 28 30;
+    --muted: 242 242 247;
+    --muted-foreground: 99 99 102;
+    --accent: 0 122 255;
+    --accent-foreground: 255 255 255;
+    --destructive: 255 59 48;
+    --destructive-foreground: 255 255 255;
+    --border: 209 213 219;
+    --input: 242 242 247;
+    --ring: 0 122 255;
+    --radius: 0.75rem;
+    
+    /* iOS-style elevation shadows */
+    --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 84% 4.9%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 217.2 91.2% 59.8%;
+    /* iOS Dark Mode colors */
+    --background: 0 0 0;
+    --foreground: 255 255 255;
+    --card: 28 28 30;
+    --card-foreground: 255 255 255;
+    --popover: 44 44 46;
+    --popover-foreground: 255 255 255;
+    --primary: 10 132 255;
+    --primary-foreground: 255 255 255;
+    --secondary: 44 44 46;
+    --secondary-foreground: 255 255 255;
+    --muted: 44 44 46;
+    --muted-foreground: 174 174 178;
+    --accent: 10 132 255;
+    --accent-foreground: 255 255 255;
+    --destructive: 255 69 58;
+    --destructive-foreground: 255 255 255;
+    --border: 58 58 60;
+    --input: 44 44 46;
+    --ring: 10 132 255;
   }
 }
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
   body {
-    background-color: hsl(var(--background));
-    color: hsl(var(--foreground));
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground)) !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    line-height: 1.6;
+    font-feature-settings: 'kern' 1, 'liga' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  
+  /* Ensure text is visible */
+  p, span, div {
+    color: inherit;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+  
+  /* Force muted text to be visible */
+  .text-muted-foreground,
+  [class*="muted-foreground"] {
+    color: rgb(var(--muted-foreground)) !important;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
+  
+  h1 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 700; }
+  h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; }
+  h3 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); font-weight: 600; }
 }
 
 @keyframes scroll {
@@ -114,4 +150,170 @@
 .animate-gradient-text {
   background-size: 200% 200%;
   animation: gradient-text 2s ease-in-out infinite;
+}
+
+/* iOS-style utility classes */
+@layer components {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .dark .glass-card {
+    background: rgba(28, 28, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .ios-button {
+    border-radius: 50px !important;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border: 1px solid;
+    box-shadow: var(--shadow-sm);
+    padding: 0.75rem 1.5rem;
+    
+    &.primary {
+      background: rgb(var(--primary));
+      color: rgb(var(--primary-foreground));
+      border-color: rgb(var(--primary));
+      
+      &:hover {
+        background: rgb(var(--primary) / 0.9);
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+    
+    &.outline {
+      background: rgba(255, 255, 255, 0.1);
+      color: rgb(var(--foreground));
+      border-color: rgb(var(--border));
+      backdrop-filter: blur(10px);
+      
+      &:hover {
+        background: rgb(var(--foreground));
+        color: rgb(var(--background));
+        border-color: rgb(var(--foreground));
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+    
+    /* Custom button styles for header */
+    &.login {
+      background: #efffba !important;
+      color: #000 !important;
+      border-color: #efffba !important;
+      font-weight: 700 !important;
+      
+      &:hover {
+        background: #000 !important;
+        color: #fff !important;
+        border-color: #000 !important;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+      
+    }
+    
+    &.signup {
+      background: transparent !important;
+      color: #000 !important;
+      border-color: #000 !important;
+      font-weight: 700 !important;
+      
+      &:hover {
+        background: #000 !important;
+        color: #fff !important;
+        border-color: #000 !important;
+        transform: translateY(-1px);
+        box-shadow: var(--shadow-md);
+      }
+    }
+  }
+  
+  /* Dark mode for signup button - separate selector */
+  .dark .ios-button.signup {
+    background: transparent !important;
+    color: #fff !important;
+    border-color: #fff !important;
+    
+    &:hover {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  
+  /* Dark mode for login button - separate selector */
+  .dark .ios-button.login {
+    background: #efffba !important;
+    color: #000 !important;
+    border-color: #efffba !important;
+    
+    &:hover {
+      background: #fff !important;
+      color: #000 !important;
+      border-color: #fff !important;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+  }
+  
+  .ios-button:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xs);
+  }
+  
+  .section-padding {
+    padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 4vw, 2rem);
+  }
+  
+  .container-responsive {
+    max-width: min(90rem, calc(100% - 2rem));
+    margin-inline: auto;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Focus styles */
+  *:focus-visible {
+    outline: 2px solid rgb(var(--primary));
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Animation utilities */
+@layer utilities {
+  .animation-delay-100 { animation-delay: 0.1s; }
+  .animation-delay-200 { animation-delay: 0.2s; }
+  .animation-delay-300 { animation-delay: 0.3s; }
+  .animation-delay-500 { animation-delay: 0.5s; }
+}
+
+/* Search input and textarea green outline in dark mode */
+.dark input:focus,
+.dark textarea:focus {
+  border-color: #efffba !important;
+  ring-color: #efffba !important;
+  box-shadow: 0 0 0 2px rgba(239, 255, 186, 0.2) !important;
+}
+
+/* Motion reduce for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

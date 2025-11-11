@@ -1,115 +1,209 @@
 import { Button } from '@/components/ui/button'
-import { Menu, X, User } from 'lucide-react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import LazyImage from '@/components/common/LazyImage'
+import { Menu, X } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import ThemeToggle from '@/components/common/ThemeToggle'
+import TapTimeLogo from '@/components/common/TapTimeLogo'
 import navigationData from '@/data/navigation.json'
+import styles from './Header.module.scss'
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const location = useLocation()
   const { header } = navigationData
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10)
+    }
+    
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
+  const isActiveLink = (href) => {
+    return location.pathname === href
+  }
+
   return (
-    <header className="border-b bg-background/95 backdrop-blur-sm sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <motion.header 
+      className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+    >
+      <div className={styles.container}>
+        <div className={styles.content}>
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <img 
-              src="/taptime-logo.png" 
-              alt="TapTime" 
-              className="h-16 w-auto"
-            />
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Link to="/" className={styles.logo}>
+              <TapTimeLogo />
+            </Link>
+          </motion.div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {header.links.map((link) => (
-              <Link
+          <nav className={styles.navigation}>
+            {header.links.map((link, index) => (
+              <motion.div
                 key={link.href}
-                to={link.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  link.active
-                    ? 'text-primary'
-                    : 'text-muted-foreground'
-                }`}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
               >
-                {link.label}
-              </Link>
+                <Link
+                  to={link.href}
+                  className={`${styles.navLink} ${isActiveLink(link.href) ? styles.active : ''}`}
+                >
+                  {link.label}
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-3">
-            {header.actions.map((action, index) => (
-              <Button
-                key={index}
-                variant={action.variant}
-                size="sm"
-                asChild
-              >
-                <Link to={action.href}>{action.label}</Link>
-              </Button>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleMobileMenu}
+          <div className={styles.actions}>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
             >
-              {isMobileMenuOpen ? (
-                <X className="w-5 h-5" />
-              ) : (
-                <Menu className="w-5 h-5" />
-              )}
-            </Button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t pt-4">
-            <nav className="flex flex-col space-y-4">
-              {header.links.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    link.active
-                      ? 'text-primary'
-                      : 'text-muted-foreground'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              <ThemeToggle />
+            </motion.div>
+            {header.actions.map((action, index) => {
+              // Determine button class based on label
+              const buttonClass = action.label.toLowerCase().includes('log') 
+                ? 'login' 
+                : action.label.toLowerCase().includes('sign') 
+                  ? 'signup' 
+                  : 'default';
               
-              <div className="flex flex-col space-y-2 pt-4 border-t">
-                {header.actions.map((action, index) => (
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 + index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
                   <Button
-                    key={index}
-                    variant={action.variant}
+                    variant="default"
                     size="sm"
-                    className="justify-start"
+                    className={`ios-button ${buttonClass}`}
                     asChild
                   >
                     <Link to={action.href}>{action.label}</Link>
                   </Button>
-                ))}
-              </div>
-            </nav>
+                </motion.div>
+              );
+            })}
           </div>
-        )}
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            className={styles.mobileMenuButton}
+            onClick={toggleMobileMenu}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Toggle menu"
+          >
+            <AnimatePresence mode="wait">
+              {isMobileMenuOpen ? (
+                <motion.div
+                  key="close"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <X className="w-5 h-5" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="menu"
+                  initial={{ rotate: 90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: -90, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Menu className="w-5 h-5" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.button>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className={styles.mobileMenu}
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+            >
+              <nav className={styles.mobileNav}>
+                {header.links.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    <Link
+                      to={link.href}
+                      className={`${styles.mobileNavLink} ${isActiveLink(link.href) ? styles.active : ''}`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+                
+                <div className={styles.mobileActions}>
+                  {header.actions.map((action, index) => {
+                    // Determine button class based on label
+                    const buttonClass = action.label.toLowerCase().includes('log') 
+                      ? 'login' 
+                      : action.label.toLowerCase().includes('sign') 
+                        ? 'signup' 
+                        : 'default';
+                    
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: (header.links.length + index) * 0.05 }}
+                      >
+                        <Button
+                          variant="default"
+                          size="sm"
+                          className={`justify-start w-full ios-button ${buttonClass}`}
+                          asChild
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          <Link to={action.href}>{action.label}</Link>
+                        </Button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </header>
+    </motion.header>
   )
 }
 

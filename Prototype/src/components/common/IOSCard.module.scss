@@ -1,0 +1,89 @@
+// iOS-style Card Component
+.card {
+  background: rgb(var(--card));
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgb(var(--border));
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%
+    );
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+.default {
+  background: rgb(var(--card));
+  
+  &:hover {
+    border-color: rgb(var(--primary) / 0.3);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  :global(.dark) & {
+    background: rgba(28, 28, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: var(--shadow-xl);
+    
+    :global(.dark) & {
+      background: rgba(28, 28, 30, 0.9);
+    }
+  }
+}
+
+.gradient {
+  background: linear-gradient(
+    135deg,
+    rgb(var(--primary) / 0.1) 0%,
+    rgb(var(--accent) / 0.1) 100%
+  );
+  border: 1px solid rgb(var(--primary) / 0.2);
+  
+  &:hover {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--primary) / 0.15) 0%,
+      rgb(var(--accent) / 0.15) 100%
+    );
+    border-color: rgb(var(--primary) / 0.4);
+    box-shadow: var(--shadow-lg);
+  }
+}
+
+.elevated {
+  box-shadow: var(--shadow-lg);
+  
+  &:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+  }
+}

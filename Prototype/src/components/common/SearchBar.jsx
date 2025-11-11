@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Input } from '@/components/ui/input'
+import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
 import { Search, Mic, Sparkles } from 'lucide-react'
 
@@ -90,62 +90,62 @@ const SearchBar = ({
   }
 
   const sizeClasses = {
-    sm: "h-8",
-    default: "h-12", 
-    lg: "h-16"
+    sm: "min-h-[4rem]",
+    default: "min-h-[5rem]", 
+    lg: "min-h-[6rem]"
   }
 
   const paddingClasses = {
-    sm: "pl-4 pr-32",
-    default: "pl-4 pr-32", 
-    lg: "pl-6 pr-40"
+    sm: "p-4 pb-12",
+    default: "p-4 pb-12", 
+    lg: "p-6 pb-16"
   }
 
   const fontClasses = {
     sm: "text-sm",
     default: "text-base", 
-    lg: "text-2xl"
+    lg: "text-lg"
   }
 
   return (
     <form onSubmit={handleSearch} className={`relative ${className}`}>
-      <div className="relative flex">
-        <Input
-          type="text"
+      <div className="relative">
+        <Textarea
           placeholder={currentPlaceholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className={`${paddingClasses[size]} ${sizeClasses[size]} ${fontClasses[size]} rounded-full transition-all duration-300 placeholder:font-medium`}
+          className={`${paddingClasses[size]} ${sizeClasses[size]} ${fontClasses[size]} rounded-3xl transition-all duration-300 placeholder:font-normal placeholder:text-base resize-none`}
+          rows={2}
         />
-        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex gap-1">
+        <div className="absolute bottom-3 right-3 flex gap-2">
           {showVoiceSearch && (
             <Button
               type="button"
-              size={size === 'lg' ? 'default' : 'sm'}
+              size="sm"
               variant="ghost"
               onClick={handleVoiceSearch}
-              className={`${size === 'lg' ? 'h-12 w-12 p-0' : 'h-8 w-8 p-0'} rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors`}
+              className="h-10 w-10 p-0 rounded-full bg-gray-100 hover:bg-black hover:text-white transition-colors dark:bg-gray-100 dark:text-black dark:hover:bg-black dark:hover:text-white"
             >
-              <Mic className={size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'} />
+              <Mic className="w-4 h-4" />
             </Button>
           )}
           <Button
             type="submit"
-            size={size === 'lg' ? 'default' : 'sm'}
-            className={`${size === 'lg' ? 'h-12 px-4 rounded-full' : 'h-8 px-3'} bg-gray-100 hover:bg-black hover:text-white text-black transition-colors`}
+            size="sm"
+            className="h-10 px-3 rounded-full bg-gray-100 hover:bg-black hover:text-white text-black transition-colors dark:bg-gray-100 dark:text-black dark:hover:bg-black dark:hover:text-white"
           >
-            <Search className={size === 'lg' ? 'w-5 h-5' : 'w-4 h-4'} />
+            <Search className="w-4 h-4" />
           </Button>
           {showAIMatch && (
             <Button
               type="button"
-              size={size === 'lg' ? 'default' : 'sm'}
+              size="sm"
               variant="ghost"
               onClick={handleAIMatch}
-              className={`${size === 'lg' ? 'h-12 px-5 rounded-full text-xs' : 'h-8 px-4 text-xs'} bg-gray-100 text-black hover:bg-gradient-to-r hover:from-purple-500 hover:to-blue-500 hover:text-white transition-all group`}
+              className="h-10 px-3 rounded-full text-xs bg-gray-100 text-black hover:bg-gradient-to-r hover:from-green-400 hover:to-green-600 hover:text-white transition-all group dark:bg-gray-100 dark:text-black"
             >
-              <Sparkles className={`${size === 'lg' ? 'w-3 h-3 mr-1' : 'w-3 h-3 mr-1'} text-purple-500 group-hover:text-white`} />
-              {size === 'lg' ? 'Match with AI' : 'AI'}
+              <Sparkles className="w-3 h-3 mr-1 text-green-500 group-hover:text-white" />
+              AI
             </Button>
           )}
         </div>

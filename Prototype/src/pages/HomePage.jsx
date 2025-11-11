@@ -1,15 +1,13 @@
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
+import { motion } from 'framer-motion'
 import SearchBar from '@/components/common/SearchBar'
 import ExpertCard from '@/components/common/ExpertCard'
 import ScrollingTicker from '@/components/common/ScrollingTicker'
 import SectionTitle from '@/components/common/SectionTitle'
 import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight } from 'lucide-react'
 import homepageData from '@/data/homepage.json'
+import styles from './HomePage.module.scss'
 
 const HomePage = () => {
   const { hero, valuePropositions, featuredSection, categories, ctaSection, stats, reviews } = homepageData
@@ -64,23 +62,43 @@ const HomePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={styles.homepage}>
       {/* Hero Section */}
-      <section className="py-24 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center space-y-12">
+      <section className={`${styles.heroSection} ${styles.sectionPadding}`}>
+        <div className={`${styles.container} ${styles.heroContainer}`}>
+          <motion.div 
+            className={styles.heroContent}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: 'easeOut' }}
+          >
             {/* Hero Content */}
-            <div className="space-y-6">
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight">
+            <div className={styles.heroText}>
+              <motion.h1 
+                className={styles.heroTitle}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
                 {hero.title}
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              </motion.h1>
+              <motion.p 
+                className={styles.heroSubtitle}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 {hero.subtitle}
-              </p>
+              </motion.p>
             </div>
 
             {/* Massive Search Bar */}
-            <div className="max-w-3xl mx-auto">
+            <motion.div 
+              className={styles.searchContainer}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
               <SearchBar
                 placeholder="I'm looking for..."
                 animatedPlaceholders={[
@@ -95,297 +113,338 @@ const HomePage = () => {
                 size="lg"
                 className="w-full"
               />
-            </div>
+            </motion.div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center items-center pt-4">
-              <Button size="lg" className="rounded-full px-8" asChild>
-                <Link to="/browse">
+            <motion.div 
+              className={styles.ctaButtons}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/browse" className={styles.primaryButton}>
                   {hero.primaryCta}
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
-              </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-foreground" asChild>
-                <Link to="/join-expert">
+              </motion.div>
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link to="/join-expert" className={styles.secondaryButton}>
                   {hero.secondaryCta}
                 </Link>
-              </Button>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* Browse Categories Ticker */}
-      <section className="py-8 bg-white border-y">
-        <ScrollingTicker 
-          items={categories.map(cat => ({
-            category: cat.name,
-            count: cat.expertCount
-          }))}
-        />
+      <section className={styles.tickerSection}>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+        >
+          <ScrollingTicker 
+            items={categories.map(cat => ({
+              category: cat.name,
+              count: cat.expertCount
+            }))}
+          />
+        </motion.div>
       </section>
 
       {/* Featured Experts */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="space-y-12">
-            {/* Header with navigation aligned to subtitle */}
-            <div className="flex justify-between items-end gap-4">
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div 
+            className={styles.sectionContent}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Header with navigation */}
+            <div className={styles.sectionHeader}>
               <SectionTitle 
                 miniTitle="Featured Experts"
                 title={featuredSection.title}
                 description={featuredSection.subtitle}
-                className="text-left flex-1"
+                className={styles.sectionTitle}
               />
               
-              {/* Pagination Controls aligned to subtitle */}
-              <div className="flex gap-2 flex-shrink-0">
-                <Button
-                  variant="outline"
-                  size="sm"
+              {/* Pagination Controls */}
+              <div className={styles.sectionNav}>
+                <motion.button
+                  className={styles.navButton}
                   onClick={prevExperts}
-                  className="rounded-full p-2 border-2 border-foreground"
                   disabled={expertTotalPages <= 1}
+                  whileHover={expertTotalPages > 1 ? { scale: 1.05 } : {}}
+                  whileTap={expertTotalPages > 1 ? { scale: 0.95 } : {}}
                 >
                   <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
+                </motion.button>
+                <motion.button
+                  className={styles.navButton}
                   onClick={nextExperts}
-                  className="rounded-full p-2 border-2 border-foreground"
                   disabled={expertTotalPages <= 1}
+                  whileHover={expertTotalPages > 1 ? { scale: 1.05 } : {}}
+                  whileTap={expertTotalPages > 1 ? { scale: 0.95 } : {}}
                 >
                   <ChevronRight className="w-4 h-4" />
-                </Button>
+                </motion.button>
               </div>
             </div>
 
-            {/* Scrollable Expert Grid */}
-            <div className="overflow-x-auto">
-              <div className="flex gap-6 pb-4 min-w-max">
+            {/* Expert Grid */}
+            <div className={styles.expertGrid}>
+              <div className={styles.expertContainer}>
                 {getCurrentExperts().map((expert, index) => (
-                  <div key={expert.id} className="flex-shrink-0 w-80">
+                  <motion.div 
+                    key={expert.id} 
+                    className={styles.expertItem}
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
                     <ExpertCard
                       expert={expert}
                       showActions={true}
                       showCrown={index === 0}
                       showCharity={index === 1}
                     />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
 
-            {/* Expert Pagination Dots */}
-            <div className="flex justify-center mt-8">
-              <div className="flex gap-2">
-                {Array.from({ length: expertTotalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentExpertPage(i)}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      i === currentExpertPage ? 'bg-foreground' : 'bg-gray-300'
-                    }`}
-                  />
-                ))}
-              </div>
+            {/* Pagination Dots */}
+            <div className={styles.paginationDots}>
+              {Array.from({ length: expertTotalPages }, (_, i) => (
+                <motion.button
+                  key={i}
+                  onClick={() => setCurrentExpertPage(i)}
+                  className={`${styles.dot} ${i === currentExpertPage ? styles.active : ''}`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* How It Works */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-5xl">
-          <SectionTitle 
-            miniTitle="How It Works"
-            title="Three simple steps to expert advice"
-            description="Get connected with the right expert in minutes"
-            className="mb-12"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {valuePropositions.map((prop, index) => (
-              <Card key={index} className="border-0 shadow-none bg-transparent">
-                <CardContent className="pt-6 text-center space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold mx-auto">
+      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle 
+              miniTitle="How It Works"
+              title="Three simple steps to expert advice"
+              description="Get connected with the right expert in minutes"
+              className="mb-12"
+            />
+            <div className={styles.stepsGrid}>
+              {valuePropositions.map((prop, index) => (
+                <motion.div 
+                  key={index} 
+                  className={styles.stepCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.2, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className={styles.stepNumber}>
                     {prop.number}
                   </div>
-                  <h3 className="text-lg font-semibold">
+                  <h3 className={styles.stepTitle}>
                     {prop.title}
                   </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className={styles.stepDescription}>
                     {prop.description}
                   </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Reviews Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="mb-12">
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             {/* Header with pagination controls */}
-            <div className="flex justify-between items-start mb-8">
+            <div className={styles.sectionHeader}>
               <SectionTitle 
                 miniTitle="What Our Users Say"
                 title={reviews.title}
                 description={reviews.subtitle}
-                className="text-left flex-1"
+                className={styles.sectionTitle}
               />
               
               {/* Pagination Controls */}
-              <div className="flex gap-2 ms-4">
-                <Button
-                  variant="outline"
-                  size="sm"
+              <div className={styles.sectionNav}>
+                <motion.button
+                  className={styles.navButton}
                   onClick={prevReviews}
-                  className="rounded-full p-2 border-2 border-foreground"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronLeft className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
+                </motion.button>
+                <motion.button
+                  className={styles.navButton}
                   onClick={nextReviews}
-                  className="rounded-full p-2 border-2 border-foreground"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <ChevronRight className="w-4 h-4" />
-                </Button>
+                </motion.button>
               </div>
             </div>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {getCurrentReviews().map((testimonial) => (
-              <Card key={testimonial.id} className="border-2 border-foreground">
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex items-center gap-1 mb-4">
+            
+            <div className={styles.reviewsGrid}>
+              {getCurrentReviews().map((testimonial, index) => (
+                <motion.div 
+                  key={testimonial.id} 
+                  className={styles.reviewCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className={styles.reviewStars}>
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-black text-black" />
+                      <Star key={i} className="w-4 h-4 fill-current" />
                     ))}
                   </div>
-                  <p className="text-muted-foreground italic">
+                  <p className={styles.reviewText}>
                     "{testimonial.text}"
                   </p>
-                  <div className="flex items-center gap-3 pt-4">
-                    <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                      <span className="text-sm font-medium">
-                        {testimonial.name.split(' ').map(n => n[0]).join('')}
-                      </span>
+                  <div className={styles.reviewAuthor}>
+                    <div className={styles.authorAvatar}>
+                      {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </div>
-                    <div>
-                      <div className="font-semibold text-sm">{testimonial.name}</div>
-                      <div className="text-xs text-muted-foreground">{testimonial.title}</div>
+                    <div className={styles.authorInfo}>
+                      <div className={styles.authorName}>{testimonial.name}</div>
+                      <div className={styles.authorTitle}>{testimonial.title}</div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          
-          <div className="flex justify-center mt-8">
-            <div className="flex gap-2">
+                </motion.div>
+              ))}
+            </div>
+            
+            <div className={styles.paginationDots}>
               {Array.from({ length: totalPages }, (_, i) => (
-                <button
+                <motion.button
                   key={i}
                   onClick={() => setCurrentReviewIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    i === currentReviewIndex ? 'bg-foreground' : 'bg-gray-300'
-                  }`}
+                  className={`${styles.dot} ${i === currentReviewIndex ? styles.active : ''}`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 px-4 bg-gray-50">
-        <div className="container mx-auto max-w-4xl">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center mx-auto mb-4">
-                <Users className="h-6 w-6" />
-              </div>
-              <div className="text-2xl md:text-3xl font-semibold">
-                {stats.experts}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Verified Experts
-              </div>
+      <section className={`${styles.contentSection} ${styles.alternate} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.statsGrid}>
+              {[
+                { icon: Users, value: stats.experts, label: "Verified Experts" },
+                { icon: Clock, value: stats.sessions, label: "Sessions Completed" },
+                { icon: Star, value: stats.satisfaction, label: "Average Rating" },
+                { icon: Globe, value: stats.countries, label: "Countries Served" }
+              ].map(({ icon: Icon, value, label }, index) => (
+                <motion.div 
+                  key={index}
+                  className={styles.statItem}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={styles.statIcon}>
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div className={styles.statValue}>
+                    {value}
+                  </div>
+                  <div className={styles.statLabel}>
+                    {label}
+                  </div>
+                </motion.div>
+              ))}
             </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center mx-auto mb-4">
-                <Clock className="h-6 w-6" />
-              </div>
-              <div className="text-2xl md:text-3xl font-semibold">
-                {stats.sessions}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Sessions Completed
-              </div>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center mx-auto mb-4">
-                <Star className="h-6 w-6" />
-              </div>
-              <div className="text-2xl md:text-3xl font-semibold">
-                {stats.satisfaction}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Average Rating
-              </div>
-            </div>
-            <div className="text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center mx-auto mb-4">
-                <Globe className="h-6 w-6" />
-              </div>
-              <div className="text-2xl md:text-3xl font-semibold">
-                {stats.countries}
-              </div>
-              <div className="text-sm text-muted-foreground">
-                Countries Served
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="border-2 border-foreground">
-            <CardContent className="p-8 md:p-12 text-center space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-semibold">
+      <section className={`${styles.contentSection} ${styles.sectionPadding}`}>
+        <div className={styles.container}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.ctaCard}>
+              <div className={styles.ctaContent}>
+                <h2 className={styles.ctaTitle}>
                   {ctaSection.title}
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className={styles.ctaSubtitle}>
                   {ctaSection.subtitle}
                 </p>
-                <p className="text-muted-foreground max-w-xl mx-auto">
+                <p className={styles.ctaDescription}>
                   {ctaSection.description}
                 </p>
               </div>
               
-              <div className="pt-4">
-                <Button 
-                  size="lg" 
-                  className="rounded-full px-8"
-                  asChild
+              <div className={styles.ctaButtonContainer}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  <Link to="/browse">
+                  <Link to="/browse" className={styles.primaryButton}>
                     {ctaSection.buttonText}
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <ArrowRight className="w-4 h-4" />
                   </Link>
-                </Button>
+                </motion.div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>

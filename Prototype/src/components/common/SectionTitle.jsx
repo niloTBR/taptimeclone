@@ -7,7 +7,7 @@ const SectionTitle = ({ miniTitle, title, description, className = '' }) => {
           {miniTitle}
         </div>
       )}
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight">
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold tracking-tight" style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
         {title}
       </h2>
       {description && (
