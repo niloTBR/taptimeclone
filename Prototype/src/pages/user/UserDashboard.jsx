@@ -58,6 +58,7 @@ const UserDashboard = () => {
   const [settingsTab, setSettingsTab] = useState('basic')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('card')
   const [selectedSessionType, setSelectedSessionType] = useState(null)
+  const [showNotifications, setShowNotifications] = useState(false)
 
   // Mock user data from onboarding
   const user = {
@@ -306,9 +307,84 @@ const UserDashboard = () => {
     return (user.firstName[0] + user.lastName[0]).toUpperCase()
   }
 
+  // Mock notifications data
+  const notifications = [
+    {
+      id: 1,
+      type: 'session',
+      title: 'Session Reminder',
+      message: 'Your session with Dr. Michael Chen starts in 1 hour',
+      time: '1h ago',
+      read: false,
+      avatar: '/portrait-2.webp'
+    },
+    {
+      id: 2,
+      type: 'booking',
+      title: 'Booking Confirmed',
+      message: 'Your session with Emily Rodriguez has been confirmed for tomorrow',
+      time: '3h ago',
+      read: false,
+      avatar: '/portrait-4.avif'
+    },
+    {
+      id: 3,
+      type: 'review',
+      title: 'New Review',
+      message: 'James Wilson left you a 5-star review',
+      time: '1d ago',
+      read: true,
+      avatar: '/portrait-5.avif'
+    }
+  ]
+
+  // Favourite experts data
+  const favouriteExperts = [
+    {
+      id: "isabella-grace",
+      name: "Isabella Grace Harrington",
+      title: "Founder of TechNova",
+      rate: "$500/15min",
+      rating: 5.0,
+      reviewCount: 127,
+      image: "/portrait-1.avif",
+      badge: "Top Expert",
+      expertise: ["Tech Strategy", "Startup Scaling"],
+      bio: "Built and scaled TechNova from idea to $100M valuation. Expert in product-market fit and raising Series A-C funding.",
+      isTopExpert: true
+    },
+    {
+      id: "sophia-martinez",
+      name: "Sophia Martinez",
+      title: "Founder of BloomWell Skincare",
+      rate: "$500/15min",
+      rating: 4.9,
+      reviewCount: 203,
+      image: "/portrait-2.webp",
+      badge: "Top Expert",
+      expertise: ["E-commerce", "Brand Building"],
+      bio: "Bootstrapped BloomWell to $50M revenue. Expert in DTC marketing, brand strategy, and scaling operations.",
+      isTopExpert: true
+    },
+    {
+      id: "emily-carter",
+      name: "Emily Carter",
+      title: "CMO at DataFlow Inc",
+      rate: "$450/15min",
+      rating: 4.8,
+      reviewCount: 156,
+      image: "/portrait-4.avif",
+      badge: "Verified",
+      expertise: ["Marketing Strategy", "Growth Hacking"],
+      bio: "Built marketing teams that drove 10x growth at 3 startups. Expert in growth loops, conversion optimization, and paid acquisition.",
+      isVerified: true
+    }
+  ]
+
   const tabs = [
     { id: 'upcoming', label: 'Upcoming', count: upcomingSessions.length },
-    { id: 'past', label: 'Past Sessions', count: pastSessions.length }
+    { id: 'past', label: 'Past Sessions', count: pastSessions.length },
+    { id: 'favourites', label: 'Favourites', count: favouriteExperts.length }
   ]
 
   return (
@@ -331,7 +407,7 @@ const UserDashboard = () => {
           font-weight: bold !important;
         }
       `}</style>
-      <Header />
+      <Header onNotificationClick={() => setShowNotifications(true)} />
 
       {/* Analytics Header Section with Hero Background */}
       <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32 content-section-alternate" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
@@ -782,6 +858,21 @@ const UserDashboard = () => {
                     </div>
                   </CardContent>
                 </Card>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'favourites' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {favouriteExperts.map((expert) => (
+                <ExpertCard 
+                  key={expert.id}
+                  expert={expert}
+                  showActions={true}
+                  className="h-full"
+                  showCrown={expert.isTopExpert}
+                  showVerified={expert.isVerified}
+                />
               ))}
             </div>
           )}
@@ -1960,6 +2051,63 @@ const UserDashboard = () => {
                 )}
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Notifications Sidebar */}
+      {showNotifications && (
+        <div className="fixed inset-0 bg-black/50 z-50">
+          <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-xl overflow-y-auto">
+            <Card className="border-0 h-full rounded-none">
+              <CardHeader>
+                <div className="flex items-center justify-between mb-4">
+                  <CardTitle className="text-lg">Notifications</CardTitle>
+                  <Button 
+                    size="sm" 
+                    variant="ghost"
+                    className="rounded-full w-8 h-8 p-0"
+                    onClick={() => setShowNotifications(false)}
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {notifications.map((notification) => (
+                  <div 
+                    key={notification.id}
+                    className={`p-4 rounded-lg border transition-all hover:bg-gray-50 cursor-pointer ${
+                      !notification.read ? 'bg-blue-50 border-blue-200' : 'bg-white border-gray-200'
+                    }`}
+                  >
+                    <div className="flex items-start gap-3">
+                      <Avatar className="w-10 h-10">
+                        <AvatarImage src={notification.avatar} />
+                        <AvatarFallback>{notification.title[0]}</AvatarFallback>
+                      </Avatar>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-medium text-sm">{notification.title}</h4>
+                          {!notification.read && (
+                            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                          )}
+                        </div>
+                        <p className="text-xs text-muted-foreground mt-1">{notification.message}</p>
+                        <p className="text-xs text-muted-foreground mt-2">{notification.time}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {notifications.length === 0 && (
+                  <div className="text-center py-8">
+                    <Bell className="w-12 h-12 mx-auto text-gray-400 mb-4" />
+                    <p className="text-muted-foreground">No notifications yet</p>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       )}
