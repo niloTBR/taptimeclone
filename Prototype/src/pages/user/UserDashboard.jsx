@@ -333,83 +333,103 @@ const UserDashboard = () => {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Analytics Header Section with Dark Banner */}
-      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-16" style={{backgroundImage: "url('/mymind-XUlsF9LYeVk-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      {/* Analytics Header Section with Hero Background */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32" style={{backgroundImage: "url('/mymind-XUlsF9LYeVk-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
         <div className="container mx-auto max-w-7xl relative z-10">
           {/* Welcome Text */}
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Welcome back, {user.firstName}!</h1>
-            <p className="text-lg text-white/80">Here's an overview of your learning journey</p>
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-semibold">Welcome back, {user.firstName}!</h1>
           </div>
 
           {/* Analytics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {/* Total Sessions */}
-            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <BookOpen className="w-4 h-4 text-primary" />
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground">Total Sessions</span>
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-lg flex-shrink-0 self-center">
+                    <BookOpen className="w-6 h-6 text-blue-500" />
                   </div>
-                  <TrendingUp className="w-4 h-4 text-green-600" />
-                </div>
-                <p className="text-3xl font-bold mb-3 tracking-tight">{pastSessions.length + upcomingSessions.length}</p>
-                <div className="h-10 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={sessionData}>
-                      <Bar dataKey="sessions" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold text-gray-900">{pastSessions.length + upcomingSessions.length}</p>
+                      <p className="text-sm text-gray-600 font-medium">Total Sessions</p>
+                    </div>
+                    <div className="h-8 w-full mt-auto">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={sessionData}>
+                          <Bar dataKey="sessions" fill="#8bb8ff" radius={[2, 2, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
             
             {/* Learning Hours */}
-            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 bg-blue-500/10 rounded-lg">
-                      <Target className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <span className="text-sm font-medium text-muted-foreground">Learning Hours</span>
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-emerald-50 rounded-lg flex-shrink-0 self-center">
+                    <Target className="w-6 h-6 text-emerald-500" />
                   </div>
-                  <TrendingUp className="w-4 h-4 text-blue-600" />
-                </div>
-                <p className="text-3xl font-bold mb-3 tracking-tight">35</p>
-                <div className="h-10 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={learningData}>
-                      <Line dataKey="hours" stroke="#2563eb" strokeWidth={3} dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold text-gray-900">35</p>
+                      <p className="text-sm text-gray-600 font-medium">Learning Hours</p>
+                    </div>
+                    <div className="h-8 w-full mt-auto">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={learningData}>
+                          <Bar dataKey="hours" fill="#86efac" radius={[2, 2, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
             
             {/* Completion Rate */}
-            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <div className="p-2 bg-green-500/10 rounded-lg">
-                      <CheckCircle className="w-4 h-4 text-green-600" />
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-violet-50 rounded-lg flex-shrink-0 self-center">
+                    <CheckCircle className="w-6 h-6 text-violet-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold text-gray-900">94%</p>
+                      <p className="text-sm text-gray-600 font-medium">Completion Rate</p>
                     </div>
-                    <span className="text-sm font-medium text-muted-foreground">Completion Rate</span>
+                    <div className="mt-auto">
+                      <div className="w-full bg-gray-200 rounded-full h-1.5">
+                        <div className="bg-violet-400 h-1.5 rounded-full transition-all duration-300" style={{width: '94%'}}></div>
+                      </div>
+                    </div>
                   </div>
-                  <TrendingUp className="w-4 h-4 text-green-600" />
                 </div>
-                <p className="text-3xl font-bold mb-3 tracking-tight">94%</p>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm text-muted-foreground">
-                    <span>Sessions completed</span>
-                    <span className="font-medium">17/18</span>
+              </CardContent>
+            </Card>
+
+            {/* Average Rating */}
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-amber-50 rounded-lg flex-shrink-0 self-center">
+                    <Star className="w-6 h-6 text-amber-500" />
                   </div>
-                  <div className="w-full bg-muted rounded-full h-2">
-                    <div className="bg-green-600 h-2 rounded-full transition-all duration-300" style={{width: '94%'}}></div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold text-gray-900">4.8</p>
+                      <p className="text-sm text-gray-600 font-medium">Average Rating</p>
+                    </div>
+                    <div className="flex gap-1 mt-auto">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className={`w-3 h-3 ${star <= 4 ? 'fill-amber-300 text-amber-300' : star === 5 ? 'fill-amber-300 text-amber-300' : 'text-gray-300'}`} />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardContent>

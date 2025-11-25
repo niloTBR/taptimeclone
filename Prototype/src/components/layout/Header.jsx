@@ -115,7 +115,10 @@ const Header = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
-                  <Button variant="ghost" size="sm" className="ios-button">
+                  <Button 
+                    size="sm" 
+                    className="rounded-full w-10 h-10 p-0 bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
+                  >
                     <Bell className="w-4 h-4" />
                   </Button>
                 </motion.div>
@@ -133,7 +136,10 @@ const Header = () => {
                   <div className="hidden md:block text-left">
                     <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>
                   </div>
-                  <Button variant="ghost" size="sm" className="ios-button gap-2">
+                  <Button 
+                    size="sm" 
+                    className="rounded-full gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4"
+                  >
                     <LogOut className="w-4 h-4" />
                     <span className="hidden sm:block">Logout</span>
                   </Button>
@@ -159,9 +165,8 @@ const Header = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button
-                      variant="default"
                       size="sm"
-                      className={`ios-button ${buttonClass}`}
+                      className="rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4"
                       asChild
                     >
                       <Link to={action.href}>{action.label}</Link>
@@ -250,9 +255,8 @@ const Header = () => {
                         transition={{ delay: (header.links.length + index) * 0.05 }}
                       >
                         <Button
-                          variant="default"
                           size="sm"
-                          className={`justify-start w-full ios-button ${buttonClass}`}
+                          className="justify-start w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
                           asChild
                           onClick={() => setIsMobileMenuOpen(false)}
                         >
