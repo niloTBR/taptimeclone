@@ -113,6 +113,24 @@
   .dark .hover\:bg-gray-200:hover {
     background-color: #0a2142 !important;
   }
+
+  /* Card hover effects - float and white background */
+  .hover\:bg-white:hover {
+    background-color: white !important;
+  }
+
+  .dark .hover\:bg-white:hover {
+    background-color: white !important;
+    color: black !important;
+  }
+
+  .dark .hover\:bg-white:hover * {
+    color: black !important;
+  }
+
+  .dark .hover\:bg-white:hover .text-muted-foreground {
+    color: rgb(99, 99, 102) !important;
+  }
   
   .dark .hover\:bg-red-50:hover {
     background-color: rgba(185, 28, 28, 0.2) !important;
@@ -680,7 +698,16 @@ button:has(.lucide-sparkles) svg {
 }
 
 .dark .group.hover\:shadow-xl:hover {
-  background-color: #0a2142 !important;
+  background-color: white !important;
+  color: black !important;
+}
+
+.dark .group.hover\:shadow-xl:hover * {
+  color: black !important;
+}
+
+.dark .group.hover\:shadow-xl:hover .text-muted-foreground {
+  color: rgb(99, 99, 102) !important;
 }
 
 /* ScrollingTicker dark mode fixes */
