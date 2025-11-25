@@ -65,6 +65,11 @@
     
     // Make buttons more visible on dark backgrounds
     .actions {
+      // User profile text should be white
+      p, .text-sm {
+        color: white !important;
+      }
+      
       :global(.ios-button) {
         &.login {
           color: white !important;

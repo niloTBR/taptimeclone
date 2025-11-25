@@ -39,7 +39,8 @@ import {
   Download,
   Receipt,
   LogOut,
-  Menu
+  Menu,
+  Send
 } from 'lucide-react'
 
 const UserDashboard = () => {
@@ -229,25 +230,6 @@ const UserDashboard = () => {
       verified: true,
       paymentStatus: 'paid',
       expertise: ['Product Strategy']
-    },
-    {
-      id: 2,
-      expertName: 'Lisa Park',
-      expertTitle: 'Marketing Strategy',
-      date: 'March 25',
-      time: '10:00 AM',
-      duration: '45 min',
-      topic: 'Growth Marketing Session',
-      summary: 'Deep dive into growth marketing tactics and customer acquisition strategies for your business.',
-      cost: '$150',
-      avatar: '/portrait-3.avif',
-      expertImage: '/portrait-3.avif',
-      category: 'Marketing',
-      rating: 4.8,
-      reviewCount: 65,
-      verified: true,
-      paymentStatus: 'pending',
-      expertise: ['Growth Marketing']
     }
   ]
 
@@ -331,10 +313,29 @@ const UserDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <style jsx>{`
+        .force-black-text * {
+          color: #000000 !important;
+        }
+        .force-black-text .text-2xl {
+          color: #000000 !important;
+        }
+        .force-black-text p {
+          color: #000000 !important;
+        }
+        .force-gray-text {
+          color: #666666 !important;
+        }
+        .analytics-number {
+          color: #000000 !important;
+          font-weight: bold !important;
+        }
+      `}</style>
       <Header />
 
       {/* Analytics Header Section with Hero Background */}
-      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32" style={{backgroundImage: "url('/mymind-XUlsF9LYeVk-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32 content-section-alternate" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="absolute inset-0 bg-[#48768c]/80"></div>
         <div className="container mx-auto max-w-7xl relative z-10">
           {/* Welcome Text */}
           <div className="text-center mb-8">
@@ -342,9 +343,9 @@ const UserDashboard = () => {
           </div>
 
           {/* Analytics Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-start">
             {/* Total Sessions */}
-            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
                 <div className="flex gap-4 h-20">
                   <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-lg flex-shrink-0 self-center">
@@ -352,8 +353,8 @@ const UserDashboard = () => {
                   </div>
                   <div className="flex-1 flex flex-col">
                     <div className="flex-1">
-                      <p className="text-2xl font-bold text-gray-900">{pastSessions.length + upcomingSessions.length}</p>
-                      <p className="text-sm text-gray-600 font-medium">Total Sessions</p>
+                      <p className="text-2xl font-bold analytics-number">{pastSessions.length + upcomingSessions.length}</p>
+                      <p className="text-sm font-medium force-gray-text">Total Sessions</p>
                     </div>
                     <div className="h-8 w-full mt-auto">
                       <ResponsiveContainer width="100%" height="100%">
@@ -361,6 +362,7 @@ const UserDashboard = () => {
                           <Bar dataKey="sessions" fill="#8bb8ff" radius={[2, 2, 0, 0]} />
                         </BarChart>
                       </ResponsiveContainer>
+                      <div className="w-full h-px bg-gray-200"></div>
                     </div>
                   </div>
                 </div>
@@ -368,7 +370,7 @@ const UserDashboard = () => {
             </Card>
             
             {/* Learning Hours */}
-            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
                 <div className="flex gap-4 h-20">
                   <div className="flex items-center justify-center w-12 h-12 bg-emerald-50 rounded-lg flex-shrink-0 self-center">
@@ -376,8 +378,8 @@ const UserDashboard = () => {
                   </div>
                   <div className="flex-1 flex flex-col">
                     <div className="flex-1">
-                      <p className="text-2xl font-bold text-gray-900">35</p>
-                      <p className="text-sm text-gray-600 font-medium">Learning Hours</p>
+                      <p className="text-2xl font-bold analytics-number">35</p>
+                      <p className="text-sm font-medium force-gray-text">Learning Hours</p>
                     </div>
                     <div className="h-8 w-full mt-auto">
                       <ResponsiveContainer width="100%" height="100%">
@@ -385,6 +387,7 @@ const UserDashboard = () => {
                           <Bar dataKey="hours" fill="#86efac" radius={[2, 2, 0, 0]} />
                         </BarChart>
                       </ResponsiveContainer>
+                      <div className="w-full h-px bg-gray-200"></div>
                     </div>
                   </div>
                 </div>
@@ -392,7 +395,7 @@ const UserDashboard = () => {
             </Card>
             
             {/* Completion Rate */}
-            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
                 <div className="flex gap-4 h-20">
                   <div className="flex items-center justify-center w-12 h-12 bg-violet-50 rounded-lg flex-shrink-0 self-center">
@@ -400,8 +403,8 @@ const UserDashboard = () => {
                   </div>
                   <div className="flex-1 flex flex-col">
                     <div className="flex-1">
-                      <p className="text-2xl font-bold text-gray-900">94%</p>
-                      <p className="text-sm text-gray-600 font-medium">Completion Rate</p>
+                      <p className="text-2xl font-bold analytics-number">94%</p>
+                      <p className="text-sm font-medium force-gray-text">Completion Rate</p>
                     </div>
                     <div className="mt-auto">
                       <div className="w-full bg-gray-200 rounded-full h-1.5">
@@ -414,7 +417,7 @@ const UserDashboard = () => {
             </Card>
 
             {/* Average Rating */}
-            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white transition-all duration-300">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
                 <div className="flex gap-4 h-20">
                   <div className="flex items-center justify-center w-12 h-12 bg-amber-50 rounded-lg flex-shrink-0 self-center">
@@ -422,8 +425,8 @@ const UserDashboard = () => {
                   </div>
                   <div className="flex-1 flex flex-col">
                     <div className="flex-1">
-                      <p className="text-2xl font-bold text-gray-900">4.8</p>
-                      <p className="text-sm text-gray-600 font-medium">Average Rating</p>
+                      <p className="text-2xl font-bold analytics-number">4.8</p>
+                      <p className="text-sm font-medium force-gray-text">Average Rating</p>
                     </div>
                     <div className="flex gap-1 mt-auto">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -445,7 +448,7 @@ const UserDashboard = () => {
         <div className="xl:col-span-1">
           {/* User Profile Card */}
           <Card className="shadow-md border bg-white">
-            <CardContent className="p-6">
+            <CardContent className="p-6 flex flex-col">
               <div className="flex gap-4 mb-4">
                 <div className="relative">
                   <Avatar className="w-16 h-16">
@@ -455,9 +458,9 @@ const UserDashboard = () => {
                   <Button 
                     size="sm" 
                     variant="outline" 
-                    className="absolute -bottom-1 -right-1 rounded-full w-6 h-6 p-0 bg-white shadow-md"
+                    className="absolute bottom-0 right-0 rounded-full w-6 h-6 p-0 bg-white shadow-md border border-gray-200"
                   >
-                    <Edit className="w-2 h-2" />
+                    <Edit className="w-3 h-3" />
                   </Button>
                 </div>
                 <div className="flex-1 min-w-0">
@@ -504,7 +507,8 @@ const UserDashboard = () => {
               </div>
               
               <Button 
-                className="w-full mt-6 rounded-lg text-sm font-medium"
+                variant="outline"
+                className="w-full mt-6 rounded-full text-sm font-medium border border-gray-300 text-gray-700 hover:bg-black hover:text-white transition-colors"
                 onClick={() => setShowSettings(true)}
               >
                 <Edit className="w-4 h-4 mr-2" />
@@ -517,21 +521,23 @@ const UserDashboard = () => {
         {/* Main Content Area */}
         <div className="xl:col-span-3">
           {/* Navigation Tabs */}
-          <div className="border-b border-border mb-8">
-            <div className="flex space-x-8">
+          <div className="mb-8">
+            <div className="bg-gray-50 p-1 rounded-xl inline-flex">
               {tabs.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
+                  className={`px-6 py-3 rounded-lg font-medium text-sm flex items-center gap-2 transition-all duration-200 ${
                     activeTab === tab.id
-                      ? 'border-primary text-foreground'
-                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/40'
+                      ? 'bg-white text-gray-900 shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
                   }`}
                 >
                   {tab.label}
                   {tab.count > 0 && (
-                    <Badge variant="secondary" className="ml-1">
+                    <Badge variant="secondary" className={`text-xs ${
+                      activeTab === tab.id ? 'bg-gray-100 text-gray-600' : 'bg-gray-200 text-gray-500'
+                    }`}>
                       {tab.count}
                     </Badge>
                   )}
@@ -795,7 +801,7 @@ const UserDashboard = () => {
                 <Button 
                   variant="outline" 
                   size="icon"
-                  className="rounded-lg border border-border shadow-sm hover:bg-gray-50"
+                  className="rounded-full border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-black hover:border-gray-400 transition-all"
                   onClick={() => {
                     const container = document.getElementById('experts-scroll-container')
                     if (container) {
@@ -808,7 +814,7 @@ const UserDashboard = () => {
                 <Button 
                   variant="outline" 
                   size="icon"
-                  className="rounded-lg border border-border shadow-sm hover:bg-gray-50"
+                  className="rounded-full border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-black hover:border-gray-400 transition-all"
                   onClick={() => {
                     const container = document.getElementById('experts-scroll-container')
                     if (container) {
@@ -819,14 +825,24 @@ const UserDashboard = () => {
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
-              <Button variant="outline" className="rounded-lg border border-border shadow-sm hover:bg-gray-50 font-medium">
-                View All Experts
+              <Button 
+                className="rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-6 py-2 font-medium border border-[#efffba] hover:border-black"
+                asChild
+              >
+                <a href="/browse">
+                  View All Experts
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {suggestedExperts.slice(0, 8).map((expert, index) => (
-              <div key={index} className="w-full">
+          <div 
+            id="experts-scroll-container" 
+            className="flex gap-6 overflow-x-auto scroll-smooth pb-4 scrollbar-hide"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            {suggestedExperts.map((expert, index) => (
+              <div key={index} className="flex-none w-80">
                 <ExpertCard 
                   expert={expert}
                   showActions={true}
@@ -838,6 +854,11 @@ const UserDashboard = () => {
               </div>
             ))}
           </div>
+          <style jsx>{`
+            #experts-scroll-container::-webkit-scrollbar {
+              display: none;
+            }
+          `}</style>
         </div>
       </section>
 
@@ -852,7 +873,7 @@ const UserDashboard = () => {
                   <Button 
                     variant="outline" 
                     size="icon"
-                    className="rounded-full"
+                    className="rounded-full border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-black hover:border-gray-400 transition-all"
                     onClick={() => setShowSessionDetail(false)}
                   >
                     <X className="w-4 h-4" />
@@ -883,7 +904,7 @@ const UserDashboard = () => {
                   </button>
                 </div>
               </CardHeader>
-              <CardContent className="space-y-4">{sessionDetailTab === 'summary' && (
+              <CardContent className={`${sessionDetailTab === 'chat' ? 'h-[calc(100vh-12rem)] flex flex-col' : 'space-y-4'}`}>{sessionDetailTab === 'summary' && (
                 <div className="space-y-4">
                 {/* Expert Info with Photo */}
                 <div 
@@ -954,7 +975,7 @@ const UserDashboard = () => {
                 {selectedSessionType === 'upcoming' ? (
                   <div className="space-y-3">
                     {/* Primary Action - Join Session */}
-                    <Button className="w-full rounded-full bg-black hover:bg-gray-800 text-white py-3 text-base font-semibold">
+                    <Button className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white py-3 text-base font-semibold">
                       <Video className="w-5 h-5 mr-2" />
                       Join Session
                     </Button>
@@ -963,7 +984,7 @@ const UserDashboard = () => {
                     <div className="grid grid-cols-2 gap-3">
                       <Button 
                         variant="outline" 
-                        className="rounded-full border-2 border-foreground"
+                        className="rounded-full border-2 border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black"
                         onClick={() => {
                           setShowSessionDetail(false)
                           setShowReschedule(true)
@@ -973,7 +994,7 @@ const UserDashboard = () => {
                       </Button>
                       <Button 
                         variant="outline" 
-                        className="rounded-full border-2 border-red-500 text-red-600 hover:bg-red-50"
+                        className="rounded-full border-2 border-red-300 text-red-600 hover:bg-red-600 hover:text-white hover:border-red-600"
                       >
                         Cancel
                       </Button>
@@ -983,7 +1004,7 @@ const UserDashboard = () => {
                   /* Past Session Actions */
                   <div className="space-y-3">
                     <Button 
-                      className="w-full rounded-full bg-black hover:bg-gray-800 text-white py-3 text-base font-semibold"
+                      className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white py-3 text-base font-semibold"
                       onClick={() => window.open(`/booking?expert=${selectedSession.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
                     >
                       Book Again
@@ -1008,7 +1029,7 @@ const UserDashboard = () => {
                     ) : (
                       <Button 
                         variant="outline" 
-                        className="w-full rounded-full border-2 border-foreground"
+                        className="w-full rounded-full border-2 border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black"
                         onClick={() => setShowRatingPopup(true)}
                       >
                         <Star className="w-4 h-4 mr-2" />
@@ -1021,7 +1042,7 @@ const UserDashboard = () => {
                 )}
 
                 {sessionDetailTab === 'chat' && (
-                  <div className="space-y-4">
+                  <div className="flex flex-col h-full">
                     {/* Chat Header with Expert Info */}
                     <div className="flex items-center gap-3 pb-3 border-b">
                       <Avatar className="w-10 h-10">
@@ -1035,56 +1056,60 @@ const UserDashboard = () => {
                     </div>
 
                     {selectedSessionType === 'upcoming' ? (
-                      <div>
-                        {/* Conversation History */}
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
-                          {/* Previous messages */}
-                          <div className="p-3 bg-gray-50 rounded-lg">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm font-medium">{selectedSession.expertName}</span>
-                              <span className="text-xs text-muted-foreground">Yesterday 3:20 PM</span>
+                      <>
+                        {/* Conversation History - Takes available space */}
+                        <div className="flex-1 overflow-y-auto py-4">
+                          <div className="space-y-3">
+                            {/* Previous messages */}
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-sm font-medium">{selectedSession.expertName}</span>
+                                <span className="text-xs text-muted-foreground">Yesterday 3:20 PM</span>
+                              </div>
+                              <p className="text-sm">Looking forward to our session tomorrow! I've prepared some materials based on your goals.</p>
                             </div>
-                            <p className="text-sm">Looking forward to our session tomorrow! I've prepared some materials based on your goals.</p>
-                          </div>
-                          
-                          <div className="p-3 bg-blue-50 rounded-lg ml-6">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm font-medium">You</span>
-                              <span className="text-xs text-muted-foreground">Yesterday 4:15 PM</span>
+                            
+                            <div className="p-3 bg-blue-50 rounded-lg ml-6">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-sm font-medium">You</span>
+                                <span className="text-xs text-muted-foreground">Yesterday 4:15 PM</span>
+                              </div>
+                              <p className="text-sm">Perfect! I'm excited to dive into the roadmap discussion. Thanks for the prep work.</p>
                             </div>
-                            <p className="text-sm">Perfect! I'm excited to dive into the roadmap discussion. Thanks for the prep work.</p>
-                          </div>
-                          
-                          <div className="p-3 bg-gray-50 rounded-lg">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-sm font-medium">{selectedSession.expertName}</span>
-                              <span className="text-xs text-muted-foreground">Today 9:30 AM</span>
+                            
+                            <div className="p-3 bg-gray-50 rounded-lg">
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="text-sm font-medium">{selectedSession.expertName}</span>
+                                <span className="text-xs text-muted-foreground">Today 9:30 AM</span>
+                              </div>
+                              <p className="text-sm">Just sent you the session agenda and some pre-reading materials via email.</p>
                             </div>
-                            <p className="text-sm">Just sent you the session agenda and some pre-reading materials via email.</p>
                           </div>
                         </div>
                         
-                        {/* New message input */}
-                        <div className="flex gap-2 pt-4 border-t">
+                        {/* Message input - Fixed at bottom */}
+                        <div className="flex gap-2 pt-4 border-t mt-auto">
                           <input 
                             type="text" 
                             className="flex-1 p-3 border border-gray-300 rounded-lg" 
                             placeholder="Type a message..."
                           />
-                          <Button size="sm" className="rounded-lg px-4">
-                            Send
+                          <Button size="sm" className="rounded-full w-10 h-10 p-0 bg-[#efffba] text-black hover:bg-black hover:text-white">
+                            <Send className="w-4 h-4" />
                           </Button>
                         </div>
-                      </div>
+                      </>
                     ) : (
                       /* Past Session - Chat Closed */
-                      <div className="text-center py-8">
-                        <div className="p-6 bg-gray-50 rounded-lg">
-                          <MessageCircle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                          <h4 className="font-medium text-gray-600 mb-2">Chat Closed</h4>
-                          <p className="text-sm text-muted-foreground">
-                            Chat is no longer available for completed sessions.
-                          </p>
+                      <div className="flex-1 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="p-6 bg-gray-50 rounded-lg">
+                            <MessageCircle className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                            <h4 className="font-medium text-gray-600 mb-2">Chat Closed</h4>
+                            <p className="text-sm text-muted-foreground">
+                              Chat is no longer available for completed sessions.
+                            </p>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -1268,14 +1293,14 @@ const UserDashboard = () => {
                 <Button
                   variant="outline"
                   onClick={() => setShowSettings(false)}
-                  className="rounded-full px-4"
+                  className="rounded-full px-6 py-2 border-gray-300 text-gray-700 hover:bg-black hover:text-white hover:border-black transition-colors font-medium"
                 >
-                  DISCARD
+                  Discard
                 </Button>
                 <Button
-                  className="rounded-full px-4"
+                  className="rounded-full px-6 py-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-colors font-medium"
                 >
-                  SAVE
+                  Save Changes
                 </Button>
               </div>
             </div>
@@ -1321,59 +1346,62 @@ const UserDashboard = () => {
                           <AvatarFallback className="text-xl">{getInitials()}</AvatarFallback>
                         </Avatar>
                         <div>
-                          <Button variant="outline" size="sm" className="mb-2">
+                          <Button className="mb-2 rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4 py-2 text-sm font-medium">
                             Change Photo
                           </Button>
-                          <p className="text-xs text-muted-foreground">JPG, PNG or GIF. Max size 5MB.</p>
+                          <p className="text-xs text-gray-500">JPG, PNG or GIF. Max size 5MB.</p>
                         </div>
                       </div>
 
                       {/* Name Fields */}
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <label className="text-sm font-medium mb-2 block">First Name</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">First Name</label>
                           <input 
                             type="text" 
                             value={user.firstName}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
                           />
                         </div>
                         <div>
-                          <label className="text-sm font-medium mb-2 block">Last Name</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Last Name</label>
                           <input 
                             type="text" 
                             value={user.lastName}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
                           />
                         </div>
                       </div>
 
                       {/* Email and Phone */}
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <label className="text-sm font-medium mb-2 block">Email Address</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Email Address</label>
                           <input 
                             type="email" 
                             value={user.email}
-                            className="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-500"
+                            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-100 text-gray-500 cursor-not-allowed"
                             disabled
                           />
-                          <p className="text-xs text-muted-foreground mt-1">Email cannot be changed</p>
+                          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                            <Shield className="w-3 h-3" />
+                            Email cannot be changed for security
+                          </p>
                         </div>
                         <div>
-                          <label className="text-sm font-medium mb-2 block">Phone Number</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Phone Number</label>
                           <input 
                             type="tel" 
                             value={user.phone}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
                           />
                         </div>
                       </div>
 
                       {/* Country */}
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Country</label>
-                        <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Country</label>
+                        <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
                           <option value="United States">United States</option>
                           <option value="Canada">Canada</option>
                           <option value="United Kingdom">United Kingdom</option>
@@ -1386,20 +1414,23 @@ const UserDashboard = () => {
 
                       {/* Bio */}
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Bio</label>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio</label>
                         <textarea 
                           value={user.bio}
                           rows="4"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                          className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
                           placeholder="Tell us about yourself..."
                         />
-                        <p className="text-xs text-muted-foreground mt-1">Brief description for your profile. This will be visible to experts.</p>
+                        <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
+                          <Eye className="w-3 h-3" />
+                          Brief description visible to experts during session booking
+                        </p>
                       </div>
 
                       {/* Time Zone */}
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Time Zone</label>
-                        <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Time Zone</label>
+                        <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
                           <option value="PST">Pacific Standard Time (PST)</option>
                           <option value="MST">Mountain Standard Time (MST)</option>
                           <option value="CST">Central Standard Time (CST)</option>
@@ -1491,29 +1522,70 @@ const UserDashboard = () => {
                 {settingsTab === 'goals' && (
                   <div>
                     <h3 className="text-lg font-semibold mb-6">Goals & Interests</h3>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       {/* Primary Goals */}
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">What are your primary goals?</label>
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What are your primary goals?</label>
                         <textarea 
                           value={user.primaryGoals}
                           rows="4"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
+                          className="w-full p-4 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
                           placeholder="e.g., Start a new business, Improve leadership skills, Learn new technologies"
                         />
-                        <p className="text-xs text-muted-foreground mt-1">Separate multiple goals with commas</p>
+                        <p className="text-xs text-gray-500 mt-2">Help us understand what you want to achieve</p>
                       </div>
 
-                      {/* Expertise Needed */}
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">What type of expertise are you seeking?</label>
+                      {/* Expertise Areas */}
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Areas of Interest</label>
+                        <div className="grid grid-cols-2 gap-3 mb-4">
+                          {['Product Strategy', 'Marketing', 'Leadership', 'Technology', 'Finance', 'Operations', 'Design', 'Sales'].map((area) => (
+                            <label key={area} className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
+                              <input type="checkbox" className="mr-3 rounded" />
+                              <span className="text-sm font-medium">{area}</span>
+                            </label>
+                          ))}
+                        </div>
+                        <div>
+                          <label className="text-sm font-medium text-gray-600 mb-2 block">Other areas (specify)</label>
+                          <input 
+                            type="text" 
+                            className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+                            placeholder="Enter any other areas you're interested in"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Experience Level */}
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What's your experience level?</label>
+                        <div className="space-y-3">
+                          {[
+                            { value: 'beginner', label: 'Beginner', desc: 'Just starting out in my career' },
+                            { value: 'intermediate', label: 'Intermediate', desc: '2-5 years of experience' },
+                            { value: 'experienced', label: 'Experienced', desc: '5-10 years of experience' },
+                            { value: 'expert', label: 'Expert', desc: '10+ years of experience' }
+                          ].map((level) => (
+                            <label key={level.value} className="flex items-start p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
+                              <input type="radio" name="experienceLevel" className="mt-1 mr-3" />
+                              <div>
+                                <div className="font-medium text-sm">{level.label}</div>
+                                <div className="text-xs text-gray-500">{level.desc}</div>
+                              </div>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Current Challenge */}
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What's your biggest challenge right now?</label>
                         <textarea 
-                          value={user.expertiseNeeded}
-                          rows="4"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
-                          placeholder="e.g., Product Strategy, Team Leadership, Technology Innovation"
+                          rows="3"
+                          className="w-full p-4 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none"
+                          placeholder="Describe the main obstacle or challenge you're facing"
                         />
-                        <p className="text-xs text-muted-foreground mt-1">Separate multiple areas with commas</p>
+                        <p className="text-xs text-gray-500 mt-2">This helps us recommend the most relevant experts</p>
                       </div>
                     </div>
                   </div>
@@ -1522,69 +1594,69 @@ const UserDashboard = () => {
                 {settingsTab === 'billing' && (
                   <div>
                     <h3 className="text-lg font-semibold mb-6">Billing Information</h3>
-                    <div className="space-y-6">
+                    <div className="space-y-8">
                       {/* Current Payment Methods */}
-                      <div>
-                        <h4 className="text-md font-semibold mb-4">Payment Methods</h4>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between p-4 border rounded-lg">
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded text-white text-xs flex items-center justify-center font-bold">
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Payment Methods</h4>
+                        <div className="space-y-3 mb-6">
+                          <div className="flex items-center justify-between p-5 border border-gray-300 rounded-xl bg-white shadow-sm">
+                            <div className="flex items-center gap-4">
+                              <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white text-xs flex items-center justify-center font-bold">
                                 VISA
                               </div>
                               <div>
-                                <p className="font-medium text-sm">•••• •••• •••• 4242</p>
-                                <p className="text-xs text-muted-foreground">Expires 12/2025</p>
+                                <p className="font-semibold text-sm text-gray-900">•••• •••• •••• 4242</p>
+                                <p className="text-xs text-gray-500">Expires 12/2025</p>
                               </div>
-                              <Badge variant="secondary" className="ml-2">Primary</Badge>
+                              <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 border-green-200">Primary</Badge>
                             </div>
                             <div className="flex gap-2">
-                              <Button variant="outline" size="sm">Edit</Button>
-                              <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">Remove</Button>
+                              <Button variant="outline" size="sm" className="border-gray-300 hover:bg-gray-50">Edit</Button>
+                              <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700">Remove</Button>
                             </div>
                           </div>
                         </div>
                         
-                        <Button variant="outline" className="mt-3" size="sm">
+                        <Button className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-6 transition-colors">
                           <Plus className="w-4 h-4 mr-2" />
                           Add Payment Method
                         </Button>
                       </div>
 
                       {/* Add New Payment Method */}
-                      <div className="border-t pt-6">
-                        <h4 className="text-md font-semibold mb-4">Add New Payment Method</h4>
+                      <div className="bg-gray-50 rounded-xl p-6">
+                        <h4 className="text-md font-semibold mb-4 text-gray-700">Add New Payment Method</h4>
                         
                         {/* Payment Method Selection */}
-                        <div className="space-y-3 mb-6">
-                          <label className="text-sm font-medium">Choose Payment Method</label>
+                        <div className="space-y-4 mb-6">
+                          <label className="text-sm font-semibold text-gray-700 block">Choose Payment Method</label>
                           <div className="space-y-3">
-                            <label className={`flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${
-                              selectedPaymentMethod === 'card' ? 'border-gray-900 bg-gray-50' : 'border-gray-300'
+                            <label className={`flex items-center p-4 border rounded-xl cursor-pointer hover:bg-white transition-colors ${
+                              selectedPaymentMethod === 'card' ? 'border-black bg-white shadow-sm' : 'border-gray-300 bg-white'
                             }`}>
                               <input 
                                 type="radio" 
                                 name="paymentMethod" 
                                 value="card" 
-                                className="mr-3" 
+                                className="mr-4" 
                                 checked={selectedPaymentMethod === 'card'}
                                 onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                               />
-                              <CreditCard className="w-5 h-5 mr-3 text-gray-600" />
+                              <CreditCard className="w-5 h-5 mr-3 text-gray-700" />
                               <div>
-                                <p className="font-medium text-sm">Credit/Debit Card</p>
-                                <p className="text-xs text-muted-foreground">Visa, Mastercard, American Express</p>
+                                <p className="font-semibold text-sm text-gray-900">Credit/Debit Card</p>
+                                <p className="text-xs text-gray-500">Visa, Mastercard, American Express</p>
                               </div>
                             </label>
                             
-                            <label className={`flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${
-                              selectedPaymentMethod === 'apple' ? 'border-gray-900 bg-gray-50' : 'border-gray-300'
+                            <label className={`flex items-center p-4 border rounded-xl cursor-pointer hover:bg-white transition-colors ${
+                              selectedPaymentMethod === 'apple' ? 'border-black bg-white shadow-sm' : 'border-gray-300 bg-white'
                             }`}>
                               <input 
                                 type="radio" 
                                 name="paymentMethod" 
                                 value="apple" 
-                                className="mr-3" 
+                                className="mr-4" 
                                 checked={selectedPaymentMethod === 'apple'}
                                 onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                               />
@@ -1592,8 +1664,8 @@ const UserDashboard = () => {
                                 <span className="text-white text-xs font-bold">🍎</span>
                               </div>
                               <div>
-                                <p className="font-medium text-sm">Apple Pay</p>
-                                <p className="text-xs text-muted-foreground">Pay with Touch ID or Face ID</p>
+                                <p className="font-semibold text-sm text-gray-900">Apple Pay</p>
+                                <p className="text-xs text-gray-500">Pay with Touch ID or Face ID</p>
                               </div>
                             </label>
                             
@@ -1859,100 +1931,22 @@ const UserDashboard = () => {
                     <h3 className="text-lg font-semibold mb-6">Invoices</h3>
                     <div className="space-y-6">
 
-                      {/* Filters */}
-                      <div className="flex gap-4 items-center">
-                        <select className="p-2 border border-gray-300 rounded-lg text-sm">
-                          <option>All Invoices</option>
-                          <option>Paid</option>
-                          <option>Pending</option>
-                          <option>Overdue</option>
-                        </select>
-                        <select className="p-2 border border-gray-300 rounded-lg text-sm">
-                          <option>Last 12 months</option>
-                          <option>Last 6 months</option>
-                          <option>Last 3 months</option>
-                          <option>This month</option>
-                        </select>
-                        <Button variant="outline" size="sm">
-                          <Download className="w-4 h-4 mr-2" />
-                          Export All
-                        </Button>
-                      </div>
-
-                      {/* Invoice List */}
+                      {/* Invoice PDFs */}
                       <div className="space-y-3">
                         {[
-                          {
-                            id: 'INV-001',
-                            date: 'Nov 1, 2024',
-                            expert: 'Dr. Michael Chen',
-                            session: 'Product Strategy Session',
-                            amount: '$200',
-                            status: 'Paid',
-                            statusColor: 'bg-green-100 text-green-800'
-                          },
-                          {
-                            id: 'INV-002',
-                            date: 'Oct 28, 2024',
-                            expert: 'Sarah Williams',
-                            session: 'Leadership Coaching',
-                            amount: '$180',
-                            status: 'Paid',
-                            statusColor: 'bg-green-100 text-green-800'
-                          },
-                          {
-                            id: 'INV-003',
-                            date: 'Oct 15, 2024',
-                            expert: 'David Rodriguez',
-                            session: 'Tech Innovation Workshop',
-                            amount: '$250',
-                            status: 'Pending',
-                            statusColor: 'bg-yellow-100 text-yellow-800'
-                          },
-                          {
-                            id: 'INV-004',
-                            date: 'Oct 5, 2024',
-                            expert: 'Dr. Emily Johnson',
-                            session: 'Business Strategy Review',
-                            amount: '$300',
-                            status: 'Paid',
-                            statusColor: 'bg-green-100 text-green-800'
-                          },
-                          {
-                            id: 'INV-005',
-                            date: 'Sep 22, 2024',
-                            expert: 'Alex Thompson',
-                            session: 'Marketing Consultation',
-                            amount: '$150',
-                            status: 'Paid',
-                            statusColor: 'bg-green-100 text-green-800'
-                          }
-                        ].map((invoice) => (
-                          <div key={invoice.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-4">
-                                <div>
-                                  <p className="font-medium text-sm">{invoice.id}</p>
-                                  <p className="text-xs text-muted-foreground">{invoice.date}</p>
-                                </div>
-                                <div className="flex-1">
-                                  <p className="font-medium text-sm">{invoice.session}</p>
-                                  <p className="text-xs text-muted-foreground">with {invoice.expert}</p>
-                                </div>
-                                <div className="text-right">
-                                  <p className="font-semibold text-sm">{invoice.amount}</p>
-                                  <Badge className={`text-xs ${invoice.statusColor}`}>
-                                    {invoice.status}
-                                  </Badge>
-                                </div>
-                              </div>
+                          { session: 'Product Strategy Session', expert: 'Dr. Michael Chen', amount: '$200', date: 'Nov 1, 2024' },
+                          { session: 'Leadership Coaching', expert: 'Sarah Williams', amount: '$180', date: 'Oct 28, 2024' },
+                          { session: 'Tech Innovation Workshop', expert: 'David Rodriguez', amount: '$250', date: 'Oct 15, 2024' }
+                        ].map((invoice, index) => (
+                          <div key={index} className="flex justify-between items-center p-4 border border-gray-200 rounded-xl">
+                            <div>
+                              <p className="font-semibold text-gray-900">{invoice.expert}</p>
+                              <p className="text-sm text-gray-500">{invoice.date}</p>
+                              <p className="text-sm text-gray-600">{invoice.session}</p>
                             </div>
-                            <div className="flex gap-2 ml-4">
-                              <Button variant="outline" size="sm">
-                                <Eye className="w-4 h-4 mr-1" />
-                                View
-                              </Button>
-                              <Button variant="outline" size="sm">
+                            <div className="flex items-center gap-4">
+                              <span className="font-bold text-lg text-gray-900">{invoice.amount}</span>
+                              <Button size="sm" className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-4">
                                 <Download className="w-4 h-4 mr-1" />
                                 PDF
                               </Button>
@@ -1961,18 +1955,6 @@ const UserDashboard = () => {
                         ))}
                       </div>
 
-                      {/* Pagination */}
-                      <div className="flex items-center justify-between pt-4">
-                        <p className="text-sm text-muted-foreground">Showing 5 of 12 invoices</p>
-                        <div className="flex gap-2">
-                          <Button variant="outline" size="sm" disabled>
-                            Previous
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            Next
-                          </Button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 )}

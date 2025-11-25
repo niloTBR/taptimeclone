@@ -5,7 +5,7 @@ import SearchBar from '@/components/common/SearchBar'
 import ExpertCard from '@/components/common/ExpertCard'
 import ScrollingTicker from '@/components/common/ScrollingTicker'
 import SectionTitle from '@/components/common/SectionTitle'
-import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react'
+import { ArrowRight, Users, Clock, Star, Globe, ChevronLeft, ChevronRight, ChevronUp, ChevronDown } from 'lucide-react'
 import homepageData from '@/data/homepage.json'
 import styles from './HomePage.module.scss'
 
@@ -14,6 +14,7 @@ const HomePage = () => {
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
   const [currentExpertPage, setCurrentExpertPage] = useState(0)
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [showScrollIndicator, setShowScrollIndicator] = useState(true)
   const heroRef = useRef(null)
   
   // Reviews: 3 on desktop, 1.5 on mobile
@@ -43,6 +44,9 @@ const HomePage = () => {
       
       // Show back to top button after scrolling 300px
       setShowBackToTop(window.pageYOffset > 300)
+      
+      // Hide scroll indicator after scrolling 100px
+      setShowScrollIndicator(window.pageYOffset < 100)
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -131,35 +135,12 @@ const HomePage = () => {
               </motion.p>
             </div>
 
-            {/* Massive Search Bar */}
-            <motion.div 
-              className={styles.searchContainer}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <SearchBar
-                placeholder="I'm looking for..."
-                animatedPlaceholders={[
-                  "I'm looking for startup advice...",
-                  "I'm looking for marketing strategy...",
-                  "I'm looking for design feedback...",
-                  "I'm looking for tech mentorship...",
-                  "I'm looking for fundraising help...",
-                  "I'm looking for product guidance..."
-                ]}
-                onSearch={handleSearch}
-                size="lg"
-                className="w-full"
-              />
-            </motion.div>
-
             {/* CTA Buttons */}
             <motion.div 
               className={styles.ctaButtons}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -179,6 +160,53 @@ const HomePage = () => {
                 </Link>
               </motion.div>
             </motion.div>
+
+            {/* Massive Search Bar */}
+            <motion.div 
+              className={styles.searchContainer}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <SearchBar
+                placeholder="I'm looking for..."
+                animatedPlaceholders={[
+                  "I'm looking for startup advice...",
+                  "I'm looking for marketing strategy...",
+                  "I'm looking for design feedback...",
+                  "I'm looking for tech mentorship...",
+                  "I'm looking for fundraising help...",
+                  "I'm looking for product guidance..."
+                ]}
+                onSearch={handleSearch}
+                size="lg"
+                className="w-full"
+              />
+            </motion.div>
+
+            {/* Rotating Scroll Badge */}
+            {showScrollIndicator && (
+              <motion.div 
+                className={styles.scrollIndicator}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: showScrollIndicator ? 1 : 0, scale: showScrollIndicator ? 1 : 0.8 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+              >
+              <div className={styles.scrollBadge}>
+                <svg viewBox="0 0 100 100">
+                  <defs>
+                    <path id="circle" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
+                  </defs>
+                  <text fontSize="6" fontWeight="500" letterSpacing="0.1em">
+                    <textPath href="#circle">
+                      SCROLL DOWN • SCROLL DOWN • SCROLL 
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+              </motion.div>
+            )}
           </motion.div>
         </div>
       </section>

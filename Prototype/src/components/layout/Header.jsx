@@ -129,9 +129,9 @@ const Header = () => {
                   transition={{ delay: 0.4 }}
                   className="flex items-center gap-3"
                 >
-                  <Avatar className="w-8 h-8">
+                  <Avatar className="w-10 h-10">
                     <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
-                    <AvatarFallback className="text-xs">{getInitials()}</AvatarFallback>
+                    <AvatarFallback className="text-sm">{getInitials()}</AvatarFallback>
                   </Avatar>
                   <div className="hidden md:block text-left">
                     <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>

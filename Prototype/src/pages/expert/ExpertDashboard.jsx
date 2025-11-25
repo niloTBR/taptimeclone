@@ -48,7 +48,10 @@ import {
   Trash2,
   CalendarDays,
   FileText,
-  BookOpen
+  BookOpen,
+  Send,
+  LogOut,
+  Menu
 } from 'lucide-react'
 
 const ExpertDashboard = () => {
@@ -228,97 +231,135 @@ const ExpertDashboard = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center font-bold">
-              T
+      <style jsx>{`
+        .force-black-text * {
+          color: #000000 !important;
+        }
+        .force-gray-text {
+          color: #666666 !important;
+        }
+      `}</style>
+      
+      {/* Header Component - Same as UserDashboard */}
+      <header className="fixed top-4 z-50 backdrop-filter blur-40 saturate-180 bg-white/10 border border-white/20 rounded-2xl shadow-lg inset-0 left-4 right-4 w-calc-100-minus-2rem">
+        <div className="container mx-auto px-6 py-3">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center font-bold">
+                T
+              </div>
+              <h1 className="text-lg font-semibold">Expert Dashboard</h1>
             </div>
-            <h1 className="text-2xl font-semibold">Expert Dashboard</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <Button className="rounded-full">
-              <Plus className="w-4 h-4 mr-2" />
-              Add Availability
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full">
-              <Bell className="w-4 h-4" />
-            </Button>
+            
+            {/* Actions */}
+            <div className="flex items-center gap-3">
+              <Button className="rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4 py-2 text-sm">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Availability
+              </Button>
+              
+              <Button size="sm" className="rounded-full w-10 h-10 p-0 bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors">
+                <Bell className="w-4 h-4" />
+              </Button>
+              
+              {/* Expert Profile */}
+              <div className="flex items-center gap-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src="/portrait-1.avif" alt={expert.name} />
+                  <AvatarFallback className="text-sm">{getInitials(expert.name)}</AvatarFallback>
+                </Avatar>
+                <div className="hidden md:block text-left">
+                  <p className="text-sm font-medium">{expert.name}</p>
+                </div>
+                <Button size="sm" className="rounded-full gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4">
+                  <LogOut className="w-4 h-4" />
+                  <span className="hidden sm:block">Logout</span>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </header>
 
-      {/* Analytics Header Section */}
-      <section className="bg-gray-50 border-b px-6 py-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-lg font-semibold mb-4">This Month's Performance</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Analytics Header Section with Background */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32 content-section-alternate" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="absolute inset-0 bg-[#48768c]/80"></div>
+        <div className="container mx-auto max-w-7xl relative z-10">
+          {/* Welcome Text */}
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-semibold">Welcome back, Dr. {expert.name.split(' ')[1]}!</h1>
+          </div>
+
+          {/* Analytics Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-start">
             {/* Monthly Earnings */}
-            <Card className="border-2">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Monthly Earnings</span>
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-emerald-50 rounded-lg flex-shrink-0 self-center">
+                    <DollarSign className="w-6 h-6 text-emerald-500" />
                   </div>
-                  <TrendingUp className="w-4 h-4 text-green-600" />
-                </div>
-                <p className="text-2xl font-bold mb-2">${stats.thisMonth.earnings.toLocaleString()}</p>
-                <div className="h-8 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={earningsData}>
-                      <Line dataKey="earnings" stroke="#000000" strokeWidth={2} dot={false} />
-                    </LineChart>
-                  </ResponsiveContainer>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">${stats.thisMonth.earnings.toLocaleString()}</p>
+                      <p className="text-sm font-medium force-gray-text">Monthly Earnings</p>
+                    </div>
+                    <div className="h-8 w-full mt-auto">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={earningsData}>
+                          <Line dataKey="earnings" stroke="#86efac" strokeWidth={2} dot={false} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                      <div className="w-full h-px bg-gray-200"></div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
             
             {/* Average Sessions */}
-            <Card className="border-2">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Average Sessions</span>
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-lg flex-shrink-0 self-center">
+                    <BookOpen className="w-6 h-6 text-blue-500" />
                   </div>
-                  <TrendingUp className="w-4 h-4 text-green-600" />
-                </div>
-                <p className="text-2xl font-bold mb-2">12</p>
-                <div className="h-8 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={sessionsData}>
-                      <Bar dataKey="sessions" fill="#000000" radius={[2, 2, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">12</p>
+                      <p className="text-sm font-medium force-gray-text">Average Sessions</p>
+                    </div>
+                    <div className="h-8 w-full mt-auto">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={sessionsData}>
+                          <Bar dataKey="sessions" fill="#8bb8ff" radius={[2, 2, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                      <div className="w-full h-px bg-gray-200"></div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
             
             {/* Average Rating */}
-            <Card className="border-2">
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
               <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Average Rating</span>
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-amber-50 rounded-lg flex-shrink-0 self-center">
+                    <Star className="w-6 h-6 text-amber-500" />
                   </div>
-                  <TrendingUp className="w-4 h-4 text-yellow-600" />
-                </div>
-                <p className="text-2xl font-bold mb-2">{stats.thisMonth.rating}</p>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span>Based on {stats.thisMonth.sessions} sessions</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star 
-                        key={i} 
-                        className={`w-3 h-3 ${i < Math.floor(stats.thisMonth.rating) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
-                      />
-                    ))}
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">{stats.thisMonth.rating}</p>
+                      <p className="text-sm font-medium force-gray-text">Average Rating</p>
+                    </div>
+                    <div className="flex gap-1 mt-auto">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} className={`w-3 h-3 ${star <= Math.floor(stats.thisMonth.rating) ? 'fill-amber-300 text-amber-300' : 'text-gray-300'}`} />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -332,7 +373,7 @@ const ExpertDashboard = () => {
         {/* Sidebar */}
         <div className="w-80 space-y-6">
           {/* Expert Profile Card */}
-          <Card className="border-2 border-foreground">
+          <Card className="border border-gray-200 hover:shadow-lg transition-all duration-300 rounded-xl">
             <CardContent className="p-4">
               <div className="flex gap-4 mb-4">
                 <div className="relative">
@@ -421,7 +462,7 @@ const ExpertDashboard = () => {
               
               <div className="space-y-2 mt-4">
                 <Button 
-                  className="w-full rounded-full text-sm"
+                  className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors text-sm"
                   onClick={() => setShowSettings(true)}
                 >
                   <Settings className="w-3 h-3 mr-2" />
@@ -430,7 +471,7 @@ const ExpertDashboard = () => {
                 
                 <Button 
                   variant="outline"
-                  className="w-full rounded-full text-sm border-2 border-foreground"
+                  className="w-full rounded-full text-sm border border-gray-300 hover:bg-gray-50"
                 >
                   <Eye className="w-3 h-3 mr-2" />
                   View Public Profile
