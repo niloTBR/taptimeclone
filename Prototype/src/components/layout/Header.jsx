@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { Menu, X } from 'lucide-react'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Menu, X, LogOut, Bell } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import ThemeToggle from '@/components/common/ThemeToggle'
 import TapTimeLogo from '@/components/common/TapTimeLogo'
 import navigationData from '@/data/navigation.json'
 import styles from './Header.module.scss'
@@ -50,6 +50,23 @@ const Header = () => {
     return location.pathname === href
   }
 
+  // Check if user is on a dashboard page
+  const isDashboardPage = location.pathname.includes('/dashboard') || 
+                          location.pathname.includes('/user/') || 
+                          location.pathname.includes('/expert/') || 
+                          location.pathname.includes('/admin/')
+
+  // Mock user data for dashboard
+  const user = {
+    firstName: 'John',
+    lastName: 'Smith', 
+    avatar: '/portrait-1.avif'
+  }
+
+  const getInitials = () => {
+    return (user.firstName[0] + user.lastName[0]).toUpperCase()
+  }
+
   return (
     <motion.header 
       className={`${styles.header} ${isScrolled ? styles.scrolled : ''} ${isOnDarkSection ? styles.onDarkSection : ''}`}
@@ -90,41 +107,69 @@ const Header = () => {
 
           {/* Desktop Actions */}
           <div className={styles.actions}>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <ThemeToggle />
-            </motion.div>
-            {header.actions.map((action, index) => {
-              // Determine button class based on label
-              const buttonClass = action.label.toLowerCase().includes('log') 
-                ? 'login' 
-                : action.label.toLowerCase().includes('sign') 
-                  ? 'signup' 
-                  : 'default';
-              
-              return (
+            {isDashboardPage ? (
+              // Dashboard: Show profile section
+              <>
                 <motion.div
-                  key={index}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 + index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  transition={{ delay: 0.3 }}
                 >
-                  <Button
-                    variant="default"
-                    size="sm"
-                    className={`ios-button ${buttonClass}`}
-                    asChild
-                  >
-                    <Link to={action.href}>{action.label}</Link>
+                  <Button variant="ghost" size="sm" className="ios-button">
+                    <Bell className="w-4 h-4" />
                   </Button>
                 </motion.div>
-              );
-            })}
+                
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex items-center gap-3"
+                >
+                  <Avatar className="w-8 h-8">
+                    <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
+                    <AvatarFallback className="text-xs">{getInitials()}</AvatarFallback>
+                  </Avatar>
+                  <div className="hidden md:block text-left">
+                    <p className="text-sm font-medium">{user.firstName} {user.lastName}</p>
+                  </div>
+                  <Button variant="ghost" size="sm" className="ios-button gap-2">
+                    <LogOut className="w-4 h-4" />
+                    <span className="hidden sm:block">Logout</span>
+                  </Button>
+                </motion.div>
+              </>
+            ) : (
+              // Regular pages: Show login/signup
+              header.actions.map((action, index) => {
+                // Determine button class based on label
+                const buttonClass = action.label.toLowerCase().includes('log') 
+                  ? 'login' 
+                  : action.label.toLowerCase().includes('sign') 
+                    ? 'signup' 
+                    : 'default';
+                
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.3 + index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Button
+                      variant="default"
+                      size="sm"
+                      className={`ios-button ${buttonClass}`}
+                      asChild
+                    >
+                      <Link to={action.href}>{action.label}</Link>
+                    </Button>
+                  </motion.div>
+                );
+              })
+            )}
           </div>
 
           {/* Mobile Menu Button */}

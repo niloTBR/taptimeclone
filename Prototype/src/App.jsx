@@ -23,8 +23,6 @@ import GuidelinesPage from '@/pages/GuidelinesPage'
 import CommunityPage from '@/pages/CommunityPage'
 import PrivacyPage from '@/pages/PrivacyPage'
 import TermsPage from '@/pages/TermsPage'
-import TestPage from '@/pages/TestPage'
-import PrototypeNavigationPage from '@/pages/PrototypeNavigationPage'
 import AdminUserDashboard from '@/pages/admin/AdminUserDashboard'
 import AdminExpertDashboard from '@/pages/admin/AdminExpertDashboard'
 import CMSDashboard from '@/pages/cms/CMSDashboard'
@@ -61,8 +59,6 @@ function App() {
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
-          <Route path="/test" element={<TestPage />} />
-          <Route path="/prototypes" element={<PrototypeNavigationPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

@@ -114,7 +114,7 @@ const SearchBar = ({
           placeholder={currentPlaceholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className={`${paddingClasses[size]} ${sizeClasses[size]} ${fontClasses[size]} rounded-3xl transition-all duration-300 placeholder:font-normal placeholder:text-base resize-none`}
+          className={`${paddingClasses[size]} ${sizeClasses[size]} ${fontClasses[size]} rounded-3xl border-2 border-gray-200 hover:border-gray-300 focus:border-black transition-all duration-300 placeholder:font-normal placeholder:text-base resize-none`}
           rows={2}
         />
         <div className="absolute bottom-3 right-3 flex gap-2">

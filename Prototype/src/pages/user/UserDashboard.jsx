@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from 'recharts'
 import ExpertCard from '@/components/common/ExpertCard'
+import Header from '@/components/layout/Header'
 import { 
   Calendar,
   Clock,
@@ -36,7 +37,9 @@ import {
   Shield,
   CreditCard,
   Download,
-  Receipt
+  Receipt,
+  LogOut,
+  Menu
 } from 'lucide-react'
 
 const UserDashboard = () => {
@@ -63,7 +66,7 @@ const UserDashboard = () => {
     phone: '+1 (555) 123-4567',
     bio: 'Product manager passionate about building scalable solutions and leading high-performing teams.',
     country: 'United States',
-    avatar: '/api/placeholder/40/40',
+    avatar: '/portrait-1.avif',
     memberSince: 'January 2024',
     primaryGoals: 'Start a new business, Improve leadership skills, Learn new technologies',
     expertiseNeeded: 'Product Strategy, Team Leadership, Technology Innovation'
@@ -88,9 +91,9 @@ const UserDashboard = () => {
       title: 'AI Product Strategy',
       rating: 4.9,
       reviewCount: 200,
-      rate: '$220/hr',
+      rate: '$220/15min',
       bio: 'Helping companies build AI-powered products that scale. Former VP of Product at Google, now consulting on product strategy.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-2.webp',
       expertise: ['Product Strategy'],
       isTopExpert: true,
       isVerified: true
@@ -101,9 +104,9 @@ const UserDashboard = () => {
       title: 'Team Leadership Coach',
       rating: 4.8,
       reviewCount: 150,
-      rate: '$180/hr',
+      rate: '$180/15min',
       bio: 'Executive coach specializing in leadership development and team performance. Helping managers become effective leaders.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-3.avif',
       expertise: ['Team Leadership'],
       isTopExpert: false,
       isVerified: true
@@ -114,9 +117,9 @@ const UserDashboard = () => {
       title: 'Growth Marketing Expert',
       rating: 4.7,
       reviewCount: 89,
-      rate: '$160/hr',
+      rate: '$160/15min',
       bio: 'Growth marketing specialist who has scaled startups from 0 to millions in revenue. Expert in digital marketing and analytics.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-4.avif',
       expertise: ['Growth Marketing'],
       isTopExpert: true,
       isVerified: false
@@ -127,9 +130,9 @@ const UserDashboard = () => {
       title: 'UX Design Lead',
       rating: 4.9,
       reviewCount: 167,
-      rate: '$190/hr',
+      rate: '$190/15min',
       bio: 'Senior UX designer with 8+ years creating user-centered digital experiences for Fortune 500 companies.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-5.avif',
       expertise: ['UX Design'],
       isTopExpert: false,
       isVerified: true
@@ -140,9 +143,9 @@ const UserDashboard = () => {
       title: 'Business Strategy Consultant',
       rating: 4.6,
       reviewCount: 234,
-      rate: '$200/hr',
+      rate: '$200/15min',
       bio: 'Former McKinsey consultant helping businesses develop strategic roadmaps and optimize operations for growth.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-1.avif',
       expertise: ['Business Strategy'],
       isTopExpert: false,
       isVerified: false
@@ -153,9 +156,9 @@ const UserDashboard = () => {
       title: 'Data Science Expert',
       rating: 4.8,
       reviewCount: 156,
-      rate: '$210/hr',
+      rate: '$210/15min',
       bio: 'Data scientist with expertise in machine learning and analytics. Helping companies make data-driven decisions.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-2.webp',
       expertise: ['Data Science'],
       isTopExpert: true,
       isVerified: true
@@ -166,9 +169,9 @@ const UserDashboard = () => {
       title: 'Sales Strategy Expert',
       rating: 4.7,
       reviewCount: 198,
-      rate: '$170/hr',
+      rate: '$170/15min',
       bio: 'Sales leader with track record of building high-performing sales teams and scaling revenue operations.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-3.avif',
       expertise: ['Sales Strategy'],
       isTopExpert: false,
       isVerified: true
@@ -179,9 +182,9 @@ const UserDashboard = () => {
       title: 'Content Marketing Specialist',
       rating: 4.9,
       reviewCount: 143,
-      rate: '$150/hr',
+      rate: '$150/15min',
       bio: 'Content strategist helping brands build authentic connections through storytelling and content marketing.',
-      image: '/api/placeholder/300/120',
+      image: '/portrait-4.avif',
       expertise: ['Content Marketing'],
       isTopExpert: false,
       isVerified: false
@@ -218,8 +221,8 @@ const UserDashboard = () => {
       topic: 'Product Roadmap Review',
       summary: 'Review your current product strategy and identify areas for improvement. We\'ll discuss market positioning and competitive analysis.',
       cost: '$200',
-      avatar: '/api/placeholder/40/40',
-      expertImage: '/api/placeholder/300/120',
+      avatar: '/portrait-2.webp',
+      expertImage: '/portrait-2.webp',
       category: 'Strategy',
       rating: 4.9,
       reviewCount: 89,
@@ -237,8 +240,8 @@ const UserDashboard = () => {
       topic: 'Growth Marketing Session',
       summary: 'Deep dive into growth marketing tactics and customer acquisition strategies for your business.',
       cost: '$150',
-      avatar: '/api/placeholder/40/40',
-      expertImage: '/api/placeholder/300/120',
+      avatar: '/portrait-3.avif',
+      expertImage: '/portrait-3.avif',
       category: 'Marketing',
       rating: 4.8,
       reviewCount: 65,
@@ -261,8 +264,8 @@ const UserDashboard = () => {
       cost: '$180',
       feedback: 'Excellent insights on building scalable design systems. Very actionable advice.',
       hasReview: false,
-      avatar: '/api/placeholder/40/40',
-      expertImage: '/api/placeholder/300/120',
+      avatar: '/portrait-4.avif',
+      expertImage: '/portrait-4.avif',
       category: 'Design',
       expertRating: 4.9,
       reviewCount: 76,
@@ -282,8 +285,8 @@ const UserDashboard = () => {
       cost: '$200',
       feedback: 'Great strategic guidance. Helped clarify our business direction.',
       hasReview: true,
-      avatar: '/api/placeholder/40/40',
-      expertImage: '/api/placeholder/300/120',
+      avatar: '/portrait-5.avif',
+      expertImage: '/portrait-5.avif',
       category: 'Business',
       expertRating: 4.7,
       reviewCount: 54,
@@ -303,8 +306,8 @@ const UserDashboard = () => {
       cost: '$160',
       feedback: 'Amazing session! Clear roadmap and priorities established.',
       hasReview: true,
-      avatar: '/api/placeholder/40/40',
-      expertImage: '/api/placeholder/300/120',
+      avatar: '/portrait-1.avif',
+      expertImage: '/portrait-1.avif',
       category: 'Product',
       expertRating: 4.8,
       reviewCount: 92,
@@ -327,52 +330,37 @@ const UserDashboard = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b px-6 py-4">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <div className="w-8 h-8 bg-foreground text-background rounded-lg flex items-center justify-center font-bold">
-              T
-            </div>
-            <h1 className="text-2xl font-semibold">Dashboard</h1>
-          </div>
-          
-          <div className="flex items-center gap-4">
-            <Button className="rounded-full">
-              <Plus className="w-4 h-4 mr-2" />
-              Book Session
-            </Button>
-            <Button variant="outline" size="icon" className="rounded-full">
-              <Bell className="w-4 h-4" />
-            </Button>
-            <Button variant="outline" className="rounded-full">
-              Logout
-            </Button>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-background">
+      <Header />
 
-      {/* Analytics Header Section */}
-      <section className="bg-gray-50 border-b px-6 py-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-lg font-semibold mb-4">Your Learning Progress</h2>
+      {/* Analytics Header Section with Dark Banner */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-16" style={{backgroundImage: "url('/mymind-XUlsF9LYeVk-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="container mx-auto max-w-7xl relative z-10">
+          {/* Welcome Text */}
+          <div className="text-center mb-12">
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">Welcome back, {user.firstName}!</h1>
+            <p className="text-lg text-white/80">Here's an overview of your learning journey</p>
+          </div>
+
+          {/* Analytics Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Total Sessions */}
-            <Card className="border-2">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
+            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Total Sessions</span>
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <BookOpen className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-sm font-medium text-muted-foreground">Total Sessions</span>
                   </div>
                   <TrendingUp className="w-4 h-4 text-green-600" />
                 </div>
-                <p className="text-2xl font-bold mb-2">{pastSessions.length + upcomingSessions.length}</p>
-                <div className="h-8 w-full">
+                <p className="text-3xl font-bold mb-3 tracking-tight">{pastSessions.length + upcomingSessions.length}</p>
+                <div className="h-10 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={sessionData}>
-                      <Bar dataKey="sessions" fill="#000000" radius={[2, 2, 0, 0]} />
+                      <Bar dataKey="sessions" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
                     </BarChart>
                   </ResponsiveContainer>
                 </div>
@@ -380,20 +368,22 @@ const UserDashboard = () => {
             </Card>
             
             {/* Learning Hours */}
-            <Card className="border-2">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
+            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <Target className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Learning Hours</span>
+                    <div className="p-2 bg-blue-500/10 rounded-lg">
+                      <Target className="w-4 h-4 text-blue-600" />
+                    </div>
+                    <span className="text-sm font-medium text-muted-foreground">Learning Hours</span>
                   </div>
                   <TrendingUp className="w-4 h-4 text-blue-600" />
                 </div>
-                <p className="text-2xl font-bold mb-2">35</p>
-                <div className="h-8 w-full">
+                <p className="text-3xl font-bold mb-3 tracking-tight">35</p>
+                <div className="h-10 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={learningData}>
-                      <Line dataKey="hours" stroke="#000000" strokeWidth={2} dot={false} />
+                      <Line dataKey="hours" stroke="#2563eb" strokeWidth={3} dot={false} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -401,23 +391,25 @@ const UserDashboard = () => {
             </Card>
             
             {/* Completion Rate */}
-            <Card className="border-2">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
+            <Card className="shadow-lg border-0 bg-white/95 backdrop-blur-sm">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm text-muted-foreground">Completion Rate</span>
+                    <div className="p-2 bg-green-500/10 rounded-lg">
+                      <CheckCircle className="w-4 h-4 text-green-600" />
+                    </div>
+                    <span className="text-sm font-medium text-muted-foreground">Completion Rate</span>
                   </div>
                   <TrendingUp className="w-4 h-4 text-green-600" />
                 </div>
-                <p className="text-2xl font-bold mb-2">94%</p>
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs">
+                <p className="text-3xl font-bold mb-3 tracking-tight">94%</p>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm text-muted-foreground">
                     <span>Sessions completed</span>
-                    <span>17/18</span>
+                    <span className="font-medium">17/18</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-1">
-                    <div className="bg-green-600 h-1 rounded-full" style={{width: '94%'}}></div>
+                  <div className="w-full bg-muted rounded-full h-2">
+                    <div className="bg-green-600 h-2 rounded-full transition-all duration-300" style={{width: '94%'}}></div>
                   </div>
                 </div>
               </CardContent>
@@ -427,12 +419,13 @@ const UserDashboard = () => {
       </section>
 
       {/* Main Content with Sidebar */}
-      <div className="max-w-7xl mx-auto flex gap-6 p-6">
+      <div className="container mx-auto max-w-7xl py-6">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-6">
         {/* Sidebar */}
-        <div className="w-80">
+        <div className="xl:col-span-1">
           {/* User Profile Card */}
-          <Card className="border-2 border-foreground">
-            <CardContent className="p-4">
+          <Card className="shadow-md border bg-white">
+            <CardContent className="p-6">
               <div className="flex gap-4 mb-4">
                 <div className="relative">
                   <Avatar className="w-16 h-16">
@@ -466,10 +459,10 @@ const UserDashboard = () => {
                 </div>
               </div>
               
-              <div className="p-2 bg-blue-50 rounded-lg mb-4">
+              <div className="p-3 bg-blue-50 rounded-lg mb-4 border border-blue-100">
                 <div className="flex items-center justify-center gap-2 text-xs text-blue-700">
                   <Eye className="w-3 h-3" />
-                  <span>Profile visible to experts</span>
+                  <span className="font-medium">Profile visible to experts</span>
                 </div>
               </div>
               
@@ -491,10 +484,10 @@ const UserDashboard = () => {
               </div>
               
               <Button 
-                className="w-full mt-4 rounded-full text-sm"
+                className="w-full mt-6 rounded-lg text-sm font-medium"
                 onClick={() => setShowSettings(true)}
               >
-                <Edit className="w-3 h-3 mr-2" />
+                <Edit className="w-4 h-4 mr-2" />
                 Profile & Payment Settings
               </Button>
             </CardContent>
@@ -502,18 +495,18 @@ const UserDashboard = () => {
         </div>
         
         {/* Main Content Area */}
-        <div className="flex-1">
+        <div className="xl:col-span-3">
           {/* Navigation Tabs */}
-          <div className="border-b mb-6">
+          <div className="border-b border-border mb-8">
             <div className="flex space-x-8">
               {tabs.map(tab => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 ${
+                  className={`py-4 px-1 border-b-2 font-medium text-sm flex items-center gap-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-foreground text-foreground'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                      ? 'border-primary text-foreground'
+                      : 'border-transparent text-muted-foreground hover:text-foreground hover:border-muted-foreground/40'
                   }`}
                 >
                   {tab.label}
@@ -533,7 +526,7 @@ const UserDashboard = () => {
               {upcomingSessions.map((session) => (
                 <Card 
                   key={session.id} 
-                  className="group hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 hover:border-foreground cursor-pointer h-full relative"
+                  className="group transition-all duration-300 border-0 bg-gray-100 hover:bg-gray-200 cursor-pointer h-full relative"
                   onClick={() => {
                     setSelectedSession(session)
                     setSelectedSessionType('upcoming')
@@ -560,13 +553,13 @@ const UserDashboard = () => {
                   </div>
 
                   <CardContent className="p-6 flex flex-col min-h-0">
-                    <div className="flex-1 space-y-4 text-left">
+                    <div className="flex-1 space-y-5 text-left">
                       {/* Rating and Verification Row */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1">
                             <Star className="w-4 h-4 fill-black text-black" />
-                            <span className="text-sm font-medium">{session.rating}</span>
+                            <span className="text-sm font-medium text-black">{session.rating}</span>
                           </div>
                           <span className="text-xs text-muted-foreground">
                             ({session.reviewCount})
@@ -576,10 +569,10 @@ const UserDashboard = () => {
 
                       {/* Expert Name and Title */}
                       <div>
-                        <h3 className="font-semibold text-base leading-tight text-left">
+                        <h3 className="font-semibold text-base leading-tight text-left text-black">
                           {session.expertName}
                         </h3>
-                        <p className="text-xs text-muted-foreground mt-1 text-left">
+                        <p className="text-xs text-muted-foreground mt-2 text-left">
                           {session.expertTitle}
                         </p>
                       </div>
@@ -611,7 +604,7 @@ const UserDashboard = () => {
                           {session.paymentStatus === 'paid' ? (
                             <Button 
                               size="sm" 
-                              className="rounded-full px-3 py-1 text-xs h-8 flex-1"
+                              className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all text-sm font-medium flex-1"
                             >
                               Reschedule
                             </Button>
@@ -619,7 +612,7 @@ const UserDashboard = () => {
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="rounded-full px-3 py-1 text-xs h-8 flex-1 border-2 border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed"
+                              className="rounded-full px-4 flex items-center gap-2 border border-gray-300 text-gray-500 bg-gray-50 cursor-not-allowed text-sm font-medium flex-1"
                               onClick={(e) => {
                                 e.stopPropagation()
                                 setShowPaymentMessage(true)
@@ -632,7 +625,7 @@ const UserDashboard = () => {
                           <Button 
                             size="sm" 
                             variant="outline"
-                            className="rounded-full border-2 border-foreground px-3 py-1 text-xs h-8"
+                            className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium"
                           >
                             View
                           </Button>
@@ -651,7 +644,7 @@ const UserDashboard = () => {
               {pastSessions.map((session) => (
                 <Card 
                   key={session.id} 
-                  className="group hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 hover:border-foreground cursor-pointer h-full relative"
+                  className="group transition-all duration-300 border-0 bg-gray-100 hover:bg-gray-200 cursor-pointer h-full relative"
                   onClick={() => {
                     setSelectedSession(session)
                     setSelectedSessionType('past')
@@ -678,7 +671,7 @@ const UserDashboard = () => {
                   </div>
 
                   <CardContent className="p-6 flex flex-col min-h-0">
-                    <div className="flex-1 space-y-4 text-left">
+                    <div className="flex-1 space-y-5 text-left">
                       {/* Rating and Verification Row */}
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
@@ -694,10 +687,10 @@ const UserDashboard = () => {
 
                       {/* Expert Name and Title */}
                       <div>
-                        <h3 className="font-semibold text-base leading-tight text-left">
+                        <h3 className="font-semibold text-base leading-tight text-left text-black">
                           {session.expertName}
                         </h3>
-                        <p className="text-xs text-muted-foreground mt-1 text-left">
+                        <p className="text-xs text-muted-foreground mt-2 text-left">
                           {session.expertTitle}
                         </p>
                       </div>
@@ -740,17 +733,19 @@ const UserDashboard = () => {
                         <div className="flex gap-2 w-full">
                           <Button 
                             size="sm" 
-                            className="rounded-full px-3 py-1 text-xs h-8 flex-1"
+                            className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all text-sm font-medium flex-1"
                             onClick={() => window.open(`/booking?expert=${session.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
                           >
-                            {session.cost}/hr Book Again
+                            <span>{session.cost.split('/')[0]}</span>
+                            <span className="opacity-75">/{session.cost.split('/')[1]}</span>
+                            <span className="ms-1">Book Again</span>
                           </Button>
                           
                           <div className="relative">
                             <Button 
                               size="sm" 
                               variant="outline"
-                              className="rounded-full border-2 border-foreground px-3 py-1 text-xs h-8"
+                              className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium"
                             >
                               View
                             </Button>
@@ -767,19 +762,20 @@ const UserDashboard = () => {
           
           
         </div>
+        </div>
       </div>
 
       {/* Experts Recommended for You - Footer Section */}
-      <section className="bg-gray-50 border-t px-6 py-12">
-        <div className="max-w-7xl mx-auto">
+      <section className="bg-white border-t px-6 py-12">
+        <div className="container mx-auto max-w-7xl">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl font-semibold">Recommended for You</h2>
+            <h2 className="text-2xl font-semibold tracking-tight">Recommended for You</h2>
             <div className="flex items-center gap-4">
               <div className="flex gap-2">
                 <Button 
                   variant="outline" 
                   size="icon"
-                  className="rounded-full border-2 border-foreground"
+                  className="rounded-lg border border-border shadow-sm hover:bg-gray-50"
                   onClick={() => {
                     const container = document.getElementById('experts-scroll-container')
                     if (container) {
@@ -792,7 +788,7 @@ const UserDashboard = () => {
                 <Button 
                   variant="outline" 
                   size="icon"
-                  className="rounded-full border-2 border-foreground"
+                  className="rounded-lg border border-border shadow-sm hover:bg-gray-50"
                   onClick={() => {
                     const container = document.getElementById('experts-scroll-container')
                     if (container) {
@@ -803,18 +799,18 @@ const UserDashboard = () => {
                   <ChevronRight className="w-4 h-4" />
                 </Button>
               </div>
-              <Button variant="outline" className="rounded-full border-2 border-foreground">
+              <Button variant="outline" className="rounded-lg border border-border shadow-sm hover:bg-gray-50 font-medium">
                 View All Experts
               </Button>
             </div>
           </div>
-          <div id="experts-scroll-container" className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {suggestedExperts.slice(0, 8).map((expert, index) => (
-              <div key={index} className="flex-none w-80">
+              <div key={index} className="w-full">
                 <ExpertCard 
                   expert={expert}
                   showActions={true}
-                  className=""
+                  className="h-full"
                   showCrown={expert.isTopExpert}
                   showCharity={false}
                   showVerified={expert.isVerified}
