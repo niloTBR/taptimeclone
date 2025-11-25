@@ -1710,7 +1710,7 @@ const UserDashboard = () => {
                         
                         <Button className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-6 transition-colors">
                           <Plus className="w-4 h-4 mr-2" />
-                          Add Payment Method
+                          Add Credit/Debit Card
                         </Button>
                       </div>
 
@@ -1718,106 +1718,9 @@ const UserDashboard = () => {
                       <div className="bg-gray-50 rounded-xl p-6">
                         <h4 className="text-md font-semibold mb-4 text-gray-700">Add New Payment Method</h4>
                         
-                        {/* Payment Method Selection */}
+                        {/* Credit/Debit Card Form */}
                         <div className="space-y-4 mb-6">
-                          <label className="text-sm font-semibold text-gray-700 block">Choose Payment Method</label>
-                          <div className="space-y-3">
-                            <label className={`flex items-center p-4 border rounded-xl cursor-pointer hover:bg-white transition-colors ${
-                              selectedPaymentMethod === 'card' ? 'border-black bg-white shadow-sm' : 'border-gray-300 bg-white'
-                            }`}>
-                              <input 
-                                type="radio" 
-                                name="paymentMethod" 
-                                value="card" 
-                                className="mr-4" 
-                                checked={selectedPaymentMethod === 'card'}
-                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                              />
-                              <CreditCard className="w-5 h-5 mr-3 text-gray-700" />
-                              <div>
-                                <p className="font-semibold text-sm text-gray-900">Credit/Debit Card</p>
-                                <p className="text-xs text-gray-500">Visa, Mastercard, American Express</p>
-                              </div>
-                            </label>
-                            
-                            <label className={`flex items-center p-4 border rounded-xl cursor-pointer hover:bg-white transition-colors ${
-                              selectedPaymentMethod === 'apple' ? 'border-black bg-white shadow-sm' : 'border-gray-300 bg-white'
-                            }`}>
-                              <input 
-                                type="radio" 
-                                name="paymentMethod" 
-                                value="apple" 
-                                className="mr-4" 
-                                checked={selectedPaymentMethod === 'apple'}
-                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                              />
-                              <div className="w-5 h-5 mr-3 bg-black rounded flex items-center justify-center">
-                                <span className="text-white text-xs font-bold">🍎</span>
-                              </div>
-                              <div>
-                                <p className="font-semibold text-sm text-gray-900">Apple Pay</p>
-                                <p className="text-xs text-gray-500">Pay with Touch ID or Face ID</p>
-                              </div>
-                            </label>
-                            
-                            <label className={`flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${
-                              selectedPaymentMethod === 'google' ? 'border-gray-900 bg-gray-50' : 'border-gray-300'
-                            }`}>
-                              <input 
-                                type="radio" 
-                                name="paymentMethod" 
-                                value="google" 
-                                className="mr-3" 
-                                checked={selectedPaymentMethod === 'google'}
-                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                              />
-                              <div className="w-5 h-5 mr-3 flex items-center justify-center">
-                                <span className="text-xs">G</span>
-                              </div>
-                              <div>
-                                <p className="font-medium text-sm">Google Pay</p>
-                                <p className="text-xs text-muted-foreground">Quick and secure payments</p>
-                              </div>
-                            </label>
-                            
-                            <label className={`flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${
-                              selectedPaymentMethod === 'bank' ? 'border-gray-900 bg-gray-50' : 'border-gray-300'
-                            }`}>
-                              <input 
-                                type="radio" 
-                                name="paymentMethod" 
-                                value="bank" 
-                                className="mr-3" 
-                                checked={selectedPaymentMethod === 'bank'}
-                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                              />
-                              <Building className="w-5 h-5 mr-3 text-gray-600" />
-                              <div>
-                                <p className="font-medium text-sm">Bank Transfer</p>
-                                <p className="text-xs text-muted-foreground">Direct bank account transfer</p>
-                              </div>
-                            </label>
-                            
-                            <label className={`flex items-center p-3 border rounded-lg cursor-pointer hover:bg-gray-50 ${
-                              selectedPaymentMethod === 'paypal' ? 'border-gray-900 bg-gray-50' : 'border-gray-300'
-                            }`}>
-                              <input 
-                                type="radio" 
-                                name="paymentMethod" 
-                                value="paypal" 
-                                className="mr-3" 
-                                checked={selectedPaymentMethod === 'paypal'}
-                                onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                              />
-                              <div className="w-5 h-5 mr-3 bg-blue-600 rounded flex items-center justify-center">
-                                <span className="text-white text-xs font-bold">P</span>
-                              </div>
-                              <div>
-                                <p className="font-medium text-sm">PayPal</p>
-                                <p className="text-xs text-muted-foreground">Pay with your PayPal account</p>
-                              </div>
-                            </label>
-                          </div>
+                          <label className="text-sm font-semibold text-gray-700 block">Add New Card</label>
                         </div>
 
                         {/* Conditional Forms */}
@@ -1927,89 +1830,9 @@ const UserDashboard = () => {
                             </div>
                           )}
 
-                          {selectedPaymentMethod === 'apple' && (
-                            <div className="text-center py-8 bg-gray-50 rounded-lg">
-                              <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-white text-2xl">🍎</span>
-                              </div>
-                              <h5 className="font-medium mb-2">Apple Pay</h5>
-                              <p className="text-sm text-muted-foreground mb-4">
-                                You'll be redirected to complete setup with Apple Pay
-                              </p>
-                              <Button className="bg-black hover:bg-gray-800 text-white">
-                                Continue with Apple Pay
-                              </Button>
-                            </div>
-                          )}
-
-                          {selectedPaymentMethod === 'google' && (
-                            <div className="text-center py-8 bg-gray-50 rounded-lg">
-                              <div className="w-16 h-16 border-2 border-gray-300 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-2xl font-bold text-gray-600">G</span>
-                              </div>
-                              <h5 className="font-medium mb-2">Google Pay</h5>
-                              <p className="text-sm text-muted-foreground mb-4">
-                                Quick and secure payments with Google Pay
-                              </p>
-                              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                                Continue with Google Pay
-                              </Button>
-                            </div>
-                          )}
-
-                          {selectedPaymentMethod === 'bank' && (
-                            <div className="space-y-4">
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Bank Account Type</label>
-                                <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
-                                  <option value="checking">Checking Account</option>
-                                  <option value="savings">Savings Account</option>
-                                </select>
-                              </div>
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Account Holder Name</label>
-                                <input 
-                                  type="text" 
-                                  placeholder="John Smith"
-                                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                />
-                              </div>
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Routing Number</label>
-                                <input 
-                                  type="text" 
-                                  placeholder="123456789"
-                                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                />
-                              </div>
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Account Number</label>
-                                <input 
-                                  type="text" 
-                                  placeholder="1234567890123"
-                                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                />
-                              </div>
-                            </div>
-                          )}
-
-                          {selectedPaymentMethod === 'paypal' && (
-                            <div className="text-center py-8 bg-gray-50 rounded-lg">
-                              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <span className="text-white text-xl font-bold">PayPal</span>
-                              </div>
-                              <h5 className="font-medium mb-2">PayPal</h5>
-                              <p className="text-sm text-muted-foreground mb-4">
-                                You'll be redirected to log in to your PayPal account
-                              </p>
-                              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                                Continue with PayPal
-                              </Button>
-                            </div>
-                          )}
 
                           <Button className="w-full mt-4">
-                            Add Payment Method
+                            Add Credit/Debit Card
                           </Button>
                         </div>
                       </div>
