@@ -846,7 +846,16 @@ const UserDashboard = () => {
                               </div>
                             </>
                           ) : (
-                            <span className="text-orange-600">Unrated - Please rate this session</span>
+                            <span 
+                              className="text-orange-600 cursor-pointer hover:text-orange-700 hover:underline"
+                              onClick={(e) => {
+                                e.stopPropagation()
+                                setSelectedSession(session)
+                                setShowRatingPopup(true)
+                              }}
+                            >
+                              Unrated - Please rate this session
+                            </span>
                           )}
                         </div>
                       </div>
@@ -858,24 +867,25 @@ const UserDashboard = () => {
                         <div className="flex gap-2 w-full">
                           <Button 
                             size="sm" 
-                            className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all text-sm font-medium flex-1"
-                            onClick={() => window.open(`/booking?expert=${session.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
+                            className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all flex-1"
+                            onClick={(e) => {
+                              e.preventDefault()
+                              e.stopPropagation()
+                              window.location.href = `/book/${session.expertName.toLowerCase().replace(' ', '-')}`
+                            }}
                           >
-                            <span>{session.cost.split('/')[0]}</span>
-                            <span className="opacity-75">/{session.cost.split('/')[1]}</span>
+                            <span className="text-sm font-medium">{session.cost.split('/')[0]}</span>
+                            <span className="text-xs opacity-75">/{session.cost.split('/')[1]}</span>
                             <span className="ms-1">Book Again</span>
                           </Button>
                           
-                          <div className="relative">
-                            <Button 
-                              size="sm" 
-                              variant="outline"
-                              className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium"
-                            >
-                              View
-                            </Button>
-                            <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
-                          </div>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium"
+                          >
+                            View
+                          </Button>
                         </div>
                       </div>
                     </div>
