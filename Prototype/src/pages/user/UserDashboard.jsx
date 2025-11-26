@@ -876,7 +876,7 @@ const UserDashboard = () => {
                           >
                             <span className="text-sm font-medium">{session.cost.split('/')[0]}</span>
                             <span className="text-xs opacity-75">/{session.cost.split('/')[1]}</span>
-                            <span className="ms-1">Book Again</span>
+                            <span className="ms-1">Book</span>
                           </Button>
                           
                           <Button 
