@@ -57,8 +57,35 @@ const UserDashboard = () => {
   const [showSettings, setShowSettings] = useState(false)
   const [settingsTab, setSettingsTab] = useState('basic')
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('card')
+  const [showAddPaymentForm, setShowAddPaymentForm] = useState(false)
+  const [savedCards, setSavedCards] = useState([
+    { 
+      id: 1, 
+      type: 'VISA', 
+      last4: '4242', 
+      expiry: '12/2025', 
+      isPrimary: true,
+      gradient: 'from-blue-600 to-purple-600'
+    },
+    { 
+      id: 2, 
+      type: 'MSTR', 
+      last4: '8888', 
+      expiry: '08/2026', 
+      isPrimary: false,
+      gradient: 'from-red-500 to-orange-500'
+    }
+  ])
   const [selectedSessionType, setSelectedSessionType] = useState(null)
   const [showNotifications, setShowNotifications] = useState(false)
+
+  // Handle setting primary card
+  const setPrimaryCard = (cardId) => {
+    setSavedCards(cards => cards.map(card => ({
+      ...card,
+      isPrimary: card.id === cardId
+    })))
+  }
 
   // Mock user data from onboarding
   const user = {
@@ -1646,54 +1673,73 @@ const UserDashboard = () => {
                     <div className="space-y-8">
                       {/* Current Payment Methods */}
                       <div className="bg-gray-50 rounded-xl p-6">
-                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Payment Methods</h4> {/* Force refresh */}
+                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Credit/Debit Cards</h4>
                         <div className="space-y-3 mb-6">
-                          <div className="flex items-center justify-between p-5 border border-gray-300 rounded-xl bg-white shadow-sm">
-                            <div className="flex items-center gap-4">
-                              <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white text-xs flex items-center justify-center font-bold">
-                                VISA
+                          {savedCards.map((card) => (
+                            <div key={card.id} className={`flex items-center justify-between p-5 border rounded-xl bg-white shadow-sm transition-all ${
+                              card.isPrimary ? 'border-green-300 bg-green-50' : 'border-gray-300 hover:border-gray-400'
+                            }`}>
+                              <div className="flex items-center gap-4">
+                                {savedCards.length > 1 && (
+                                  <input 
+                                    type="radio" 
+                                    name="primaryCard" 
+                                    checked={card.isPrimary}
+                                    onChange={() => setPrimaryCard(card.id)}
+                                    className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500"
+                                  />
+                                )}
+                                <div className={`w-12 h-8 bg-gradient-to-r ${card.gradient} rounded-lg text-white text-xs flex items-center justify-center font-bold`}>
+                                  {card.type}
+                                </div>
+                                <div>
+                                  <p className="font-semibold text-sm text-gray-900">•••• •••• •••• {card.last4}</p>
+                                  <p className="text-xs text-gray-500">Expires {card.expiry}</p>
+                                </div>
+                                {card.isPrimary && (
+                                  <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 border-green-200">Primary</Badge>
+                                )}
                               </div>
-                              <div>
-                                <p className="font-semibold text-sm text-gray-900">•••• •••• •••• 4242</p>
-                                <p className="text-xs text-gray-500">Expires 12/2025</p>
+                              <div className="flex gap-2">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="border-gray-300 hover:bg-gray-50"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    // Edit card functionality
+                                  }}
+                                >
+                                  Edit
+                                </Button>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+                                  onClick={(e) => {
+                                    e.preventDefault()
+                                    // Remove card functionality - could implement here
+                                  }}
+                                >
+                                  Remove
+                                </Button>
                               </div>
-                              <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 border-green-200">Primary</Badge>
                             </div>
-                            <div className="flex gap-2">
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
-                                className="border-gray-300 hover:bg-gray-50"
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  // Edit card functionality
-                                }}
-                              >
-                                Edit
-                              </Button>
-                              <Button 
-                                variant="outline" 
-                                size="sm" 
-                                className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
-                                onClick={(e) => {
-                                  e.preventDefault()
-                                  // Remove card functionality
-                                }}
-                              >
-                                Remove
-                              </Button>
-                            </div>
-                          </div>
+                          ))}
                         </div>
                         
-                        <Button className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-6 transition-colors">
+                        <Button 
+                          className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-6 transition-colors"
+                          onClick={() => setShowAddPaymentForm(!showAddPaymentForm)}
+                        >
                           <Plus className="w-4 h-4 mr-2" />
                           Add Credit/Debit Card
                         </Button>
                       </div>
 
                       {/* Add New Payment Method */}
-                      <div className="bg-gray-50 rounded-xl p-6">
+                      {showAddPaymentForm && (
+                        <div className="bg-gray-50 rounded-xl p-6">
                         <h4 className="text-md font-semibold mb-4 text-gray-700">Add New Payment Method</h4>
                         
                         {/* Credit/Debit Card Form */}
@@ -1810,7 +1856,8 @@ const UserDashboard = () => {
                             Add Credit/Debit Card
                           </Button>
                         </div>
-                      </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
