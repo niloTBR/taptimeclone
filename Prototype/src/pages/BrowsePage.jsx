@@ -12,7 +12,6 @@ import { Checkbox } from '@/components/ui/checkbox'
 import SearchBar from '@/components/common/SearchBar'
 import ExpertCard from '@/components/common/ExpertCard'
 import SectionTitle from '@/components/common/SectionTitle'
-import Header from '@/components/layout/Header'
 import { 
   Filter, 
   Grid, 
@@ -521,8 +520,6 @@ const BrowsePage = () => {
           font-weight: 700 !important;
         }
       `}</style>
-      
-      <Header variant="dark" />
       
       {/* Enhanced Header Section with Hero Background */}
       <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
