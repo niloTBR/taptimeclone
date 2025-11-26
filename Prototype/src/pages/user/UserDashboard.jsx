@@ -691,11 +691,7 @@ const UserDashboard = () => {
                       <div className="space-y-1 text-xs text-muted-foreground">
                         <p>📅 {session.date} at {session.time}</p>
                         <p>⏱️ {session.duration}</p>
-                        {session.paymentStatus === 'paid' ? (
-                          <p className="text-gray-600 font-medium">✓ Paid</p>
-                        ) : (
-                          <p className="text-orange-600 font-medium">⏳ Payment Pending</p>
-                        )}
+                        <p className="text-gray-900 font-semibold">{session.cost}</p>
                       </div>
                     </div>
 
@@ -1568,44 +1564,6 @@ const UserDashboard = () => {
                         />
                       </div>
 
-                      {/* Two-Factor Authentication */}
-                      <div className="border-t pt-6">
-                        <h4 className="text-md font-semibold mb-4">Two-Factor Authentication</h4>
-                        <div className="flex items-center justify-between p-4 border rounded-lg">
-                          <div>
-                            <h5 className="font-medium text-sm">SMS Authentication</h5>
-                            <p className="text-xs text-muted-foreground">Receive verification codes via SMS</p>
-                          </div>
-                          <Button variant="outline" size="sm">
-                            Enable
-                          </Button>
-                        </div>
-                      </div>
-
-                      {/* Login Sessions */}
-                      <div className="border-t pt-6">
-                        <h4 className="text-md font-semibold mb-4">Active Sessions</h4>
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between p-3 border rounded-lg">
-                            <div>
-                              <h5 className="font-medium text-sm">Current Session</h5>
-                              <p className="text-xs text-muted-foreground">MacBook Pro • Chrome • San Francisco, CA</p>
-                              <p className="text-xs text-muted-foreground">Last active: Now</p>
-                            </div>
-                            <Badge variant="secondary">Current</Badge>
-                          </div>
-                          <div className="flex items-center justify-between p-3 border rounded-lg">
-                            <div>
-                              <h5 className="font-medium text-sm">iPhone</h5>
-                              <p className="text-xs text-muted-foreground">Safari • San Francisco, CA</p>
-                              <p className="text-xs text-muted-foreground">Last active: 2 hours ago</p>
-                            </div>
-                            <Button variant="outline" size="sm" className="text-red-600 border-red-200 hover:bg-red-50">
-                              Revoke
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 )}
@@ -1630,7 +1588,7 @@ const UserDashboard = () => {
                       <div className="bg-gray-50 rounded-xl p-6">
                         <label className="text-sm font-semibold text-gray-700 mb-3 block">Areas of Interest</label>
                         <div className="grid grid-cols-2 gap-3 mb-4">
-                          {['Product Strategy', 'Marketing', 'Leadership', 'Technology', 'Finance', 'Operations', 'Design', 'Sales'].map((area) => (
+                          {['Business & Startups', 'Technology & Innovation', 'Design & Creativity', 'Marketing & Growth', 'Finance & Economics', 'Health & Wellness'].map((area) => (
                             <label key={area} className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
                               <input type="checkbox" className="mr-3 rounded" />
                               <span className="text-sm font-medium">{area}</span>
@@ -1688,7 +1646,7 @@ const UserDashboard = () => {
                     <div className="space-y-8">
                       {/* Current Payment Methods */}
                       <div className="bg-gray-50 rounded-xl p-6">
-                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Payment Methods</h4>
+                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Payment Methods</h4> {/* Force refresh */}
                         <div className="space-y-3 mb-6">
                           <div className="flex items-center justify-between p-5 border border-gray-300 rounded-xl bg-white shadow-sm">
                             <div className="flex items-center gap-4">
