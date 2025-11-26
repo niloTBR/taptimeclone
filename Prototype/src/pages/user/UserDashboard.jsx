@@ -1310,8 +1310,20 @@ const UserDashboard = () => {
       {showRatingPopup && selectedSession && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <Card className="w-full max-w-md mx-4 border-2 border-foreground">
-            <CardHeader>
+            <CardHeader className="relative">
               <CardTitle>Rate Your Session</CardTitle>
+              <Button 
+                size="sm" 
+                variant="ghost"
+                className="absolute top-2 right-2 rounded-full w-8 h-8 p-0"
+                onClick={() => {
+                  setShowRatingPopup(false)
+                  setSelectedRating(0)
+                  setRatingComment('')
+                }}
+              >
+                <X className="w-4 h-4" />
+              </Button>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center">
@@ -1340,20 +1352,9 @@ const UserDashboard = () => {
                 />
               </div>
               
-              <div className="flex gap-3">
+              <div className="flex justify-center">
                 <Button 
-                  variant="outline" 
-                  className="flex-1 rounded-full border-2 border-foreground"
-                  onClick={() => {
-                    setShowRatingPopup(false)
-                    setSelectedRating(0)
-                    setRatingComment('')
-                  }}
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  className="flex-1 rounded-full"
+                  className="w-full rounded-full bg-green-600 hover:bg-green-700 text-white"
                   onClick={() => {
                     // Here you would save the rating
                     console.log('Rating:', selectedRating, 'Comment:', ratingComment)
