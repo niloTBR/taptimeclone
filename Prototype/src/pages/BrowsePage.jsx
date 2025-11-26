@@ -522,7 +522,7 @@ const BrowsePage = () => {
         }
       `}</style>
       
-      <Header />
+      <Header variant="dark" />
       
       {/* Enhanced Header Section with Hero Background */}
       <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
@@ -1043,22 +1043,10 @@ const BrowsePage = () => {
 
               {/* Results Display */}
               {viewMode === 'table' ? (
-                <div className="overflow-x-auto">
-                  <table className="w-full bg-white border border-gray-200 rounded-lg">
-                    <thead>
-                      <tr className="border-b bg-gray-50">
-                        <th className="text-left p-4 font-medium text-sm text-muted-foreground w-44">Photo</th>
-                        <th className="text-left p-4 font-medium text-sm text-muted-foreground w-72">Expert Details</th>
-                        <th className="text-left p-4 font-medium text-sm text-muted-foreground w-80">About</th>
-                        <th className="text-right p-4 font-medium text-sm text-muted-foreground w-48">Book Session</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {filteredExperts.map((expert, index) => (
-                        <ExpertTableRow key={expert.id} expert={expert} index={index} />
-                      ))}
-                    </tbody>
-                  </table>
+                <div className="space-y-4">
+                  {filteredExperts.map((expert, index) => (
+                    <ExpertListItem key={expert.id} expert={expert} index={index} />
+                  ))}
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
