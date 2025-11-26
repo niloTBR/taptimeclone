@@ -12,6 +12,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import SearchBar from '@/components/common/SearchBar'
 import ExpertCard from '@/components/common/ExpertCard'
 import SectionTitle from '@/components/common/SectionTitle'
+import Header from '@/components/layout/Header'
 import { 
   Filter, 
   Grid, 
@@ -508,10 +509,101 @@ const BrowsePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Simple Header */}
-      <section className="py-8 px-4 border-b bg-white">
-        <div className="container mx-auto max-w-7xl">
-          <h1 className="text-2xl font-semibold">Browse Experts</h1>
+      <style jsx>{`
+        .force-black-text * {
+          color: #000000 !important;
+        }
+        .force-gray-text {
+          color: #6B7280 !important;
+        }
+        .analytics-number {
+          color: #000000 !important;
+          font-weight: 700 !important;
+        }
+      `}</style>
+      
+      <Header />
+      
+      {/* Enhanced Header Section with Hero Background */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-6 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="absolute inset-0 bg-[#48768c]/80"></div>
+        <div className="container mx-auto max-w-7xl relative z-10">
+          {/* Welcome Text */}
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-bold mb-4">Discover Expert Knowledge</h1>
+            <p className="text-xl text-white/90">Connect with industry leaders and accelerate your growth</p>
+          </div>
+
+          {/* Stats Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 justify-start">
+            {/* Total Experts */}
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-lg flex-shrink-0 self-center">
+                    <Users className="w-6 h-6 text-blue-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">{stats.totalExperts}+</p>
+                      <p className="text-sm font-medium force-gray-text">Expert Advisors</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Categories */}
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-emerald-50 rounded-lg flex-shrink-0 self-center">
+                    <Briefcase className="w-6 h-6 text-emerald-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">{stats.categories}</p>
+                      <p className="text-sm font-medium force-gray-text">Categories</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            {/* Countries */}
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-violet-50 rounded-lg flex-shrink-0 self-center">
+                    <Globe className="w-6 h-6 text-violet-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">{stats.countries}+</p>
+                      <p className="text-sm font-medium force-gray-text">Countries</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Average Rating */}
+            <Card className="border-0 bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer force-black-text">
+              <CardContent className="p-4">
+                <div className="flex gap-4 h-20">
+                  <div className="flex items-center justify-center w-12 h-12 bg-amber-50 rounded-lg flex-shrink-0 self-center">
+                    <Star className="w-6 h-6 text-amber-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col">
+                    <div className="flex-1">
+                      <p className="text-2xl font-bold analytics-number">{stats.averageRating}</p>
+                      <p className="text-sm font-medium force-gray-text">Average Rating</p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
@@ -525,16 +617,16 @@ const BrowsePage = () => {
               <Button 
                 variant="outline" 
                 onClick={() => setShowFilters(!showFilters)}
-                className="w-full border-2 border-foreground rounded-full"
+                className="w-full border-2 border-gray-300 rounded-full bg-white/95 backdrop-blur-sm hover:bg-white hover:shadow-lg transition-all duration-300"
               >
                 <SlidersHorizontal className="w-4 h-4 mr-2" />
                 Filters & Sort
               </Button>
             </div>
 
-            {/* Clean Collapsible Sidebar */}
+            {/* Enhanced Glass Morphism Sidebar */}
             <div className={`lg:block ${showFilters ? 'block' : 'hidden'} w-full lg:w-80`}>
-              <div className="bg-white rounded-lg border p-4 space-y-4">
+              <div className="bg-white/95 backdrop-blur-sm rounded-xl border border-gray-200/50 p-6 space-y-6 shadow-xl hover:bg-white transition-all duration-300">
                 <div>
                   <h3 className="text-lg font-semibold">Filters</h3>
                 </div>
