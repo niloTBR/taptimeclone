@@ -553,26 +553,27 @@ const BrowsePage = () => {
               </Button>
             </div>
 
-            {/* Clean Sidebar */}
+            {/* Improved Sidebar */}
             <div className={`lg:block ${showFilters ? 'block' : 'hidden'} w-full lg:w-80`}>
-              <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-4">
+              <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6 shadow-sm">
                 <div>
-                  <h3 className="text-lg font-semibold">Filters</h3>
+                  <h3 className="text-xl font-bold mb-2">Filters</h3>
+                  <p className="text-sm text-gray-500">Refine your expert search</p>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-4">
                   {/* Category */}
                   <Collapsible open={openSection === 'category'} onOpenChange={() => setOpenSection(openSection === 'category' ? '' : 'category')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4" />
-                        Category
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Briefcase className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Category</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {['All Categories', 'Business & Startups', 'Technology & Innovation', 'Design & Creativity', 'Marketing & Growth', 'Finance & Economics', 'Health & Wellness'].map((category) => (
-                        <div key={category} className="flex items-center space-x-2 pl-6">
+                        <div key={category} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={category}
                             checked={selectedCategory === category}
@@ -583,8 +584,9 @@ const BrowsePage = () => {
                                 setSelectedCategory('All Categories')
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={category} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={category} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {category}
                           </Label>
                         </div>
@@ -592,7 +594,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Price Range */}
                   <Collapsible open={openSection === 'price'} onOpenChange={() => setOpenSection(openSection === 'price' ? '' : 'price')}>
@@ -625,7 +627,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
 
                   {/* Expert Level */}
@@ -659,7 +661,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Gender */}
                   <Collapsible open={openSection === 'gender'} onOpenChange={() => setOpenSection(openSection === 'gender' ? '' : 'gender')}>
@@ -692,7 +694,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Location */}
                   <Collapsible open={openSection === 'location'} onOpenChange={() => setOpenSection(openSection === 'location' ? '' : 'location')}>
@@ -725,7 +727,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Industry */}
                   <Collapsible open={openSection === 'industry'} onOpenChange={() => setOpenSection(openSection === 'industry' ? '' : 'industry')}>
@@ -758,7 +760,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Expertise */}
                   <Collapsible open={openSection === 'expertise'} onOpenChange={() => setOpenSection(openSection === 'expertise' ? '' : 'expertise')}>
@@ -793,7 +795,7 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <Separator />
+                  <div className="border-t border-gray-200 my-4"></div>
 
                   {/* Language */}
                   <Collapsible open={openSection === 'language'} onOpenChange={() => setOpenSection(openSection === 'language' ? '' : 'language')}>
