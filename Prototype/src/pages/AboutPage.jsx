@@ -237,14 +237,14 @@ const AboutPage = () => {
             className="mb-12"
           />
           
-          <div className="prose prose-lg mx-auto text-muted-foreground space-y-6">
-            <p className="leading-relaxed">
+          <div className="prose prose-lg mx-auto space-y-6">
+            <p className="leading-relaxed text-black/70">
               TapTime was born from a simple observation: while the world is full of incredibly talented professionals, most people struggle to access their expertise when they need it most. Traditional mentorship is expensive, time-consuming, and often mismatched.
             </p>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed text-black/70">
               Founded in 2024, we set out to bridge this gap by creating a platform where expertise meets opportunity. Our team came together with a shared vision of making professional guidance accessible to everyone, everywhere.
             </p>
-            <p className="leading-relaxed">
+            <p className="leading-relaxed text-black/70">
               Today, we're building a global community where knowledge flows freely, connecting ambitious professionals with industry leaders who've already solved their exact challenges. Every session is designed for immediate impact and real results.
             </p>
           </div>

@@ -25,30 +25,6 @@ const PageHeader = ({
       <div className="relative z-10">
       <div className="container mx-auto max-w-5xl">
         <div className="space-y-8">
-          {/* Breadcrumbs */}
-          {breadcrumbs.length > 0 && (
-            <nav className="flex items-center space-x-2 text-sm text-muted-foreground">
-              <Link to="/" className="flex items-center hover:text-foreground transition-colors">
-                <Home className="w-4 h-4" />
-              </Link>
-              {breadcrumbs.map((crumb, index) => (
-                <div key={index} className="flex items-center space-x-2">
-                  <ChevronRight className="w-4 h-4" />
-                  {crumb.href ? (
-                    <Link 
-                      to={crumb.href}
-                      className="hover:text-foreground transition-colors"
-                    >
-                      {crumb.label}
-                    </Link>
-                  ) : (
-                    <span className="text-foreground font-medium">{crumb.label}</span>
-                  )}
-                </div>
-              ))}
-            </nav>
-          )}
-
           {/* Content */}
           <div className="text-center space-y-6">
             <div className="space-y-4">
