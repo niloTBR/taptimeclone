@@ -40,6 +40,7 @@ const JoinExpertPage = () => {
   } = joinExpertData
 
   const [currentRequirementIndex, setCurrentRequirementIndex] = useState(0)
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
 
   // Enhanced requirements with clean icons
   const enhancedRequirements = [
@@ -231,7 +232,7 @@ const JoinExpertPage = () => {
         </div>
       </section>
 
-      {/* Expert Testimonials - Homepage Style */}
+      {/* Expert Testimonials - Homepage Style Carousel */}
       <section className="content-section section-padding py-20">
         <div className="page-container">
           <motion.div
@@ -247,35 +248,75 @@ const JoinExpertPage = () => {
               className="mb-12"
             />
             
-            <div className={styles.reviewsGrid}>
-              {testimonials.map((testimonial, index) => (
-                <motion.div 
-                  key={testimonial.id}
-                  className={styles.reviewCard}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.6 }}
-                  viewport={{ once: true }}
+            {/* Reviews Carousel */}
+            <div className={styles.reviewsCarousel}>
+              <div 
+                className={styles.reviewsContainer}
+                style={{ transform: `translateX(-${currentReviewIndex * (100/3)}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <motion.div 
+                    key={testimonial.id}
+                    className={styles.reviewCard}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: (index % 3) * 0.1, duration: 0.6 }}
+                    viewport={{ once: true }}
+                    style={{ width: 'calc((100% - 4rem) / 3)' }}
+                  >
+                    <div className={styles.reviewStars}>
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="w-4 h-4 fill-black text-black" />
+                      ))}
+                    </div>
+                    <p className={styles.reviewText}>
+                      "{testimonial.quote}"
+                    </p>
+                    <div className={styles.reviewAuthor}>
+                      <div className={styles.authorAvatar}>
+                        {getInitials(testimonial.name)}
+                      </div>
+                      <div className={styles.authorInfo}>
+                        <div className={styles.authorName}>{testimonial.name}</div>
+                        <div className={styles.authorRole}>{testimonial.title}</div>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Reviews Pagination */}
+            <div className={styles.paginationControls} style={{ marginTop: '2rem' }}>
+              <div className={styles.paginationArrows}>
+                <button
+                  onClick={() => {
+                    setCurrentReviewIndex(prev => prev > 0 ? prev - 1 : Math.max(0, testimonials.length - 3))
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
                 >
-                  <div className={styles.reviewStars}>
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-black text-black" />
-                    ))}
-                  </div>
-                  <p className={styles.reviewText}>
-                    "{testimonial.quote}"
-                  </p>
-                  <div className={styles.reviewAuthor}>
-                    <div className={styles.authorAvatar}>
-                      {getInitials(testimonial.name)}
-                    </div>
-                    <div>
-                      <div className={styles.authorName}>{testimonial.name}</div>
-                      <div className={styles.authorRole}>{testimonial.title}</div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
+                  <ChevronLeft />
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentReviewIndex(prev => prev < testimonials.length - 3 ? prev + 1 : 0)
+                  }}
+                  className={styles.paginationArrow}
+                  type="button"
+                >
+                  <ChevronRight />
+                </button>
+              </div>
+              <div className={styles.paginationDots}>
+                {Array.from({ length: Math.max(1, testimonials.length - 2) }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentReviewIndex(i)}
+                    className={`${styles.dot} ${i === currentReviewIndex ? styles.active : ''}`}
+                  />
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -346,13 +387,13 @@ const JoinExpertPage = () => {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 px-4 bg-gray-50">
+      <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
           <SectionTitle 
             miniTitle="FAQ"
             title="Frequently Asked Questions"
             description="Everything you need to know about becoming a TapTime expert"
-            className="mb-12"
+            className="mb-12 text-white [&_h2]:text-white [&_p]:text-white/90"
           />
           
           <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
