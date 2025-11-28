@@ -184,27 +184,22 @@ const HomePage = () => {
               />
             </motion.div>
 
-            {/* Rotating Scroll Badge */}
+            {/* Simple Scroll Arrow with Faded Circle */}
             {showScrollIndicator && (
               <motion.div 
-                className={styles.scrollIndicator}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: showScrollIndicator ? 1 : 0, scale: showScrollIndicator ? 1 : 0.8 }}
-                transition={{ duration: 0.3 }}
+                className="fixed bottom-8 right-4 cursor-pointer z-10"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.5,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
                 onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
               >
-              <div className={styles.scrollBadge}>
-                <svg viewBox="0 0 100 100">
-                  <defs>
-                    <path id="circle" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
-                  </defs>
-                  <text fontSize="6" fontWeight="500" letterSpacing="0.1em">
-                    <textPath href="#circle">
-                      SCROLL DOWN • SCROLL DOWN • SCROLL 
-                    </textPath>
-                  </text>
-                </svg>
-              </div>
+                <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/20 transition-colors">
+                  <ChevronDown className="w-6 h-6 text-white" />
+                </div>
               </motion.div>
             )}
           </motion.div>

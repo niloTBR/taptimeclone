@@ -1030,10 +1030,14 @@ const BrowsePage = () => {
 
               {/* Results Display */}
               {viewMode === 'table' ? (
-                <div className="space-y-4">
-                  {filteredExperts.map((expert, index) => (
-                    <ExpertTableRow key={expert.id} expert={expert} index={index} />
-                  ))}
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <tbody>
+                      {filteredExperts.map((expert, index) => (
+                        <ExpertTableRow key={expert.id} expert={expert} index={index} />
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -1070,7 +1074,11 @@ const BrowsePage = () => {
               {/* Load More */}
               {filteredExperts.length > 0 && (
                 <div className="text-center pt-8">
-                  <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-foreground">
+                  <Button 
+                    size="lg" 
+                    variant="outline" 
+                    className="rounded-full px-8 border-2 border-black text-black hover:bg-black hover:text-white transition-all duration-200"
+                  >
                     Load More Experts
                   </Button>
                 </div>
