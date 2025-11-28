@@ -385,11 +385,14 @@ const JoinExpertPage = () => {
       {/* FAQ */}
       <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
-          <SectionTitle 
-            title="Frequently Asked Questions"
-            description="Everything you need to know about becoming a TapTime expert"
-            className="mb-12 [&_h2]:text-white [&_p]:text-white [&_.text-muted-foreground]:text-white/90"
-          />
+          <div className="text-center space-y-2 mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white" style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
+              Frequently Asked Questions
+            </h2>
+            <p className="text-lg text-white/90 max-w-3xl leading-relaxed mx-auto">
+              Everything you need to know about becoming a TapTime expert
+            </p>
+          </div>
           
           <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
             {faq.map((item, index) => (
