@@ -105,10 +105,10 @@ const JoinExpertPage = () => {
         <div className="container mx-auto max-w-5xl">
           <div className="text-center space-y-8">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-4">
+              <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white mb-4">
                 {hero.title}
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto">
+              <p className="text-sm md:text-base text-white/90 max-w-3xl mx-auto">
                 {hero.subtitle}
               </p>
             </div>
@@ -135,7 +135,7 @@ const JoinExpertPage = () => {
             
             {/* Apply Button - Below Stats */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-gray-100" asChild>
+              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-green-500 hover:text-white transition-all" asChild>
                 <Link to="/signup?type=expert">
                   Apply to Become an Expert
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -339,10 +339,10 @@ const JoinExpertPage = () => {
       <section className="py-20 px-4 bg-black text-white">
         <div className="container mx-auto max-w-4xl text-center space-y-8">
           <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">
+            <h2 className="text-3xl md:text-4xl font-bold">
               Ready to Start Earning?
             </h2>
-            <p className="text-xl text-white/80 max-w-2xl mx-auto">
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
               Join the leading platform for expert knowledge sharing and start monetizing your expertise today.
             </p>
           </div>
