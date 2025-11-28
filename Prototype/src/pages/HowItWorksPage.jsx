@@ -87,20 +87,20 @@ const HowItWorksPage = () => {
         <div className="relative z-10">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="space-y-6">
-            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
+            <h1 className="text-xl md:text-2xl font-semibold tracking-tight text-white">
               Tap Into The Journey That Shapes You
             </h1>
-            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-sm md:text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
               We believe the shortest path between you and your biggest leaps is the knowledge, wisdom and truth of someone who has done the work before you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-gray-100" asChild>
+              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-green-500 hover:text-white transition-all" asChild>
                 <Link to="/browse">
                   Find Your Expert
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-white text-white hover:bg-white hover:text-black" asChild>
+              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-white text-white hover:bg-white hover:text-black transition-all" asChild>
                 <Link to="/join-expert">
                   Become an Expert
                 </Link>
@@ -122,34 +122,6 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* What You Gain */}
-      <section className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            miniTitle="What you gain"
-            title="Four key benefits that transform how you grow"
-            className="mb-16"
-          />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow text-center">
-                <CardContent className="pt-6 space-y-4 p-6">
-                  <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mx-auto">
-                    <CheckCircle className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-lg font-semibold">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {benefit.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* How It Works Steps - Homepage Style */}
       <section className="content-section-alternate section-padding py-20">
@@ -322,35 +294,41 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="bg-gray-100 border-0 shadow-lg">
-            <CardContent className="p-12 text-center space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-semibold">
-                  Ready to tap into expert wisdom?
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Join thousands who've accelerated their success with TapTime
-                </p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="rounded-full px-8 bg-black text-white hover:bg-gray-800" asChild>
-                  <Link to="/browse">
-                    Browse Experts
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-black bg-white hover:bg-gray-50" asChild>
-                  <Link to="/join-expert">
-                    Share Your Expertise
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+      {/* Final CTA - Homepage Style */}
+      <section className="py-20 px-4 bg-black text-white">
+        <div className="container mx-auto max-w-4xl text-center space-y-8">
+          <div className="space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold">
+              Ready to tap into expert wisdom?
+            </h2>
+            <p className="text-lg text-white/80 max-w-2xl mx-auto">
+              Join thousands who've accelerated their success with TapTime
+            </p>
+          </div>
+          
+          <Button 
+            size="lg" 
+            className="rounded-full px-10 py-6 text-lg font-medium shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            style={{
+              background: 'linear-gradient(-45deg, #10b981, #059669, #047857, #10b981)',
+              backgroundSize: '400% 400%',
+              animation: 'gradient 3s ease infinite'
+            }}
+            asChild
+          >
+            <Link to="/browse">
+              Browse Experts
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          
+          <style jsx>{`
+            @keyframes gradient {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+          `}</style>
         </div>
       </section>
     </div>
