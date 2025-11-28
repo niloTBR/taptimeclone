@@ -769,30 +769,3 @@ button:has(.lucide-sparkles) svg {
   }
 }
 
-/* Mobile-specific fixes for button colors only */
-@media (max-width: 768px) {
-  /* Only fix buttons, not backgrounds */
-  .primary-button,
-  .ios-button.login,
-  button.bg-\\[\\#efffba\\] {
-    background-color: #efffba !important;
-    color: #000000 !important;
-    border-color: #efffba !important;
-  }
-  
-  /* Keep main background white on mobile */
-  body, #root {
-    background-color: rgb(var(--background)) !important;
-  }
-}
-
-/* Touch device specific fixes - buttons only */
-@media (hover: none) and (pointer: coarse) {
-  /* Only fix buttons on touch devices, not page backgrounds */
-  button.primary-button,
-  .ios-button.login,
-  button[class*="bg-[#efffba]"] {
-    background-color: #efffba !important;
-    color: #000000 !important;
-  }
-}
