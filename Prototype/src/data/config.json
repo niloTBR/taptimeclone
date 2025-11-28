@@ -4,7 +4,7 @@
     "language": "en",
     "timezone": "UTC",
     "features": {
-      "darkMode": true,
+      "darkMode": false,
       "animations": true,
       "accessibility": true
     }
