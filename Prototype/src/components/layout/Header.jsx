@@ -148,12 +148,18 @@ const Header = () => {
             ) : (
               // Regular pages: Show login/signup
               header.actions.map((action, index) => {
-                // Determine button class based on label
-                const buttonClass = action.label.toLowerCase().includes('log') 
-                  ? 'login' 
-                  : action.label.toLowerCase().includes('sign') 
-                    ? 'signup' 
-                    : 'default';
+                // Determine button style based on variant and background
+                const isLogin = action.variant === 'ghost';
+                const isDarkBg = location.pathname === '/join-expert' || 
+                                location.pathname === '/how-it-works' ||
+                                location.pathname === '/' ||
+                                isOnDarkSection;
+                
+                const buttonClassName = isLogin 
+                  ? isDarkBg 
+                    ? "rounded-full border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all px-4"
+                    : "rounded-full border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all px-4"
+                  : "rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all px-4";
                 
                 return (
                   <motion.div
@@ -166,7 +172,7 @@ const Header = () => {
                   >
                     <Button
                       size="sm"
-                      className="rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4"
+                      className={buttonClassName}
                       asChild
                     >
                       <Link to={action.href}>{action.label}</Link>
