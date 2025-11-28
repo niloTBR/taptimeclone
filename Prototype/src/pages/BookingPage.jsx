@@ -32,8 +32,26 @@ const BookingPage = () => {
   const [selectedDuration, setSelectedDuration] = useState(null)
   const [selectedDate, setSelectedDate] = useState(null)
   const [selectedTime, setSelectedTime] = useState(null)
-  const [calendarDate, setCalendarDate] = useState(new Date())
+  const [calendarDate, setCalendarDate] = useState(new Date(2024, 10, 29)) // Start at November 29, 2024
   const [formData, setFormData] = useState({})
+  const [selectedPaymentCard, setSelectedPaymentCard] = useState(1)
+  const [showAddCard, setShowAddCard] = useState(false)
+  const [savedCards] = useState([
+    { 
+      id: 1, 
+      type: 'VISA', 
+      last4: '4242', 
+      expiry: '12/2025',
+      gradient: 'from-blue-600 to-purple-600'
+    },
+    { 
+      id: 2, 
+      type: 'MSTR', 
+      last4: '8888', 
+      expiry: '08/2026',
+      gradient: 'from-red-500 to-orange-500'
+    }
+  ])
 
   const getInitials = (name) => {
     return name
@@ -92,7 +110,7 @@ const BookingPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-32">
       {/* White Top Bar */}
       <div className="bg-white border-b shadow-sm">
         <div className="container mx-auto max-w-6xl px-4 py-4">
@@ -269,15 +287,14 @@ const BookingPage = () => {
                             setSelectedTime(null) // Reset time when date changes
                           }}
                           disabled={(date) => {
-                            // Disable past dates and dates without availability
-                            const today = new Date()
-                            today.setHours(0, 0, 0, 0)
-                            if (date < today) return true
-                            
+                            // Disable dates without availability
                             const dateStr = date.toISOString().split('T')[0]
                             const hasAvailability = calendar.availableSlots.some(day => day.date === dateStr)
                             return !hasAvailability
                           }}
+                          month={new Date(2024, 10, 1)} // Show November 2024
+                          fromMonth={new Date(2024, 10, 1)} // Allow navigation from November
+                          toMonth={new Date(2024, 11, 31)} // Allow navigation to December
                           className="rounded-md border"
                         />
                       </div>
@@ -392,45 +409,96 @@ const BookingPage = () => {
                       </p>
                     </div>
                     
-                    <div className="space-y-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium mb-2">Card Number</label>
-                          <input 
-                            type="text" 
-                            placeholder="1234 5678 9012 3456"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium mb-2">Expiry Date</label>
-                          <input 
-                            type="text" 
-                            placeholder="MM/YY"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium mb-2">CVV</label>
-                          <input 
-                            type="text" 
-                            placeholder="123"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium mb-2">Cardholder Name</label>
-                          <input 
-                            type="text" 
-                            placeholder="John Doe"
-                            className="w-full p-3 border border-gray-300 rounded-lg"
-                          />
-                        </div>
+                    {/* Saved Cards */}
+                    <div>
+                      <h4 className="text-sm font-medium mb-4">Select Payment Method</h4>
+                      <div className="space-y-3">
+                        {savedCards.map((card) => (
+                          <label
+                            key={card.id}
+                            className={`flex items-center gap-4 p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                              selectedPaymentCard === card.id
+                                ? 'border-black bg-gray-50'
+                                : 'border-gray-200 hover:border-gray-400'
+                            }`}
+                          >
+                            <input
+                              type="radio"
+                              name="paymentCard"
+                              value={card.id}
+                              checked={selectedPaymentCard === card.id}
+                              onChange={() => setSelectedPaymentCard(card.id)}
+                              className="w-4 h-4 text-black"
+                            />
+                            <div className={`w-12 h-8 bg-gradient-to-r ${card.gradient} rounded text-white text-xs flex items-center justify-center font-bold`}>
+                              {card.type}
+                            </div>
+                            <div className="flex-1">
+                              <p className="font-medium text-sm">•••• •••• •••• {card.last4}</p>
+                              <p className="text-xs text-gray-500">Expires {card.expiry}</p>
+                            </div>
+                          </label>
+                        ))}
+                        
+                        {/* Add New Card Option */}
+                        <button
+                          onClick={() => setShowAddCard(!showAddCard)}
+                          type="button"
+                          className="w-full p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-gray-400 transition-colors flex items-center justify-center gap-2 text-gray-600"
+                        >
+                          <CreditCard className="w-5 h-5" />
+                          <span className="text-sm font-medium">Add New Card</span>
+                        </button>
                       </div>
                     </div>
+                    
+                    {/* Add New Card Form (Hidden by default) */}
+                    {showAddCard && (
+                      <div className="space-y-4 p-4 border rounded-lg bg-gray-50">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Card Number</label>
+                            <input 
+                              type="text" 
+                              placeholder="1234 5678 9012 3456"
+                              className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Expiry Date</label>
+                            <input 
+                              type="text" 
+                              placeholder="MM/YY"
+                              className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">CVV</label>
+                            <input 
+                              type="text" 
+                              placeholder="123"
+                              className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">Cardholder Name</label>
+                            <input 
+                              type="text" 
+                              placeholder="John Doe"
+                              className="w-full p-3 border border-gray-300 rounded-lg focus:border-black focus:outline-none"
+                            />
+                          </div>
+                        </div>
+                        
+                        <label className="flex items-center gap-2 text-sm">
+                          <input type="checkbox" className="rounded border-gray-300" />
+                          <span>Save this card for future payments</span>
+                        </label>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
               )}
@@ -441,7 +509,7 @@ const BookingPage = () => {
                   variant="outline" 
                   onClick={handleBack}
                   disabled={currentStep === 1}
-                  className="rounded-full px-6 border-2 border-foreground"
+                  className="rounded-full px-6 border-2 border-gray-300 text-gray-700 hover:border-black hover:bg-black hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Back
@@ -450,7 +518,8 @@ const BookingPage = () => {
                 <Button 
                   onClick={handleNext}
                   disabled={!canProceed()}
-                  className="rounded-full px-6"
+                  variant="outline"
+                  className="rounded-full px-6 border-2 border-black text-black hover:bg-black hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {currentStep === 4 ? (
                     <>
@@ -523,26 +592,9 @@ const BookingPage = () => {
                     <>
                       <div className="border-t my-3" />
                       <div className="bg-gray-50 p-3 rounded-lg">
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-sm">Session fee</span>
-                          <span className="text-sm">${getCurrentPrice()}</span>
-                        </div>
-                        {selectedSession.type !== 'bundle' && (
-                          <div className="flex justify-between items-center mb-1">
-                            <span className="text-sm">Platform fee</span>
-                            <span className="text-sm">$5</span>
-                          </div>
-                        )}
-                        {selectedSession.type === 'bundle' && (
-                          <div className="flex justify-between items-center mb-1 text-green-600">
-                            <span className="text-sm">Bundle discount</span>
-                            <span className="text-sm">-${selectedSession.savings}</span>
-                          </div>
-                        )}
-                        <Separator className="my-2" />
-                        <div className="flex justify-between items-center font-semibold">
-                          <span>Total</span>
-                          <span>${selectedSession.type === 'bundle' ? getCurrentPrice() : getCurrentPrice() + 5}</span>
+                        <div className="flex justify-between items-center">
+                          <span className="text-gray-600">Session Price</span>
+                          <span className="font-semibold text-xl">${getCurrentPrice()}</span>
                         </div>
                       </div>
                     </>

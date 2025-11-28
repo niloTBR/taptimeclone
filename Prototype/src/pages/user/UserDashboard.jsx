@@ -1004,6 +1004,22 @@ const UserDashboard = () => {
                   </Button>
                 </div>
                 
+                {/* Expert Info with Photo - Moved above tabs */}
+                <div 
+                  className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors mb-4"
+                  onClick={() => window.open(`/expert/${selectedSession.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
+                >
+                  <Avatar className="w-12 h-12">
+                    <AvatarImage src={selectedSession.avatar} alt={selectedSession.expertName} />
+                    <AvatarFallback>{getInitials(selectedSession.expertName)}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-semibold text-sm truncate">{selectedSession.expertName}</h4>
+                    <p className="text-xs text-muted-foreground truncate">{selectedSession.expertTitle}</p>
+                  </div>
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                </div>
+                
                 {/* Tab Navigation */}
                 <div className="flex space-x-4 border-b">
                   <button
@@ -1030,23 +1046,6 @@ const UserDashboard = () => {
               </CardHeader>
               <CardContent className={`${sessionDetailTab === 'chat' ? 'h-[calc(100vh-12rem)] flex flex-col' : 'space-y-4'}`}>{sessionDetailTab === 'summary' && (
                 <div className="space-y-4">
-                {/* Expert Info with Photo */}
-                <div 
-                  className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors"
-                  onClick={() => window.open(`/expert/${selectedSession.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
-                >
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage src={selectedSession.avatar} alt={selectedSession.expertName} />
-                    <AvatarFallback>{getInitials(selectedSession.expertName)}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-sm truncate">Dr. {selectedSession.expertName}</h4>
-                    <p className="text-xs text-muted-foreground truncate">{selectedSession.expertise}</p>
-                  </div>
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
-                </div>
-
-                <div className="border-t my-3" />
 
                 {/* Session Details */}
                 <div>
@@ -1071,26 +1070,6 @@ const UserDashboard = () => {
                   <div className="flex items-center gap-2 text-sm mt-1">
                     <Clock className="w-4 h-4" />
                     <span>{selectedSession.time}</span>
-                  </div>
-                </div>
-
-                {/* Payment Status */}
-                <div className="border-t my-3" />
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm">Session fee</span>
-                    <span className="text-sm">{selectedSession.cost}</span>
-                  </div>
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm">Platform fee</span>
-                    <span className="text-sm">$5</span>
-                  </div>
-                  <div className="border-t my-2" />
-                  <div className="flex justify-between items-center font-semibold">
-                    <span>Status</span>
-                    <Badge variant={selectedSession.paymentStatus === 'paid' ? 'default' : 'secondary'}>
-                      {selectedSession.paymentStatus === 'paid' ? 'Paid' : 'Pending'}
-                    </Badge>
                   </div>
                 </div>
 
@@ -1167,18 +1146,6 @@ const UserDashboard = () => {
 
                 {sessionDetailTab === 'chat' && (
                   <div className="flex flex-col h-full">
-                    {/* Chat Header with Expert Info */}
-                    <div className="flex items-center gap-3 pb-3 border-b">
-                      <Avatar className="w-10 h-10">
-                        <AvatarImage src={selectedSession.avatar} alt={selectedSession.expertName} />
-                        <AvatarFallback>{getInitials(selectedSession.expertName)}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h4 className="font-semibold text-sm">Dr. {selectedSession.expertName}</h4>
-                        <p className="text-xs text-muted-foreground">{selectedSession.expertise}</p>
-                      </div>
-                    </div>
-
                     {selectedSessionType === 'upcoming' ? (
                       <>
                         {/* Conversation History - Takes available space */}
