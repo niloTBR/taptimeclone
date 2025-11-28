@@ -1,9 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { ArrowRight, CheckCircle, Search, Calendar, Video, FileText } from 'lucide-react'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import { ArrowRight, CheckCircle, Search, Calendar, Video, FileText, Star } from 'lucide-react'
 import SectionTitle from '@/components/common/SectionTitle'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import styles from './HowItWorks.module.scss'
 
 const HowItWorksPage = () => {
   const steps = [
@@ -148,90 +151,174 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* How It Works Steps */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            miniTitle="How it works"
-            title="Four simple steps to expert guidance"
-            description="From finding the right expert to implementing their advice"
-            className="mb-16"
-          />
-          
-          <div className="space-y-16">
-            {steps.map((step, index) => (
-              <div key={index} className="grid lg:grid-cols-2 gap-12 items-center">
-                <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <Card className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
-                    <CardContent className="p-8">
-                      <div className="space-y-6">
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center text-lg font-semibold">
-                            {step.number}
-                          </div>
-                          <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
-                            {step.icon}
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-4">
-                          <h3 className="text-2xl font-semibold">
-                            {step.title}
-                          </h3>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {step.description}
-                          </p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          {step.features.map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-600" />
-                              <span className="text-sm">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
+      {/* How It Works Steps - Homepage Style */}
+      <section className="content-section-alternate section-padding py-20">
+        <div className="page-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.howItWorksHeader}>
+              <SectionTitle 
+                miniTitle="How It Works"
+                title="Three simple steps to expert advice"
+                description="Get connected with the right expert in minutes"
+                className="mb-12"
+              />
+            </div>
+            
+            {/* Steps Carousel */}
+            <div className={styles.stepsCarousel}>
+              <div className={styles.stepsContainer}>
+                {steps.slice(0, 3).map((step, index) => (
+                  <motion.div 
+                    key={index} 
+                    className={styles.stepCard}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2, duration: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* Image Placeholder */}
+                    <div className={styles.stepImagePlaceholder}>
+                    </div>
+                    
+                    {/* Step Content */}
+                    <div className={styles.stepContent}>
+                      <div className={styles.stepNumber}>
+                        {step.number}
                       </div>
-                    </CardContent>
-                  </Card>
-                </div>
-                
-                <div className={`${index % 2 === 1 ? 'lg:order-1' : ''} relative h-64 lg:h-80`}>
-                  <img 
-                    src={`/api/placeholder/500/400`} 
-                    alt={step.title}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <Badge className="absolute top-4 left-4 bg-foreground text-background">
-                    Step {step.number}
-                  </Badge>
-                </div>
+                      <h3 className={styles.stepTitle}>
+                        {step.title}
+                      </h3>
+                      <p className={styles.stepDescription}>
+                        {step.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Born from the Power of Expertise */}
+      {/* Reviews Section - Homepage Style */}
+      <section className="content-section section-padding py-20">
+        <div className="page-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle 
+              miniTitle="What Our Users Say"
+              title="Success stories from our community"
+              description="See how TapTime has helped professionals achieve breakthrough moments"
+              className="mb-12"
+            />
+            
+            <div className={styles.reviewsGrid}>
+              {[
+                {
+                  rating: 5,
+                  text: "One 15-60 minute session gave me the exact framework I needed. Landed my dream PM role at Stripe within 2 months.",
+                  author: "Alex Chen",
+                  role: "Product Manager at Stripe"
+                },
+                {
+                  rating: 5, 
+                  text: "My expert walked me through their actual pitch deck. We closed our $2M Series A using their exact strategy.",
+                  author: "Sarah Williams",
+                  role: "Startup Founder"
+                },
+                {
+                  rating: 5,
+                  text: "They showed me what top-tier portfolios really look like. Got callbacks from Google, Apple, and Figma in one week.",
+                  author: "Michael Rodriguez",
+                  role: "UX Designer"
+                }
+              ].map((testimonial, index) => (
+                <motion.div 
+                  key={index}
+                  className={styles.reviewCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={styles.reviewStars}>
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-black text-black" />
+                    ))}
+                  </div>
+                  <p className={styles.reviewText}>
+                    "{testimonial.text}"
+                  </p>
+                  <div className={styles.reviewAuthor}>
+                    <div className={styles.authorAvatar}>
+                      {testimonial.author.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div>
+                      <div className={styles.authorName}>{testimonial.author}</div>
+                      <div className={styles.authorRole}>{testimonial.role}</div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Born from the Power of Expertise - FAQ with Accordions */}
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-4xl">
-          <div className="text-center space-y-8">
+          <div className="text-center space-y-8 mb-12">
             <h2 className="text-3xl font-semibold">
-              Born from the Power of Expertise, Built for Those Who Value Time
+              Frequently Asked Questions
             </h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              TapTime was born from a simple realization: the most valuable insights come from real experience, and the most successful people understand that wisdom shared is wisdom multiplied. We built a platform where knowledge meets opportunity, and where both sides win.
+              Everything you need to know about getting started with TapTime
             </p>
-            
-            <div className="bg-gray-100 rounded-lg p-8 border-0 shadow-lg">
-              <p className="text-lg italic text-muted-foreground">
-                "It's a beautiful thing, how much an expert can change someone's life in just 15 minutes. You get perspective you could never gain on your own."
-              </p>
-              <div className="mt-4 text-sm font-medium">
-                — Expert Review
-              </div>
-            </div>
           </div>
+          
+          <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
+            {[
+              {
+                question: "How does TapTime match me with the right expert?",
+                answer: "Our AI-powered matching system analyzes your specific needs and connects you with experts who have successfully solved similar challenges. We consider industry experience, expertise areas, and proven results to ensure you get the most relevant guidance."
+              },
+              {
+                question: "What happens during a typical session?",
+                answer: "Sessions are conducted via our secure video platform. You'll have a focused conversation with your expert, who will share specific strategies, frameworks, and actionable advice tailored to your situation. Many experts also provide follow-up resources and action plans."
+              },
+              {
+                question: "How quickly can I book a session?",
+                answer: "Most sessions can be booked within 24-48 hours. Many experts offer same-day availability for urgent needs. Our instant booking system shows real-time availability, so you can find a time that works for both you and your chosen expert."
+              },
+              {
+                question: "What if I'm not satisfied with my session?",
+                answer: "We have a satisfaction guarantee. If you're not happy with your session, our support team will work with you to either find another expert or provide a refund. We're committed to ensuring every session delivers value."
+              },
+              {
+                question: "Can I have ongoing sessions with the same expert?",
+                answer: "Absolutely! Many users build long-term relationships with their experts. You can book follow-up sessions, and many experts offer special packages for ongoing mentorship and guidance."
+              }
+            ].map((item, index) => (
+              <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-100 last:border-0">
+                <AccordionTrigger className="text-left font-semibold text-base px-6 py-4 hover:no-underline">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-sm text-muted-foreground leading-relaxed">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
