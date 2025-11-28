@@ -137,7 +137,7 @@ const JoinExpertPage = () => {
             
             {/* Apply Button - Below Stats */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-green-500 hover:text-white transition-all" asChild>
+              <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
                 <Link to="/signup?type=expert">
                   Apply to Become an Expert
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -370,43 +370,23 @@ const JoinExpertPage = () => {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 px-4 bg-black text-white">
-        <div className="container mx-auto max-w-4xl text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Ready to Start Earning?
-            </h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Join the leading platform for expert knowledge sharing and start monetizing your expertise today.
-            </p>
-          </div>
-          
-          <Button 
-            size="lg" 
-            className="rounded-full px-10 py-6 text-lg font-medium shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            style={{
-              background: 'linear-gradient(-45deg, #10b981, #059669, #047857, #10b981)',
-              backgroundSize: '400% 400%',
-              animation: 'gradient 3s ease infinite'
-            }}
-            asChild
-          >
-            <Link to="/signup?type=expert">
+      {/* Final CTA - Homepage Style Footer Bar */}
+      <div className={styles.footerCta}>
+        <div className={styles.footerCtaContent}>
+          <div>
+            <div className={styles.footerCtaText}>
+              <h3 className={styles.footerCtaTitle}>Ready to Start Earning?</h3>
+              <p className={styles.footerCtaSubtitle}>
+                Join the leading platform for expert knowledge sharing and start monetizing your expertise today.
+              </p>
+            </div>
+            <Link to="/signup?type=expert" className={styles.footerCtaButton}>
               Apply to Become an Expert
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          </Button>
-          
-          <style jsx>{`
-            @keyframes gradient {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-            }
-          `}</style>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   )
 }
