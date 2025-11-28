@@ -154,7 +154,6 @@ const JoinExpertPage = () => {
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
-            miniTitle="Why Join TapTime"
             title="Turn Your Expertise Into Impact"
             description="Join the premier platform where knowledge meets opportunity"
             className="mb-12"
@@ -189,7 +188,6 @@ const JoinExpertPage = () => {
           >
             <div className={styles.howItWorksHeader}>
               <SectionTitle 
-                miniTitle="How It Works"
                 title="Three simple steps to get started"
                 description="From application to earning, we make it easy to share your expertise"
                 className="mb-12"
@@ -242,7 +240,6 @@ const JoinExpertPage = () => {
             viewport={{ once: true }}
           >
             <SectionTitle 
-              miniTitle="Success Stories"
               title="What Our Experts Say"
               description="Real earnings and impact from professionals like you"
               className="mb-12"
@@ -326,7 +323,6 @@ const JoinExpertPage = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
-            miniTitle="Expertise Areas"
             title="What Kind of Expert Are You?"
             description="We're looking for experts across all major industries and functions"
             className="mb-12"
@@ -390,10 +386,9 @@ const JoinExpertPage = () => {
       <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
           <SectionTitle 
-            miniTitle="FAQ"
             title="Frequently Asked Questions"
             description="Everything you need to know about becoming a TapTime expert"
-            className="mb-12 text-white [&_h2]:text-white [&_p]:text-white/90"
+            className="mb-12 [&_h2]:text-white [&_p]:text-white [&_.text-muted-foreground]:text-white/90"
           />
           
           <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
