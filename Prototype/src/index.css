@@ -769,43 +769,29 @@ button:has(.lucide-sparkles) svg {
   }
 }
 
-/* Mobile-specific fixes for color consistency */
+/* Mobile-specific fixes for button colors only */
 @media (max-width: 768px) {
-  /* Ensure primary brand color is consistent on mobile */
-  .bg-\\[\\#efffba\\],
-  [style*="background-color: #efffba"],
-  [class*="bg-[#efffba]"] {
-    background-color: #efffba !important;
-    color: #000000 !important;
-  }
-  
-  /* Force reload of brand colors on mobile */
-  :root {
-    --brand-primary: #efffba;
-    --brand-primary-rgb: 239, 255, 186;
-  }
-  
-  /* Override any mobile browser default styling */
+  /* Only fix buttons, not backgrounds */
   .primary-button,
   .ios-button.login,
-  button[class*="efffba"] {
+  button.bg-\\[\\#efffba\\] {
     background-color: #efffba !important;
     color: #000000 !important;
     border-color: #efffba !important;
   }
+  
+  /* Keep main background white on mobile */
+  body, #root {
+    background-color: rgb(var(--background)) !important;
+  }
 }
 
-/* Touch device specific fixes */
+/* Touch device specific fixes - buttons only */
 @media (hover: none) and (pointer: coarse) {
-  /* Mobile touch devices */
-  .bg-\\[\\#efffba\\] {
-    background-color: #efffba !important;
-    color: #000000 !important;
-  }
-  
-  /* Ensure buttons maintain brand color on touch devices */
+  /* Only fix buttons on touch devices, not page backgrounds */
   button.primary-button,
-  .ios-button.login {
+  .ios-button.login,
+  button[class*="bg-[#efffba]"] {
     background-color: #efffba !important;
     color: #000000 !important;
   }
