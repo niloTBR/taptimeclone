@@ -51,79 +51,46 @@ const FeedbackPage = () => {
       headerSize="large"
     >
 
-      {/* Feedback Types */}
-      <section className="py-12 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            title="Choose your feedback type"
-            titleClassName="text-xl md:text-2xl font-semibold"
-            description="Select the category that best describes your feedback"
-            className="mb-12"
-          />
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-            {feedbackTypes.map((type, index) => {
-              const Icon = type.icon
-              return (
-                <Card key={index} className="bg-gray-100 border-0 hover:bg-gray-200 transition-colors cursor-pointer group">
-                  <CardContent className="pt-6 text-center space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-[#efffba] text-black flex items-center justify-center mx-auto">
-                      <Icon className="w-6 h-6" />
-                    </div>
-                    <h3 className="font-semibold text-black">{type.title}</h3>
-                    <p className="text-sm text-black/70 leading-relaxed">
-                      {type.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* Feedback Form */}
       <section className="py-8 px-4">
         <div className="container mx-auto max-w-3xl">
           <Card className="bg-gray-100 border-0">
-            <CardHeader>
-              <CardTitle className="text-xl md:text-2xl text-center font-semibold">Share Your Feedback</CardTitle>
-            </CardHeader>
             <CardContent className="p-8">
               <form className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name</Label>
+                    <Label htmlFor="firstName" className="text-black">First Name</Label>
                     <Input 
                       id="firstName" 
                       placeholder="Enter your first name"
-                      className="border-2 border-muted-foreground/20 focus:border-foreground"
+                      className="border-2 border-gray-300 focus:border-black bg-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name</Label>
+                    <Label htmlFor="lastName" className="text-black">Last Name</Label>
                     <Input 
                       id="lastName" 
                       placeholder="Enter your last name"
-                      className="border-2 border-muted-foreground/20 focus:border-foreground"
+                      className="border-2 border-gray-300 focus:border-black bg-white"
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="email" className="text-black">Email Address</Label>
                   <Input 
                     id="email" 
                     type="email" 
                     placeholder="Enter your email address"
-                    className="border-2 border-muted-foreground/20 focus:border-foreground"
+                    className="border-2 border-gray-300 focus:border-black bg-white"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="feedbackType">Feedback Type</Label>
+                  <Label htmlFor="feedbackType" className="text-black">Feedback Type</Label>
                   <Select>
-                    <SelectTrigger className="border-2 border-muted-foreground/20 focus:border-foreground">
+                    <SelectTrigger className="border-2 border-gray-300 focus:border-black bg-white">
                       <SelectValue placeholder="Select feedback type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -136,28 +103,28 @@ const FeedbackPage = () => {
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="subject" className="text-black">Subject</Label>
                   <Input 
                     id="subject" 
                     placeholder="Brief description of your feedback"
-                    className="border-2 border-muted-foreground/20 focus:border-foreground"
+                    className="border-2 border-gray-300 focus:border-black bg-white"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Your Feedback</Label>
+                  <Label htmlFor="message" className="text-black">Your Feedback</Label>
                   <Textarea 
                     id="message" 
                     placeholder="Tell us more about your experience, suggestion, or issue..."
                     rows={6}
-                    className="border-2 border-muted-foreground/20 focus:border-foreground resize-none"
+                    className="border-2 border-gray-300 focus:border-black bg-white resize-none"
                   />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="rating">Overall Experience (Optional)</Label>
+                  <Label htmlFor="rating" className="text-black">Overall Experience (Optional)</Label>
                   <Select>
-                    <SelectTrigger className="border-2 border-muted-foreground/20 focus:border-foreground">
+                    <SelectTrigger className="border-2 border-gray-300 focus:border-black bg-white">
                       <SelectValue placeholder="Rate your experience" />
                     </SelectTrigger>
                     <SelectContent>

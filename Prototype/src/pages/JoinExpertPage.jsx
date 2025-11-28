@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import SectionTitle from '@/components/common/SectionTitle'
+import SignupModal from '@/components/auth/SignupModal'
+import LoginModal from '@/components/auth/LoginModal'
 import { Link } from 'react-router-dom'
 import { 
   DollarSign, 
@@ -41,6 +43,8 @@ const JoinExpertPage = () => {
 
   const [currentRequirementIndex, setCurrentRequirementIndex] = useState(0)
   const [currentReviewIndex, setCurrentReviewIndex] = useState(0)
+  const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
 
   // Enhanced requirements with clean icons
   const enhancedRequirements = [
@@ -138,11 +142,13 @@ const JoinExpertPage = () => {
             
             {/* Apply Button - Below Stats */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
-                <Link to="/signup?type=expert">
-                  Apply to Become an Expert
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
+              <Button 
+                size="lg" 
+                className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg"
+                onClick={() => setIsSignupOpen(true)}
+              >
+                Apply to Become an Expert
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
@@ -426,13 +432,35 @@ const JoinExpertPage = () => {
                 Join the leading platform for expert knowledge sharing and start monetizing your expertise today.
               </p>
             </div>
-            <Link to="/signup?type=expert" className={styles.footerCtaButton}>
+            <button 
+              onClick={() => setIsSignupOpen(true)}
+              className={styles.footerCtaButton}
+            >
               Apply to Become an Expert
               <ArrowRight className="w-4 h-4" />
-            </Link>
+            </button>
           </div>
         </div>
       </div>
+      
+      {/* Auth Modals */}
+      <SignupModal 
+        isOpen={isSignupOpen} 
+        onClose={() => setIsSignupOpen(false)}
+        onOpenLogin={() => {
+          setIsSignupOpen(false)
+          setIsLoginOpen(true)
+        }}
+        defaultType="expert"
+      />
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)}
+        onOpenSignup={() => {
+          setIsLoginOpen(false)
+          setIsSignupOpen(true)
+        }}
+      />
     </div>
   )
 }

@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import TapTimeLogo from '@/components/common/TapTimeLogo'
+import LoginModal from '@/components/auth/LoginModal'
+import SignupModal from '@/components/auth/SignupModal'
 import navigationData from '@/data/navigation.json'
 import styles from './Header.module.scss'
 
@@ -12,6 +14,9 @@ const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isOnDarkSection, setIsOnDarkSection] = useState(false)
+  const [isLoginOpen, setIsLoginOpen] = useState(false)
+  const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const [signupType, setSignupType] = useState('individual')
   const location = useLocation()
   const { header } = navigationData
 
@@ -147,39 +152,43 @@ const Header = () => {
               </>
             ) : (
               // Regular pages: Show login/signup
-              header.actions.map((action, index) => {
-                // Determine button style based on variant and background
-                const isLogin = action.variant === 'ghost';
-                const isDarkBg = location.pathname === '/join-expert' || 
-                                location.pathname === '/how-it-works' ||
-                                location.pathname === '/' ||
-                                isOnDarkSection;
-                
-                const buttonClassName = isLogin 
-                  ? isDarkBg 
-                    ? "rounded-full border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all px-4"
-                    : "rounded-full border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all px-4"
-                  : "rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all px-4";
-                
-                return (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+              <>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.3 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    size="sm"
+                    className={location.pathname === '/join-expert' || 
+                              location.pathname === '/how-it-works' ||
+                              location.pathname === '/' ||
+                              isOnDarkSection
+                      ? "rounded-full border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all px-4"
+                      : "rounded-full border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all px-4"}
+                    onClick={() => setIsLoginOpen(true)}
                   >
-                    <Button
-                      size="sm"
-                      className={buttonClassName}
-                      asChild
-                    >
-                      <Link to={action.href}>{action.label}</Link>
-                    </Button>
-                  </motion.div>
-                );
-              })
+                    Log In
+                  </Button>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.4 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button
+                    size="sm"
+                    className="rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all px-4"
+                    onClick={() => setIsSignupOpen(true)}
+                  >
+                    Sign up
+                  </Button>
+                </motion.div>
+              </>
             )}
           </div>
 
@@ -245,38 +254,63 @@ const Header = () => {
                 ))}
                 
                 <div className={styles.mobileActions}>
-                  {header.actions.map((action, index) => {
-                    // Determine button class based on label
-                    const buttonClass = action.label.toLowerCase().includes('log') 
-                      ? 'login' 
-                      : action.label.toLowerCase().includes('sign') 
-                        ? 'signup' 
-                        : 'default';
-                    
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: (header.links.length + index) * 0.05 }}
-                      >
-                        <Button
-                          size="sm"
-                          className="justify-start w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
-                          asChild
-                          onClick={() => setIsMobileMenuOpen(false)}
-                        >
-                          <Link to={action.href}>{action.label}</Link>
-                        </Button>
-                      </motion.div>
-                    );
-                  })}
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: header.links.length * 0.05 }}
+                  >
+                    <Button
+                      size="sm"
+                      className="justify-start w-full rounded-full border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-colors"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        setIsLoginOpen(true)
+                      }}
+                    >
+                      Log In
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: (header.links.length + 1) * 0.05 }}
+                  >
+                    <Button
+                      size="sm"
+                      className="justify-start w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        setIsSignupOpen(true)
+                      }}
+                    >
+                      Sign up
+                    </Button>
+                  </motion.div>
                 </div>
               </nav>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+      
+      {/* Auth Modals */}
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)}
+        onOpenSignup={() => {
+          setIsLoginOpen(false)
+          setIsSignupOpen(true)
+        }}
+      />
+      <SignupModal 
+        isOpen={isSignupOpen} 
+        onClose={() => setIsSignupOpen(false)}
+        onOpenLogin={() => {
+          setIsSignupOpen(false)
+          setIsLoginOpen(true)
+        }}
+        defaultType={signupType}
+      />
     </motion.header>
   )
 }

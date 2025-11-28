@@ -47,8 +47,7 @@
           { "label": "About", "href": "/about" },
           { "label": "Contact", "href": "/contact" },
           { "label": "FAQ", "href": "/faq" },
-          { "label": "Feedback", "href": "/feedback" },
-          { "label": "Blog", "href": "/blog" }
+          { "label": "Feedback", "href": "/feedback" }
         ]
       },
       {

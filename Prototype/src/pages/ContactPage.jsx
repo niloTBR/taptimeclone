@@ -55,7 +55,6 @@ const ContactPage = () => {
               <SectionTitle 
                 title="Let's start a conversation"
                 titleClassName="text-xl md:text-2xl font-semibold"
-                description="Fill out the form below and we'll get back to you as soon as possible"
                 className="text-start mb-8"
               />
               
@@ -64,49 +63,49 @@ const ContactPage = () => {
                   <form className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName">First Name</Label>
+                        <Label htmlFor="firstName" className="text-black">First Name</Label>
                         <Input 
                           id="firstName" 
                           placeholder="Enter your first name"
-                          className="border-2 border-muted-foreground/20 focus:border-foreground"
+                          className="border-2 border-gray-300 focus:border-black bg-white"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName">Last Name</Label>
+                        <Label htmlFor="lastName" className="text-black">Last Name</Label>
                         <Input 
                           id="lastName" 
                           placeholder="Enter your last name"
-                          className="border-2 border-muted-foreground/20 focus:border-foreground"
+                          className="border-2 border-gray-300 focus:border-black bg-white"
                         />
                       </div>
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
+                      <Label htmlFor="email" className="text-black">Email Address</Label>
                       <Input 
                         id="email" 
                         type="email" 
                         placeholder="Enter your email address"
-                        className="border-2 border-muted-foreground/20 focus:border-foreground"
+                        className="border-2 border-gray-300 focus:border-black bg-white"
                       />
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="subject">Subject</Label>
+                      <Label htmlFor="subject" className="text-black">Subject</Label>
                       <Input 
                         id="subject" 
                         placeholder="What's this about?"
-                        className="border-2 border-muted-foreground/20 focus:border-foreground"
+                        className="border-2 border-gray-300 focus:border-black bg-white"
                       />
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="message">Message</Label>
+                      <Label htmlFor="message" className="text-black">Message</Label>
                       <Textarea 
                         id="message" 
                         placeholder="Tell us more about your inquiry..."
                         rows={6}
-                        className="border-2 border-muted-foreground/20 focus:border-foreground resize-none"
+                        className="border-2 border-gray-300 focus:border-black bg-white resize-none"
                       />
                     </div>
                     
@@ -127,7 +126,6 @@ const ContactPage = () => {
               <SectionTitle 
                 title="Other ways to reach us"
                 titleClassName="text-xl md:text-2xl font-semibold"
-                description="Choose the method that works best for you"
                 className="text-start mb-8"
               />
               
@@ -135,20 +133,11 @@ const ContactPage = () => {
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon
                   return (
-                    <Card key={index} className="bg-gray-100 border-0">
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-4">
-                          <div className="w-12 h-12 rounded-full bg-[#efffba] text-black flex items-center justify-center flex-shrink-0">
-                            <Icon className="w-6 h-6" />
-                          </div>
-                          <div className="space-y-1 flex-1">
-                            <h3 className="font-semibold text-black">{info.title}</h3>
-                            <p className="text-lg font-medium text-black">{info.details}</p>
-                            <p className="text-sm text-black/70">{info.description}</p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                    <div key={index} className="space-y-2">
+                      <h3 className="text-base font-semibold text-black">{info.title}</h3>
+                      <p className="text-lg font-medium text-black">{info.details}</p>
+                      <p className="text-sm text-black/70">{info.description}</p>
+                    </div>
                   )
                 })}
               </div>

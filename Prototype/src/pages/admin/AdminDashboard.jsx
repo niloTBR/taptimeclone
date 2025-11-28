@@ -714,51 +714,56 @@ const AdminDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b bg-white">
-        <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-sm">TT</span>
+      <div className="flex h-screen">
+        {/* Sidebar */}
+        <div className="w-64 bg-white border-r border-gray-200 flex flex-col">
+          {/* Sidebar Header */}
+          <div className="p-4 border-b border-gray-200">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-black text-white rounded-lg flex items-center justify-center font-bold text-sm">
+                T
               </div>
-              <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+              <div>
+                <h1 className="text-sm font-semibold text-black">TapTime</h1>
+                <p className="text-xs text-gray-500">Admin Panel</p>
+              </div>
             </div>
           </div>
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="icon" className="rounded-full">
-              <Bell className="w-4 h-4" />
-            </Button>
-            <Avatar className="w-8 h-8">
-              <AvatarImage src="/api/placeholder/32/32" alt="Admin" />
-              <AvatarFallback>AD</AvatarFallback>
-            </Avatar>
-          </div>
-        </div>
-      </div>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <div className="w-64 bg-white border-r min-h-screen">
-          <div className="p-4">
-            <div className="space-y-2">
+          {/* Navigation */}
+          <div className="flex-1 p-4">
+            <nav className="space-y-1">
               {sidebar.map((item) => {
                 const Icon = item.icon
                 return (
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200 ${
                       activeTab === item.id
-                        ? 'bg-gray-100 text-foreground'
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                        ? 'bg-[#efffba] text-black font-medium shadow-sm'
+                        : 'text-gray-600 hover:bg-gray-50 hover:text-black'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
-                    {item.label}
+                    <Icon className={`w-5 h-5 ${activeTab === item.id ? 'text-black' : ''}`} />
+                    <span>{item.label}</span>
                   </button>
                 )
               })}
+            </nav>
+          </div>
+
+          {/* Sidebar Footer - Admin Profile */}
+          <div className="p-4 border-t border-gray-200">
+            <div className="flex items-center gap-3">
+              <Avatar className="w-9 h-9">
+                <AvatarImage src="/api/placeholder/36/36" alt="Admin" />
+                <AvatarFallback>AD</AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-black">Admin</p>
+                <p className="text-xs text-gray-500">admin@taptime.com</p>
+              </div>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ import FAQPage from '@/pages/FAQPage'
 import FeedbackPage from '@/pages/FeedbackPage'
 import HowItWorksPage from '@/pages/HowItWorksPage'
 import CareersPage from '@/pages/CareersPage'
-import BlogPage from '@/pages/BlogPage'
+// import BlogPage from '@/pages/BlogPage' // Temporarily removed
 import PressPage from '@/pages/PressPage'
 import HelpPage from '@/pages/HelpPage'
 import SafetyPage from '@/pages/SafetyPage'
@@ -32,6 +32,7 @@ import ExpertDashboard from '@/pages/expert/ExpertDashboard'
 import AdminDashboard from '@/pages/admin/AdminDashboard'
 import SignUpUserPage from '@/pages/SignUpUserPage'
 import SignUpExpertPage from '@/pages/SignUpExpertPage'
+import PrototypesPage from '@/pages/PrototypesPage'
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
           <Route path="/careers" element={<CareersPage />} />
-          <Route path="/blog" element={<BlogPage />} />
+          {/* <Route path="/blog" element={<BlogPage />} /> */}
           <Route path="/press" element={<PressPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/safety" element={<SafetyPage />} />
@@ -71,6 +72,7 @@ function App() {
         <Route path="/user/dashboard-test" element={<UserDashboardTest />} />
         <Route path="/expert/dashboard" element={<ExpertDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        <Route path="/prototypes" element={<PrototypesPage />} />
       </Routes>
     </Router>
   )

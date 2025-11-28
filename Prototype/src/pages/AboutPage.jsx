@@ -8,10 +8,14 @@ import StandardPage from '@/components/layout/StandardPage'
 import Section from '@/components/common/Section'
 import PageContainer from '@/components/common/PageContainer'
 import SectionTitle from '@/components/common/SectionTitle'
+import SignupModal from '@/components/auth/SignupModal'
+import LoginModal from '@/components/auth/LoginModal'
 
 // About page component
 const AboutPage = () => {
   const [currentTestimonialIndex, setCurrentTestimonialIndex] = React.useState(0)
+  const [isSignupOpen, setIsSignupOpen] = React.useState(false)
+  const [isLoginOpen, setIsLoginOpen] = React.useState(false)
   
   const stats = [
     { icon: Users, value: "1,000+", label: "Verified Experts" },
@@ -101,10 +105,12 @@ const AboutPage = () => {
           <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </Button>
-      <Button size="lg" className="rounded-full px-8 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all" asChild>
-        <Link to="/join-expert">
-          Become an Expert
-        </Link>
+      <Button 
+        size="lg" 
+        className="rounded-full px-8 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all"
+        onClick={() => setIsSignupOpen(true)}
+      >
+        Become an Expert
       </Button>
     </div>
   )
@@ -381,6 +387,24 @@ const AboutPage = () => {
           </div>
         </div>
       </div>
+      {/* Auth Modals */}
+      <SignupModal 
+        isOpen={isSignupOpen} 
+        onClose={() => setIsSignupOpen(false)}
+        onOpenLogin={() => {
+          setIsSignupOpen(false)
+          setIsLoginOpen(true)
+        }}
+        defaultType="expert"
+      />
+      <LoginModal 
+        isOpen={isLoginOpen} 
+        onClose={() => setIsLoginOpen(false)}
+        onOpenSignup={() => {
+          setIsLoginOpen(false)
+          setIsSignupOpen(true)
+        }}
+      />
     </StandardPage>
   )
 }
