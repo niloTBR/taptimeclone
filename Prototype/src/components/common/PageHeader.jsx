@@ -20,7 +20,9 @@ const PageHeader = ({
   }
 
   return (
-    <section className={`${sizeClasses[size]} px-4 bg-muted/30 ${className}`}>
+    <section className={`relative ${sizeClasses[size]} px-4 text-white ${className}`} style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <div className="absolute inset-0 bg-[#48768c]/80"></div>
+      <div className="relative z-10">
       <div className="container mx-auto max-w-5xl">
         <div className="space-y-8">
           {/* Breadcrumbs */}
@@ -50,11 +52,11 @@ const PageHeader = ({
           {/* Content */}
           <div className="text-center space-y-6">
             <div className="space-y-4">
-              <h1 className={`${titleClasses[size]} font-semibold tracking-tight`}>
+              <h1 className={`${titleClasses[size]} font-semibold tracking-tight text-white`}>
                 {title}
               </h1>
               {description && (
-                <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+                <p className="text-sm md:text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
                   {description}
                 </p>
               )}
@@ -68,6 +70,7 @@ const PageHeader = ({
             )}
           </div>
         </div>
+      </div>
       </div>
     </section>
   )

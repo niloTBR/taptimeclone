@@ -178,7 +178,7 @@ const AboutPage = () => {
             {solutions.map((solution, index) => (
               <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="pt-6 text-center space-y-4 p-8">
-                  <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mx-auto">
+                  <div className="text-black mb-4">
                     {solution.icon}
                   </div>
                   <h3 className="text-xl font-semibold">
@@ -252,20 +252,20 @@ const AboutPage = () => {
       </section>
 
       {/* Our Values */}
-      <section className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
             title="What drives us every day"
-            titleClassName="text-xl md:text-2xl font-semibold"
+            titleClassName="text-xl md:text-2xl font-semibold text-white"
             description="The principles that guide how we build and grow TapTime"
-            className="mb-16"
+            className="mb-16 [&_p]:text-white/90"
           />
           
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
               <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="pt-6 text-center space-y-4 p-8">
-                  <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mx-auto">
+                  <div className="text-black mb-4">
                     {value.icon}
                   </div>
                   <h3 className="text-xl font-semibold">
@@ -281,37 +281,29 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Join Our Community - CTA */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-4xl">
-          <Card className="bg-gray-100 border-0 shadow-lg">
-            <CardContent className="p-12 text-center space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-semibold">
+      {/* Join Our Community - Footer CTA Bar */}
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="bg-[#efffba] rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-xl font-semibold mb-2 text-black">
                   Join the TapTime Community
-                </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                </h3>
+                <p className="text-sm text-black/70">
                   Whether you're seeking expert guidance or ready to share your knowledge, there's a place for you in our growing community.
                 </p>
               </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                <Button size="lg" className="rounded-full px-8 bg-black text-white hover:bg-gray-800" asChild>
-                  <Link to="/browse">
-                    Find Your Expert
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-black bg-white hover:bg-gray-50" asChild>
-                  <Link to="/join-expert">
-                    Become an Expert
-                  </Link>
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/browse" className="inline-flex items-center gap-2 px-6 py-3 bg-[#081d34] text-white rounded-full font-semibold text-sm hover:bg-[#0a2040] transition-all">
+                  Find Your Expert
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
     </StandardPage>
   )
 }
