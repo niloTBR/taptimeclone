@@ -82,7 +82,7 @@ const HowItWorksPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Hero Section with Background */}
-      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-12 pt-48" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
         <div className="absolute inset-0 bg-[#48768c]/80"></div>
         <div className="relative z-10">
           <div className="container mx-auto max-w-4xl text-center">
@@ -94,7 +94,7 @@ const HowItWorksPage = () => {
               We believe the shortest path between you and your biggest leaps is the knowledge, wisdom and truth of someone who has done the work before you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-green-500 hover:text-white transition-all" asChild>
+              <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
                 <Link to="/browse">
                   Find Your Expert
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -115,8 +115,8 @@ const HowItWorksPage = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
           <SectionTitle 
-            miniTitle="Why TapTime Exists"
             title="We believe the world's greatest untapped resource is human wisdom and it needs to be effortlessly available"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="From startup founders to financial coaches, business advisors to leadership mentors, TapTime connects you with the people who've done the work, lived the journey, and want to share their wisdom with you — so you don't have to waste yours."
           />
         </div>
@@ -134,8 +134,8 @@ const HowItWorksPage = () => {
           >
             <div className={styles.howItWorksHeader}>
               <SectionTitle 
-                miniTitle="How It Works"
                 title="Three simple steps to expert advice"
+                titleClassName="text-xl md:text-2xl font-semibold"
                 description="Get connected with the right expert in minutes"
                 className="mb-12"
               />
@@ -187,8 +187,8 @@ const HowItWorksPage = () => {
             viewport={{ once: true }}
           >
             <SectionTitle 
-              miniTitle="What Our Users Say"
               title="Success stories from our community"
+              titleClassName="text-xl md:text-2xl font-semibold"
               description="See how TapTime has helped professionals achieve breakthrough moments"
               className="mb-12"
             />
@@ -246,14 +246,14 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* Born from the Power of Expertise - FAQ with Accordions */}
-      <section className="py-20 px-4 bg-muted/30">
+      {/* FAQ with Accordions */}
+      <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
-          <div className="text-center space-y-8 mb-12">
-            <h2 className="text-3xl font-semibold">
+          <div className="text-center space-y-2 mb-12">
+            <h2 className="text-xl md:text-2xl font-semibold text-white">
               Frequently Asked Questions
             </h2>
-            <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            <p className="text-white/90 leading-relaxed max-w-2xl mx-auto">
               Everything you need to know about getting started with TapTime
             </p>
           </div>
@@ -294,43 +294,23 @@ const HowItWorksPage = () => {
         </div>
       </section>
 
-      {/* Final CTA - Homepage Style */}
-      <section className="py-20 px-4 bg-black text-white">
-        <div className="container mx-auto max-w-4xl text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-3xl md:text-4xl font-bold">
-              Ready to tap into expert wisdom?
-            </h2>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto">
-              Join thousands who've accelerated their success with TapTime
-            </p>
-          </div>
-          
-          <Button 
-            size="lg" 
-            className="rounded-full px-10 py-6 text-lg font-medium shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
-            style={{
-              background: 'linear-gradient(-45deg, #10b981, #059669, #047857, #10b981)',
-              backgroundSize: '400% 400%',
-              animation: 'gradient 3s ease infinite'
-            }}
-            asChild
-          >
-            <Link to="/browse">
+      {/* Final CTA - Homepage Style Footer Bar */}
+      <div className={styles.footerCta}>
+        <div className={styles.footerCtaContent}>
+          <div>
+            <div className={styles.footerCtaText}>
+              <h3 className={styles.footerCtaTitle}>Ready to tap into expert wisdom?</h3>
+              <p className={styles.footerCtaSubtitle}>
+                Join thousands who've accelerated their success with TapTime
+              </p>
+            </div>
+            <Link to="/browse" className={styles.footerCtaButton}>
               Browse Experts
-              <ArrowRight className="ml-2 h-5 w-5" />
+              <ArrowRight className="w-4 h-4" />
             </Link>
-          </Button>
-          
-          <style jsx>{`
-            @keyframes gradient {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-            }
-          `}</style>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

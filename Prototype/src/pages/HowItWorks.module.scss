@@ -199,3 +199,71 @@
   font-size: 0.75rem;
   color: #888;
 }
+
+// Sleek Footer CTA Bar
+.footerCta {
+  background: rgb(var(--background));
+  padding: 2rem 0;
+}
+
+.footerCtaContent {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.footerCtaContent > div {
+  background: #efffba; // Green background
+  border-radius: 1.5rem;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+.footerCtaText {
+  flex: 1;
+}
+
+.footerCtaTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #000; // Black text on green background
+}
+
+.footerCtaSubtitle {
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.7); // Dark gray text
+  line-height: 1.5;
+  max-width: 42rem;
+}
+
+.footerCtaButton {
+  padding: 0.75rem 1.5rem;
+  background: #081d34; // Blue button
+  color: #fff; // White text
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  
+  &:hover {
+    background: #0a2040; // Darker blue on hover
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
