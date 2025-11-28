@@ -731,7 +731,7 @@ const UserDashboard = () => {
                               size="sm" 
                               className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all text-sm font-medium flex-1"
                             >
-                              Reschedule
+                              Link to Calendly
                             </Button>
                           ) : (
                             <Button 
@@ -1077,10 +1077,10 @@ const UserDashboard = () => {
                 <div className="border-t my-3" />
                 {selectedSessionType === 'upcoming' ? (
                   <div className="space-y-3">
-                    {/* Primary Action - Join Session */}
+                    {/* Primary Action - Link to Calendly */}
                     <Button className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white py-3 text-base font-semibold">
                       <Video className="w-5 h-5 mr-2" />
-                      Join Session
+                      Link to Calendly
                     </Button>
                     
                     {/* Secondary Actions */}
@@ -1093,7 +1093,7 @@ const UserDashboard = () => {
                           setShowReschedule(true)
                         }}
                       >
-                        Reschedule
+                        Link to Calendly
                       </Button>
                       <Button 
                         variant="outline" 
