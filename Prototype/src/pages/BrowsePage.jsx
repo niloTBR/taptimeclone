@@ -552,11 +552,7 @@ const BrowsePage = () => {
 
             {/* Improved Sidebar */}
             <div className={`lg:block ${showFilters ? 'block' : 'hidden'} w-full lg:w-80`}>
-              <div className="bg-white rounded-xl border border-gray-200 p-6 space-y-6 shadow-sm">
-                <div>
-                  <h3 className="text-xl font-bold mb-2">Filters</h3>
-                  <p className="text-sm text-gray-500">Refine your expert search</p>
-                </div>
+              <div className="bg-gray-100 rounded-xl border-0 p-6 space-y-4 shadow-sm">
 
                 <div className="space-y-4">
                   {/* Category */}
@@ -591,20 +587,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Price Range */}
                   <Collapsible open={openSection === 'price'} onOpenChange={() => setOpenSection(openSection === 'price' ? '' : 'price')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4" />
-                        Price Range
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <DollarSign className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Price Range</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {['Under $100', '$100 - $300', '$300 - $500', '$500+'].map((range) => (
-                        <div key={range} className="flex items-center space-x-2 pl-6">
+                        <div key={range} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={range}
                             checked={selectedPriceRanges.includes(range)}
@@ -615,8 +609,9 @@ const BrowsePage = () => {
                                 setSelectedPriceRanges(selectedPriceRanges.filter(r => r !== range))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={range} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={range} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {range}
                           </Label>
                         </div>
@@ -624,21 +619,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
-
                   {/* Expert Level */}
                   <Collapsible open={openSection === 'expertLevel'} onOpenChange={() => setOpenSection(openSection === 'expertLevel' ? '' : 'expertLevel')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Award className="w-4 h-4" />
-                        Expert Level
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Award className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Expert Level</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {filters.expertLevel.filter(level => level !== 'All Levels').map((level) => (
-                        <div key={level} className="flex items-center space-x-2 pl-6">
+                        <div key={level} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={level}
                             checked={selectedExpertLevels.includes(level)}
@@ -649,8 +641,9 @@ const BrowsePage = () => {
                                 setSelectedExpertLevels(selectedExpertLevels.filter(l => l !== level))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={level} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={level} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {level}
                           </Label>
                         </div>
@@ -658,20 +651,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Gender */}
                   <Collapsible open={openSection === 'gender'} onOpenChange={() => setOpenSection(openSection === 'gender' ? '' : 'gender')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        Gender
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Users className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Gender</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {['Male', 'Female'].map((gender) => (
-                        <div key={gender} className="flex items-center space-x-2 pl-6">
+                        <div key={gender} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={gender}
                             checked={selectedGenders.includes(gender)}
@@ -682,8 +673,9 @@ const BrowsePage = () => {
                                 setSelectedGenders(selectedGenders.filter(g => g !== gender))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={gender} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={gender} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {gender}
                           </Label>
                         </div>
@@ -691,20 +683,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Location */}
                   <Collapsible open={openSection === 'location'} onOpenChange={() => setOpenSection(openSection === 'location' ? '' : 'location')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" />
-                        Location
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <MapPin className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Location</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2 max-h-64 overflow-y-auto">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2 max-h-64 overflow-y-auto">
                       {['United States', 'United Kingdom', 'Canada', 'Australia', 'Germany', 'France', 'Spain', 'Italy', 'Netherlands', 'Switzerland', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Belgium', 'Austria', 'Portugal', 'Ireland', 'New Zealand', 'Japan', 'South Korea', 'Singapore', 'Hong Kong', 'India', 'Israel', 'United Arab Emirates', 'Saudi Arabia', 'Brazil', 'Mexico', 'Argentina', 'Chile', 'Colombia', 'South Africa', 'Nigeria', 'Kenya', 'Egypt', 'Morocco', 'Turkey', 'Poland', 'Czech Republic', 'Hungary', 'Romania', 'Greece', 'Croatia', 'Estonia', 'Latvia', 'Lithuania'].map((country) => (
-                        <div key={country} className="flex items-center space-x-2 pl-6">
+                        <div key={country} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={country}
                             checked={selectedCountries.includes(country)}
@@ -715,8 +705,9 @@ const BrowsePage = () => {
                                 setSelectedCountries(selectedCountries.filter(c => c !== country))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={country} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={country} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {country}
                           </Label>
                         </div>
@@ -724,20 +715,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Industry */}
                   <Collapsible open={openSection === 'industry'} onOpenChange={() => setOpenSection(openSection === 'industry' ? '' : 'industry')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Briefcase className="w-4 h-4" />
-                        Industry
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Briefcase className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Industry</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {['Technology', 'Finance', 'Healthcare', 'Marketing', 'Design', 'Business'].map((industry) => (
-                        <div key={industry} className="flex items-center space-x-2 pl-6">
+                        <div key={industry} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={industry}
                             checked={selectedIndustries.includes(industry)}
@@ -748,8 +737,9 @@ const BrowsePage = () => {
                                 setSelectedIndustries(selectedIndustries.filter(i => i !== industry))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={industry} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={industry} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {industry}
                           </Label>
                         </div>
@@ -757,21 +747,19 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Expertise */}
                   <Collapsible open={openSection === 'expertise'} onOpenChange={() => setOpenSection(openSection === 'expertise' ? '' : 'expertise')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Award className="w-4 h-4" />
-                        Expertise
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Award className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Expertise</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       <div className={`space-y-2 ${allExpertise.length > 10 ? 'max-h-64 overflow-y-auto pr-2' : ''}`}>
                         {allExpertise.map((skill) => (
-                          <div key={skill} className="flex items-center space-x-2 pl-6">
+                          <div key={skill} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                             <Checkbox 
                               id={`expertise-${skill}`}
                               checked={selectedExpertise.includes(skill)}
@@ -782,8 +770,9 @@ const BrowsePage = () => {
                                   setSelectedExpertise(selectedExpertise.filter(s => s !== skill))
                                 }
                               }}
+                              className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                             />
-                            <Label htmlFor={`expertise-${skill}`} className="text-sm font-normal cursor-pointer">
+                            <Label htmlFor={`expertise-${skill}`} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                               {skill}
                             </Label>
                           </div>
@@ -792,20 +781,18 @@ const BrowsePage = () => {
                     </CollapsibleContent>
                   </Collapsible>
 
-                  <div className="border-t border-gray-200 my-4"></div>
-
                   {/* Language */}
                   <Collapsible open={openSection === 'language'} onOpenChange={() => setOpenSection(openSection === 'language' ? '' : 'language')}>
-                    <CollapsibleTrigger className="flex w-full items-center justify-between py-2 font-medium text-sm hover:underline [&[data-state=open]>svg]:rotate-180">
-                      <div className="flex items-center gap-2">
-                        <Languages className="w-4 h-4" />
-                        Language
+                    <CollapsibleTrigger className="flex w-full items-center justify-between py-3 px-4 bg-gray-50 rounded-lg font-medium text-base hover:bg-gray-100 transition-colors [&[data-state=open]>svg]:rotate-180">
+                      <div className="flex items-center gap-3">
+                        <Languages className="w-5 h-5 text-gray-600" />
+                        <span className="text-gray-900">Language</span>
                       </div>
-                      <ChevronDown className="h-4 w-4 shrink-0 transition-transform duration-200" />
+                      <ChevronDown className="h-5 w-5 shrink-0 transition-transform duration-200 text-gray-600" />
                     </CollapsibleTrigger>
-                    <CollapsibleContent className="space-y-2 pt-1 pb-2">
+                    <CollapsibleContent className="space-y-2 pt-3 pb-2">
                       {['English', 'Spanish', 'French', 'German', 'Mandarin', 'Portuguese'].map((language) => (
-                        <div key={language} className="flex items-center space-x-2 pl-6">
+                        <div key={language} className="flex items-center space-x-3 p-2 hover:bg-gray-50 rounded-md transition-colors">
                           <Checkbox 
                             id={language}
                             checked={selectedLanguages.includes(language)}
@@ -816,8 +803,9 @@ const BrowsePage = () => {
                                 setSelectedLanguages(selectedLanguages.filter(l => l !== language))
                               }
                             }}
+                            className="data-[state=checked]:bg-black data-[state=checked]:border-black"
                           />
-                          <Label htmlFor={language} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={language} className="text-sm font-medium cursor-pointer text-gray-700 hover:text-gray-900 flex-1">
                             {language}
                           </Label>
                         </div>
@@ -1044,7 +1032,7 @@ const BrowsePage = () => {
               {viewMode === 'table' ? (
                 <div className="space-y-4">
                   {filteredExperts.map((expert, index) => (
-                    <ExpertListItem key={expert.id} expert={expert} index={index} />
+                    <ExpertTableRow key={expert.id} expert={expert} index={index} />
                   ))}
                 </div>
               ) : (

@@ -78,10 +78,12 @@ const HowItWorksPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="space-y-6">
+      {/* Enhanced Hero Section with Background */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="absolute inset-0 bg-[#48768c]/80"></div>
+        <div className="relative z-10">
+          <div className="container mx-auto max-w-4xl text-center">
+            <div className="space-y-6">
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
               Tap Into The Journey That Shapes You
             </h1>
@@ -89,19 +91,20 @@ const HowItWorksPage = () => {
               We believe the shortest path between you and your biggest leaps is the knowledge, wisdom and truth of someone who has done the work before you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" className="rounded-full px-8" asChild>
+              <Button size="lg" className="rounded-full px-8 bg-white text-black hover:bg-gray-100" asChild>
                 <Link to="/browse">
                   Find Your Expert
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-foreground" asChild>
+              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-white text-white hover:bg-white hover:text-black" asChild>
                 <Link to="/join-expert">
                   Become an Expert
                 </Link>
               </Button>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -127,9 +130,9 @@ const HowItWorksPage = () => {
           
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="border-0 shadow-none bg-transparent text-center">
-                <CardContent className="pt-6 space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center mx-auto">
+              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow text-center">
+                <CardContent className="pt-6 space-y-4 p-6">
+                  <div className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center mx-auto">
                     <CheckCircle className="w-8 h-8" />
                   </div>
                   <h3 className="text-lg font-semibold">
@@ -159,14 +162,14 @@ const HowItWorksPage = () => {
             {steps.map((step, index) => (
               <div key={index} className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className={`${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <Card className="border-2 border-foreground">
+                  <Card className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="p-8">
                       <div className="space-y-6">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center text-lg font-semibold">
+                          <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center text-lg font-semibold">
                             {step.number}
                           </div>
-                          <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                          <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
                             {step.icon}
                           </div>
                         </div>
@@ -220,7 +223,7 @@ const HowItWorksPage = () => {
               TapTime was born from a simple realization: the most valuable insights come from real experience, and the most successful people understand that wisdom shared is wisdom multiplied. We built a platform where knowledge meets opportunity, and where both sides win.
             </p>
             
-            <div className="bg-background rounded-lg p-8 border-2 border-foreground">
+            <div className="bg-gray-100 rounded-lg p-8 border-0 shadow-lg">
               <p className="text-lg italic text-muted-foreground">
                 "It's a beautiful thing, how much an expert can change someone's life in just 15 minutes. You get perspective you could never gain on your own."
               </p>
@@ -235,7 +238,7 @@ const HowItWorksPage = () => {
       {/* CTA Section */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Card className="border-2 border-foreground">
+          <Card className="bg-gray-100 border-0 shadow-lg">
             <CardContent className="p-12 text-center space-y-8">
               <div className="space-y-4">
                 <h2 className="text-3xl font-semibold">
@@ -247,13 +250,13 @@ const HowItWorksPage = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="rounded-full px-8" asChild>
+                <Button size="lg" className="rounded-full px-8 bg-black text-white hover:bg-gray-800" asChild>
                   <Link to="/browse">
                     Browse Experts
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-                <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-foreground" asChild>
+                <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-black bg-white hover:bg-gray-50" asChild>
                   <Link to="/join-expert">
                     Share Your Expertise
                   </Link>

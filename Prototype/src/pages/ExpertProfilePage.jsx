@@ -88,264 +88,256 @@ const ExpertProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header Section */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            {/* Left Side - Photo */}
-            <div className="lg:col-span-1">
-              <div className="relative">
-                <div className="w-full aspect-square rounded-2xl overflow-hidden bg-gray-100 border">
-                  {expert.image ? (
+      {/* Enhanced Header Section with Hero Background */}
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+        <div className="absolute inset-0 bg-[#48768c]/80"></div>
+      </section>
+
+      {/* Main Content Section */}
+      <section className="py-8 px-4 -mt-16 relative z-10">
+        <div className="container mx-auto max-w-6xl space-y-8">
+          
+          {/* Intro Section - Photo and Basic Info */}
+          <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              
+              {/* Left Side - Photo */}
+              <div className="lg:col-span-1">
+                <div className="relative">
+                  <div className="w-full aspect-square rounded-2xl overflow-hidden bg-gray-200 shadow-md">
                     <img 
-                      src={expert.image} 
+                      src="/portrait-1.avif" 
                       alt={expert.name}
                       className="w-full h-full object-cover"
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                      <span className="text-4xl font-medium text-gray-600">
-                        {getInitials(expert.name)}
-                      </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Basic Info */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Name with Verified Badge and Actions */}
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <h1 className="text-2xl md:text-3xl font-medium tracking-tight">{expert.name}</h1>
+                    {expert.badges.includes('Verified') && (
+                      <div className="w-6 h-6 flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" className="w-6 h-6">
+                          <g>
+                            <path d="M12 1.5c-.5 0-1 .2-1.4.6L9.2 3.5c-.3.3-.7.4-1.1.4H6.5c-.8 0-1.5.7-1.5 1.5v1.6c0 .4-.1.8-.4 1.1L3.2 9.5c-.8.8-.8 2 0 2.8l1.4 1.4c.3.3.4.7.4 1.1V16.5c0 .8.7 1.5 1.5 1.5h1.6c.4 0 .8.1 1.1.4l1.4 1.4c.8.8 2 .8 2.8 0l1.4-1.4c.3-.3.7-.4 1.1-.4h1.6c.8 0 1.5-.7 1.5-1.5v-1.6c0-.4.1-.8.4-1.1l1.4-1.4c.8-.8.8-2 0-2.8l-1.4-1.4c-.3-.3-.4-.7-.4-1.1V5.5c0-.8-.7-1.5-1.5-1.5h-1.6c-.4 0-.8-.1-1.1-.4L13.4 2.1c-.4-.4-.9-.6-1.4-.6z" fill="#1d9bf0"/>
+                            <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                          </g>
+                        </svg>
+                      </div>
+                    )}
+                    {/* Wishlist and Share in Grey Circles */}
+                    <div className="ml-auto flex gap-2">
+                      <div className="relative">
+                        <div 
+                          className="w-8 h-8 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                          onClick={handleShareProfile}
+                          title="Share Profile"
+                        >
+                          <Share className="w-4 h-4" />
+                        </div>
+                        {showShareTooltip && (
+                          <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-2 py-1 rounded text-xs whitespace-nowrap">
+                            Link copied!
+                          </div>
+                        )}
+                      </div>
+                      <div className="w-8 h-8 bg-white hover:bg-gray-50 rounded-full flex items-center justify-center cursor-pointer transition-colors shadow-sm">
+                        <Heart className="w-4 h-4" />
+                      </div>
                     </div>
+                  </div>
+                  
+                  {/* Title */}
+                  <h2 className="text-lg text-muted-foreground font-normal mt-1">{expert.title}</h2>
+                </div>
+
+                {/* Rating with Top Expert Badge */}
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4 fill-black text-black" />
+                      <span className="text-sm font-medium">{expert.rating}</span>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      ({expert.reviewCount})
+                    </span>
+                  </div>
+                  {/* Top Expert Badge next to rating */}
+                  {expert.badges.includes('Top Expert') && (
+                    <Badge variant="outline" className="border-yellow-500 text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full inline-flex items-center gap-1 w-fit">
+                      <Crown className="w-3 h-3" />
+                      Top Expert
+                    </Badge>
                   )}
+                </div>
+
+                {/* Details Table */}
+                <div className="space-y-3">
+                  <div className="grid grid-cols-2 gap-y-3 text-sm">
+                    <div className="text-muted-foreground">Category</div>
+                    <div>
+                      <Link to={`/browse?category=${encodeURIComponent(getCategoryFromExpertise(about.expertise[0]))}`}>
+                        <Badge 
+                          variant="secondary" 
+                          className="bg-white hover:bg-gray-50 text-black cursor-pointer transition-colors shadow-sm"
+                        >
+                          {getCategoryFromExpertise(about.expertise[0])}
+                        </Badge>
+                      </Link>
+                    </div>
+                    
+                    <div className="text-muted-foreground">Location</div>
+                    <div>{expert.location}</div>
+                    
+                    <div className="text-muted-foreground">Language</div>
+                    <div>{expert.languages.join(', ')}</div>
+                    
+                    <div className="text-muted-foreground">Sessions Completed</div>
+                    <div>{expert.totalSessions}</div>
+                    
+                    {expert.charity && (
+                      <>
+                        <div className="text-muted-foreground">Donating To Charity</div>
+                        <div className="flex items-center gap-2">
+                          <HeartHandshake className="w-4 h-4 text-green-600" />
+                          <a 
+                            href={expert.charity.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-green-600 hover:text-green-700 font-medium flex items-center gap-1 hover:underline"
+                          >
+                            {expert.charity.name}
+                            <ExternalLink className="w-3 h-3" />
+                          </a>
+                        </div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Right Side - Info */}
-            <div className="lg:col-span-2 space-y-8">
-
-              {/* Name with Verified Badge and Wishlist */}
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <h1 className="text-2xl md:text-3xl font-medium tracking-tight">{expert.name}</h1>
-                  {expert.badges.includes('Verified') && (
-                    <div className="w-6 h-6 flex items-center justify-center">
-                      <svg viewBox="0 0 24 24" className="w-6 h-6">
-                        <g>
-                          <path d="M12 1.5c-.5 0-1 .2-1.4.6L9.2 3.5c-.3.3-.7.4-1.1.4H6.5c-.8 0-1.5.7-1.5 1.5v1.6c0 .4-.1.8-.4 1.1L3.2 9.5c-.8.8-.8 2 0 2.8l1.4 1.4c.3.3.4.7.4 1.1V16.5c0 .8.7 1.5 1.5 1.5h1.6c.4 0 .8.1 1.1.4l1.4 1.4c.8.8 2 .8 2.8 0l1.4-1.4c.3-.3.7-.4 1.1-.4h1.6c.8 0 1.5-.7 1.5-1.5v-1.6c0-.4.1-.8.4-1.1l1.4-1.4c.8-.8.8-2 0-2.8l-1.4-1.4c-.3-.3-.4-.7-.4-1.1V5.5c0-.8-.7-1.5-1.5-1.5h-1.6c-.4 0-.8-.1-1.1-.4L13.4 2.1c-.4-.4-.9-.6-1.4-.6z" fill="#1d9bf0"/>
-                          <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                        </g>
-                      </svg>
-                    </div>
-                  )}
-                  {/* Wishlist and Share in Grey Circles */}
-                  <div className="ml-auto flex gap-2">
-                    <div className="relative">
-                      <div 
-                        className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center cursor-pointer transition-colors"
-                        onClick={handleShareProfile}
-                        title="Share Profile"
-                      >
-                        <Share className="w-4 h-4" />
-                      </div>
-                      {showShareTooltip && (
-                        <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-foreground text-background px-2 py-1 rounded text-xs whitespace-nowrap">
-                          Link copied!
-                        </div>
-                      )}
-                    </div>
-                    <div className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center cursor-pointer transition-colors">
-                      <Heart className="w-4 h-4" />
-                    </div>
-                  </div>
+          {/* Industries and Expertise Row */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Industries Card */}
+            <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
+              <div className="mb-6">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
                 </div>
-                
-                {/* Title */}
-                <h2 className="text-lg text-muted-foreground font-normal mt-1">{expert.title}</h2>
               </div>
+              <h3 className="text-lg font-medium mb-4">Industries</h3>
+              <div className="text-sm text-muted-foreground leading-relaxed">
+                {getCategoryFromExpertise(about.expertise[0])}, SaaS & Cloud Computing, Entrepreneurship
+              </div>
+            </div>
 
-              {/* Rating with Top Expert Badge */}
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 fill-black text-black" />
-                    <span className="text-sm font-medium">{expert.rating}</span>
-                  </div>
-                  <span className="text-xs text-muted-foreground">
-                    ({expert.reviewCount})
+            {/* Expertise Card */}
+            <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
+              <div className="mb-6">
+                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="text-lg font-medium mb-4">Expertise</h3>
+              <div className="text-sm text-muted-foreground leading-relaxed">
+                {about.expertise.map((skill, index) => (
+                  <span key={index}>
+                    <span 
+                      className="hover:text-blue-600 cursor-pointer transition-colors"
+                      onClick={() => {
+                        console.log('Search for:', skill)
+                      }}
+                    >
+                      {skill}
+                    </span>
+                    {index < about.expertise.length - 1 && ', '}
                   </span>
-                </div>
-                {/* Top Expert Badge next to rating */}
-                {expert.badges.includes('Top Expert') && (
-                  <Badge variant="outline" className="border-yellow-500 text-yellow-600 bg-yellow-50 px-2 py-1 rounded-full inline-flex items-center gap-1 w-fit">
-                    <Crown className="w-3 h-3" />
-                    Top Expert
-                  </Badge>
-                )}
+                ))}
               </div>
+            </div>
+          </div>
 
-              {/* Details Table */}
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-y-3 text-sm">
-                  <div className="text-muted-foreground">Category</div>
-                  <div>
-                    <Link to={`/browse?category=${encodeURIComponent(getCategoryFromExpertise(about.expertise[0]))}`}>
-                      <Badge 
-                        variant="secondary" 
-                        className="bg-gray-100 hover:bg-gray-200 text-black cursor-pointer transition-colors"
-                      >
-                        {getCategoryFromExpertise(about.expertise[0])}
-                      </Badge>
-                    </Link>
-                  </div>
-                  
-                  
-                  <div className="text-muted-foreground">Location</div>
-                  <div>{expert.location}</div>
-                  
-                  <div className="text-muted-foreground">Language</div>
-                  <div>{expert.languages.join(', ')}</div>
-                  
-                  <div className="text-muted-foreground">Sessions Completed</div>
-                  <div>{expert.totalSessions}</div>
-                  
-                  {expert.charity && (
-                    <>
-                      <div className="text-muted-foreground">Donating To Charity</div>
-                      <div className="flex items-center gap-2">
-                        <HeartHandshake className="w-4 h-4 text-green-600" />
-                        <a 
-                          href={expert.charity.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-green-600 hover:text-green-700 font-medium flex items-center gap-1 hover:underline"
-                        >
-                          {expert.charity.name}
-                          <ExternalLink className="w-3 h-3" />
-                        </a>
+          {/* Tabs and Content Section */}
+          <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
+            {/* Tab Navigation */}
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex space-x-8">
+                <button
+                  onClick={() => setActiveTab('about')}
+                  className={`pb-3 border-b-2 transition-colors ${
+                    activeTab === 'about'
+                      ? 'border-black text-black font-medium'
+                      : 'border-transparent text-muted-foreground hover:text-black'
+                  }`}
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => setActiveTab('reviews')}
+                  className={`pb-3 border-b-2 transition-colors ${
+                    activeTab === 'reviews'
+                      ? 'border-black text-black font-medium'
+                      : 'border-transparent text-muted-foreground hover:text-black'
+                  }`}
+                >
+                  Reviews ({expert.reviewCount})
+                </button>
+              </div>
+            </div>
+
+            {/* Tab Content */}
+            <div className="space-y-6">
+              {activeTab === 'about' && (
+                <div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {about.bio}
+                  </p>
+                </div>
+              )}
+
+              {activeTab === 'reviews' && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {reviews.slice(0, 6).map((review) => (
+                    <div key={review.id} className="bg-white rounded-xl border-0 p-6 shadow-md hover:shadow-lg transition-shadow">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={review.reviewerImage} alt={review.reviewerName} />
+                          <AvatarFallback>{getInitials(review.reviewerName)}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <div className="font-medium text-sm">{review.reviewerName}</div>
+                          <div className="text-xs text-muted-foreground">{review.reviewerTitle}</div>
+                        </div>
                       </div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              {/* Industries and Expertise Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Industries Card */}
-                <div className="bg-white border-2 border-gray-200 rounded-2xl p-6">
-                  <div className="mb-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                      </svg>
-                    </div>
-                  </div>
-                  <h3 className="text-sm font-medium mb-2">Industries</h3>
-                  <div className="text-xs text-muted-foreground leading-relaxed">
-                    {getCategoryFromExpertise(about.expertise[0])}, SaaS & Cloud Computing, Entrepreneurship
-                  </div>
-                </div>
-
-                {/* Expertise Card */}
-                <div className="bg-white border-2 border-gray-200 rounded-2xl p-6">
-                  <div className="mb-4">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <h3 className="text-sm font-medium mb-2">Expertise</h3>
-                  <div className="text-xs text-muted-foreground leading-relaxed">
-                    {about.expertise.map((skill, index) => (
-                      <span key={index}>
-                        <span 
-                          className="hover:text-blue-600 cursor-pointer transition-colors"
-                          onClick={() => {
-                            console.log('Search for:', skill)
-                          }}
-                        >
-                          {skill}
-                        </span>
-                        {index < about.expertise.length - 1 && ', '}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t pt-4" />
-
-              {/* Tab Navigation */}
-              <div className="flex items-center justify-between">
-                <div className="flex space-x-8">
-                  <button
-                    onClick={() => setActiveTab('about')}
-                    className={`pb-3 border-b-2 transition-colors ${
-                      activeTab === 'about'
-                        ? 'border-black text-black font-medium'
-                        : 'border-transparent text-muted-foreground hover:text-black'
-                    }`}
-                  >
-                    About
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('reviews')}
-                    className={`pb-3 border-b-2 transition-colors ${
-                      activeTab === 'reviews'
-                        ? 'border-black text-black font-medium'
-                        : 'border-transparent text-muted-foreground hover:text-black'
-                    }`}
-                  >
-                    Reviews ({expert.reviewCount})
-                  </button>
-                </div>
-                
-                {/* Action Buttons */}
-                <div className="flex gap-3">
-                </div>
-              </div>
-
-              {/* Tab Content */}
-              <div className="space-y-6">
-                {activeTab === 'about' && (
-                  <>
-                    {/* Bio */}
-                    <div>
-                      <p className="text-xs text-muted-foreground leading-relaxed">
-                        {about.bio}
+                      
+                      <div className="flex gap-1 mb-3">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-black text-black" />
+                        ))}
+                      </div>
+                      
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        {review.review}
                       </p>
-                    </div>
-
-                  </>
-                )}
-
-                {activeTab === 'reviews' && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {reviews.slice(0, 6).map((review) => (
-                      <div key={review.id} className="border rounded-lg p-6 bg-white">
-                        <div className="flex items-center gap-3 mb-4">
-                          <Avatar className="w-10 h-10">
-                            <AvatarImage src={review.reviewerImage} alt={review.reviewerName} />
-                            <AvatarFallback>{getInitials(review.reviewerName)}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <div className="font-medium text-sm">{review.reviewerName}</div>
-                            <div className="text-xs text-muted-foreground">{review.reviewerTitle}</div>
-                          </div>
-                        </div>
-                        
-                        <div className="flex gap-1 mb-3">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-black text-black" />
-                          ))}
-                        </div>
-                        
-                        <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                          {review.review}
-                        </p>
-                        
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-muted-foreground">{review.date}</span>
-                        </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">{review.date}</span>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
