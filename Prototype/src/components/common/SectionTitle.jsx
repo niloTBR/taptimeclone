@@ -1,5 +1,8 @@
-const SectionTitle = ({ miniTitle, title, description, className = '' }) => {
+const SectionTitle = ({ miniTitle, title, description, className = '', titleClassName = '' }) => {
   const isLeftAligned = className.includes('text-left')
+  const defaultTitleClass = "text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight"
+  const finalTitleClass = titleClassName || defaultTitleClass
+  
   return (
     <div className={`${isLeftAligned ? 'text-left' : 'text-center'} space-y-6 ${className}`}>
       {miniTitle && (
@@ -10,7 +13,7 @@ const SectionTitle = ({ miniTitle, title, description, className = '' }) => {
         </div>
       )}
       <div className="space-y-2">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight" style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
+        <h2 className={finalTitleClass} style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
           {title}
         </h2>
         {description && (

@@ -102,7 +102,7 @@ const JoinExpertPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Hero Section with Background */}
-      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-12 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-12 pt-48" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
         <div className="absolute inset-0 bg-[#48768c]/80"></div>
         <div className="relative z-10">
         <div className="container mx-auto max-w-5xl">
@@ -153,11 +153,14 @@ const JoinExpertPage = () => {
       {/* Benefits Section */}
       <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            title="Turn Your Expertise Into Impact"
-            description="Join the premier platform where knowledge meets opportunity"
-            className="mb-12"
-          />
+          <div className="text-center mb-12">
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
+              Turn Your Expertise Into Impact
+            </h2>
+            <p className="text-sm md:text-base text-muted-foreground mt-2">
+              Join the premier platform where knowledge meets opportunity
+            </p>
+          </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
@@ -189,6 +192,7 @@ const JoinExpertPage = () => {
             <div className={styles.howItWorksHeader}>
               <SectionTitle 
                 title="Three simple steps to get started"
+                titleClassName="text-xl md:text-2xl"
                 description="From application to earning, we make it easy to share your expertise"
                 className="mb-12"
               />
@@ -241,6 +245,7 @@ const JoinExpertPage = () => {
           >
             <SectionTitle 
               title="What Our Experts Say"
+              titleClassName="text-xl md:text-2xl"
               description="Real earnings and impact from professionals like you"
               className="mb-12"
             />
@@ -324,6 +329,7 @@ const JoinExpertPage = () => {
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
             title="What Kind of Expert Are You?"
+            titleClassName="text-xl md:text-2xl"
             description="We're looking for experts across all major industries and functions"
             className="mb-12"
           />
@@ -360,6 +366,7 @@ const JoinExpertPage = () => {
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
             title={requirements.title}
+            titleClassName="text-xl md:text-2xl"
             description={requirements.subtitle}
             className="mb-12"
           />
@@ -386,7 +393,7 @@ const JoinExpertPage = () => {
       <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
           <div className="text-center space-y-2 mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight text-white" style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight text-white" style={{fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif"}}>
               Frequently Asked Questions
             </h2>
             <p className="text-lg text-white/90 max-w-3xl leading-relaxed mx-auto">
