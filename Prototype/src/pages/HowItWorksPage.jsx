@@ -100,7 +100,7 @@ const HowItWorksPage = () => {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-white text-white hover:bg-white hover:text-black transition-all" asChild>
+              <Button size="lg" className="rounded-full px-8 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all" asChild>
                 <Link to="/join-expert">
                   Become an Expert
                 </Link>
