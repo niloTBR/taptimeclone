@@ -84,10 +84,10 @@ const HowItWorksPage = () => {
         <div className="relative z-10">
           <div className="container mx-auto max-w-4xl text-center">
             <div className="space-y-6">
-            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
               Tap Into The Journey That Shapes You
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            <p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
               We believe the shortest path between you and your biggest leaps is the knowledge, wisdom and truth of someone who has done the work before you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
