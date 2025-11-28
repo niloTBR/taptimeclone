@@ -24,6 +24,8 @@ import {
 } from 'lucide-react'
 import joinExpertData from '@/data/join-expert.json'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
+import styles from './JoinExpert.module.scss'
 
 const JoinExpertPage = () => {
   const { 
@@ -175,74 +177,107 @@ const JoinExpertPage = () => {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <SectionTitle 
-            miniTitle="How It Works"
-            title="Three Simple Steps to Get Started"
-            description="From application to earning, we make it easy to share your expertise"
-            className="mb-12"
-          />
-          
-          <div className="relative max-w-5xl mx-auto">
-            {/* Background line */}
-            <div className="hidden md:block absolute top-12 left-0 right-0 h-[2px] bg-gray-300" style={{width: 'calc(100% - 8rem)', marginLeft: '4rem'}}></div>
-            
-            <div className="relative flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-              {process.map((step, index) => (
-                <div key={index} className="flex-1 text-center relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-green-600 text-white flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                    {step.step}
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mx-auto">
-                    {step.description}
-                  </p>
-                </div>
-              ))}
+      {/* How It Works - Homepage Style */}
+      <section className="content-section-alternate section-padding py-20">
+        <div className="page-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.howItWorksHeader}>
+              <SectionTitle 
+                miniTitle="How It Works"
+                title="Three simple steps to get started"
+                description="From application to earning, we make it easy to share your expertise"
+                className="mb-12"
+              />
             </div>
-          </div>
+            
+            {/* Steps Carousel */}
+            <div className={styles.stepsCarousel}>
+              <div className={styles.stepsContainer}>
+                {process.map((step, index) => (
+                  <motion.div 
+                    key={index} 
+                    className={styles.stepCard}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.2, duration: 0.6 }}
+                    viewport={{ once: true }}
+                  >
+                    {/* Image Placeholder */}
+                    <div className={styles.stepImagePlaceholder}>
+                    </div>
+                    
+                    {/* Step Content */}
+                    <div className={styles.stepContent}>
+                      <div className={styles.stepNumber}>
+                        {step.step}
+                      </div>
+                      <h3 className={styles.stepTitle}>
+                        {step.title}
+                      </h3>
+                      <p className={styles.stepDescription}>
+                        {step.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Expert Testimonials */}
-      <section className="py-20 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            miniTitle="Success Stories"
-            title="What Our Experts Say"
-            description="Real earnings and impact from professionals like you"
-            className="mb-12"
-          />
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial) => (
-              <Card key={testimonial.id} className="bg-gray-100 border-0">
-                <CardContent className="p-6 space-y-4">
-                  <div className="flex items-center gap-1 mb-4">
+      {/* Expert Testimonials - Homepage Style */}
+      <section className="content-section section-padding py-20">
+        <div className="page-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle 
+              miniTitle="Success Stories"
+              title="What Our Experts Say"
+              description="Real earnings and impact from professionals like you"
+              className="mb-12"
+            />
+            
+            <div className={styles.reviewsGrid}>
+              {testimonials.map((testimonial, index) => (
+                <motion.div 
+                  key={testimonial.id}
+                  className={styles.reviewCard}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className={styles.reviewStars}>
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-black text-black" />
                     ))}
                   </div>
-                  <p className="text-muted-foreground italic">
+                  <p className={styles.reviewText}>
                     "{testimonial.quote}"
                   </p>
-                  <div className="flex items-center gap-3 pt-4">
-                    <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center">
-                      <span className="text-sm font-medium">
-                        {getInitials(testimonial.name)}
-                      </span>
+                  <div className={styles.reviewAuthor}>
+                    <div className={styles.authorAvatar}>
+                      {getInitials(testimonial.name)}
                     </div>
                     <div>
-                      <div className="font-semibold text-sm">{testimonial.name}</div>
-                      <div className="text-xs text-muted-foreground">{testimonial.title}</div>
+                      <div className={styles.authorName}>{testimonial.name}</div>
+                      <div className={styles.authorRole}>{testimonial.title}</div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </section>
 
