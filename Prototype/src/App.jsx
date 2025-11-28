@@ -45,7 +45,6 @@ function App() {
           <Route path="/journey" element={<JourneyPage />} />
           <Route path="/join-expert" element={<JoinExpertPage />} />
           <Route path="/expert/:id" element={<ExpertProfilePage />} />
-          <Route path="/book/:expertId" element={<BookingPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/faq" element={<FAQPage />} />
@@ -73,6 +72,7 @@ function App() {
         <Route path="/expert/dashboard" element={<ExpertDashboard />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/prototypes" element={<PrototypesPage />} />
+        <Route path="/book/:expertId" element={<BookingPage />} />
       </Routes>
     </Router>
   )
