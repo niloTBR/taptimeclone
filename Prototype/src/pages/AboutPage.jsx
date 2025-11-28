@@ -1,7 +1,9 @@
+import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { Users, Target, Award, Heart, Clock, Star, Zap, ArrowRight, CheckCircle } from 'lucide-react'
+import { Users, Target, Award, Heart, Clock, Star, Zap, ArrowRight, CheckCircle, Globe, ChevronLeft, ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
 import StandardPage from '@/components/layout/StandardPage'
 import Section from '@/components/common/Section'
 import PageContainer from '@/components/common/PageContainer'
@@ -9,11 +11,13 @@ import SectionTitle from '@/components/common/SectionTitle'
 
 // About page component
 const AboutPage = () => {
+  const [currentTestimonialIndex, setCurrentTestimonialIndex] = React.useState(0)
+  
   const stats = [
-    { number: "1,000+", label: "Expert Professionals", icon: <Users className="w-5 h-5" /> },
-    { number: "10,000+", label: "Successful Sessions", icon: <CheckCircle className="w-5 h-5" /> },
-    { number: "25+", label: "Industry Categories", icon: <Target className="w-5 h-5" /> },
-    { number: "4.9/5", label: "Average Rating", icon: <Star className="w-5 h-5" /> }
+    { icon: Users, value: "1,000+", label: "Verified Experts" },
+    { icon: Clock, value: "10,000+", label: "Sessions Completed" },
+    { icon: Star, value: "4.9/5", label: "Average Rating" },
+    { icon: Globe, value: "50+", label: "Countries Served" }
   ]
 
   const problems = [
@@ -113,26 +117,40 @@ const AboutPage = () => {
       actions={headerActions}
       headerSize="large"
     >
-      {/* Quick Stats */}
-      <Section background="default" spacing="default">
-        <PageContainer>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-            {stats.map((stat, index) => (
-              <div key={index} className="text-center space-y-2">
-                <div className="w-12 h-12 rounded-full bg-foreground text-background flex items-center justify-center mx-auto mb-4">
-                  {stat.icon}
-                </div>
-                <div className="text-2xl md:text-3xl font-semibold">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </PageContainer>
-      </Section>
+      {/* Stats Section - Homepage Style with Blue Background */}
+      <section className="py-20 px-4" style={{background: '#081d34'}}>
+        <div className="container mx-auto max-w-6xl">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map(({ icon: Icon, value, label }, index) => (
+                <motion.div 
+                  key={index}
+                  className="text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-[#efffba] text-black flex items-center justify-center mx-auto mb-4">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-white">
+                    {value}
+                  </div>
+                  <div className="text-sm text-white/70">
+                    {label}
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* The Problem We Solve */}
       <Section background="muted" spacing="default">
@@ -146,15 +164,15 @@ const AboutPage = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {problems.map((problem, index) => (
-              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
+              <Card key={index} className="bg-gray-100 border-0">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center text-lg font-semibold">
+                  <div className="text-[#efffba] text-5xl font-bold">
                     {index + 1}
                   </div>
-                  <h3 className="text-lg font-semibold">
+                  <h3 className="text-lg font-semibold text-black">
                     {problem.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-black/70 leading-relaxed">
                     {problem.description}
                   </p>
                 </CardContent>
@@ -176,15 +194,15 @@ const AboutPage = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {solutions.map((solution, index) => (
-              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardContent className="pt-6 text-center space-y-4 p-8">
+              <Card key={index} className="bg-gray-100 border-0">
+                <CardContent className="pt-6 space-y-4 p-8">
                   <div className="text-black mb-4">
-                    {solution.icon}
+                    {React.cloneElement(solution.icon, { className: "w-12 h-12" })}
                   </div>
-                  <h3 className="text-xl font-semibold">
+                  <h3 className="text-xl font-semibold text-black">
                     {solution.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-black/70 leading-relaxed">
                     {solution.description}
                   </p>
                 </CardContent>
@@ -194,36 +212,94 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* Proof & Impact - Testimonials */}
+      {/* Proof & Impact - Testimonials Carousel (JoinExpertPage Style) */}
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
-          <SectionTitle 
-            title="Success stories from our community"
-            titleClassName="text-xl md:text-2xl font-semibold"
-            description="See how TapTime has helped professionals achieve breakthrough moments"
-            className="mb-16"
-          />
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardContent className="p-8 space-y-6">
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-black text-black" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground italic leading-relaxed">
-                    "{testimonial.quote}"
-                  </p>
-                  <div>
-                    <div className="font-semibold">{testimonial.author}</div>
-                    <div className="text-sm text-muted-foreground">{testimonial.role}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <SectionTitle 
+              title="Success stories from our community"
+              titleClassName="text-xl md:text-2xl font-semibold"
+              description="See how TapTime has helped professionals achieve breakthrough moments"
+              className="mb-16"
+            />
+            
+            {/* Testimonials Carousel Container */}
+            <div className="relative overflow-hidden">
+              <div 
+                className="flex gap-8 transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentTestimonialIndex * (100/3)}%)` }}
+              >
+                {testimonials.map((testimonial, index) => (
+                  <motion.div 
+                    key={index}
+                    className="flex-none"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ delay: (index % 3) * 0.1, duration: 0.6 }}
+                    viewport={{ once: true }}
+                    style={{ width: 'calc((100% - 4rem) / 3)' }}
+                  >
+                    <Card className="bg-gray-100 border-0 h-full">
+                      <CardContent className="p-8 space-y-6">
+                        <div className="flex items-center gap-1 mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-black text-black" />
+                          ))}
+                        </div>
+                        <p className="text-black/70 italic leading-relaxed">
+                          "{testimonial.quote}"
+                        </p>
+                        <div className="mt-auto">
+                          <div className="font-semibold text-black">{testimonial.author}</div>
+                          <div className="text-sm text-black/60">{testimonial.role}</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center gap-8 mt-8">
+              <div className="flex gap-2">
+                <button
+                  onClick={() => {
+                    setCurrentTestimonialIndex(prev => prev > 0 ? prev - 1 : 0)
+                  }}
+                  className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+                  type="button"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentTestimonialIndex(prev => prev < testimonials.length - 3 ? prev + 1 : prev)
+                  }}
+                  className="w-10 h-10 rounded-full border-2 border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+                  type="button"
+                >
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="flex gap-1.5">
+                {Array.from({ length: Math.max(1, testimonials.length - 2) }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentTestimonialIndex(i)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === currentTestimonialIndex ? 'bg-black w-8' : 'bg-gray-300'
+                    }`}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -258,20 +334,21 @@ const AboutPage = () => {
             title="What drives us every day"
             titleClassName="text-xl md:text-2xl font-semibold text-white"
             description="The principles that guide how we build and grow TapTime"
-            className="mb-16 [&_p]:text-white/90"
+            descriptionClassName="text-white/90"
+            className="mb-16"
           />
           
           <div className="grid md:grid-cols-3 gap-8">
             {values.map((value, index) => (
-              <Card key={index} className="bg-gray-100 border-0 shadow-lg hover:shadow-xl transition-shadow">
-                <CardContent className="pt-6 text-center space-y-4 p-8">
+              <Card key={index} className="bg-gray-100 border-0">
+                <CardContent className="pt-6 space-y-4 p-8">
                   <div className="text-black mb-4">
-                    {value.icon}
+                    {React.cloneElement(value.icon, { className: "w-12 h-12" })}
                   </div>
-                  <h3 className="text-xl font-semibold">
+                  <h3 className="text-xl font-semibold text-black">
                     {value.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-black/70 leading-relaxed">
                     {value.description}
                   </p>
                 </CardContent>

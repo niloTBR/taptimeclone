@@ -1,7 +1,9 @@
-const SectionTitle = ({ miniTitle, title, description, className = '', titleClassName = '' }) => {
+const SectionTitle = ({ miniTitle, title, description, className = '', titleClassName = '', descriptionClassName = '' }) => {
   const isLeftAligned = className.includes('text-left')
   const defaultTitleClass = "text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight"
   const finalTitleClass = titleClassName || defaultTitleClass
+  const defaultDescriptionClass = `text-lg text-muted-foreground max-w-3xl leading-relaxed ${isLeftAligned ? '' : 'mx-auto'}`
+  const finalDescriptionClass = descriptionClassName || defaultDescriptionClass
   
   return (
     <div className={`${isLeftAligned ? 'text-left' : 'text-center'} space-y-6 ${className}`}>
@@ -17,7 +19,7 @@ const SectionTitle = ({ miniTitle, title, description, className = '', titleClas
           {title}
         </h2>
         {description && (
-          <p className={`text-lg text-muted-foreground max-w-3xl leading-relaxed ${isLeftAligned ? '' : 'mx-auto'}`}>
+          <p className={finalDescriptionClass}>
             {description}
           </p>
         )}

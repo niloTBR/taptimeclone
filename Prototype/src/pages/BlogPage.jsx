@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Calendar, User, ArrowRight, Clock, Search } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import StandardPage from '@/components/layout/StandardPage'
 import SectionTitle from '@/components/common/SectionTitle'
 
 const BlogPage = () => {
@@ -76,47 +78,51 @@ const BlogPage = () => {
     ? posts 
     : posts.filter(post => post.category === selectedCategory)
 
+  const headerActions = (
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
+        <Link to="/browse">
+          Find Your Expert
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </Button>
+    </div>
+  )
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
-                Stories, Insights & How-To's
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Real stories from professionals who found their breakthrough moments
-              </p>
-            </div>
-            
-            {/* Search Bar */}
-            <div className="max-w-lg mx-auto">
-              <div className="relative">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="Search articles..."
-                  className="pl-12 rounded-full border-2 border-muted-foreground/20 focus:border-foreground"
-                />
-              </div>
-            </div>
+    <StandardPage
+      title="Stories, Insights & How-To's"
+      description="Real stories from professionals who found their breakthrough moments"
+      actions={headerActions}
+      headerSize="large"
+    >
+      {/* Search Bar */}
+      <section className="py-8 px-4">
+        <div className="container mx-auto max-w-lg">
+          <div className="relative">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
+            <Input
+              type="text"
+              placeholder="Search articles..."
+              className="pl-12 rounded-full border-2 border-muted-foreground/20 focus:border-foreground"
+            />
           </div>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="py-8 px-4 border-y bg-muted/30">
+      <section className="py-8 px-4">
         <div className="container mx-auto max-w-4xl">
           <div className="flex flex-wrap gap-3 justify-center">
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
-                className="rounded-full border-2 border-foreground"
+                className={selectedCategory === category 
+                  ? "rounded-full px-6 bg-[#efffba] text-black hover:bg-black hover:text-white transition-all" 
+                  : "rounded-full px-6 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all"
+                }
               >
                 {category}
               </Button>
@@ -128,7 +134,7 @@ const BlogPage = () => {
       {/* Featured Story */}
       <section className="py-16 px-4">
         <div className="container mx-auto max-w-4xl">
-          <Card className="border-2 border-foreground overflow-hidden">
+          <Card className="bg-gray-100 border-0 overflow-hidden">
             <div className="grid lg:grid-cols-5 gap-6">
               <div className="lg:col-span-2 relative h-64 lg:h-auto">
                 <img 
@@ -136,7 +142,7 @@ const BlogPage = () => {
                   alt={featuredPost.title}
                   className="w-full h-full object-cover"
                 />
-                <Badge className="absolute top-4 left-4 bg-foreground text-background">
+                <Badge className="absolute top-4 left-4 bg-[#efffba] text-black border-0">
                   Featured
                 </Badge>
               </div>
@@ -153,7 +159,7 @@ const BlogPage = () => {
                   <p className="text-muted-foreground leading-relaxed">
                     {featuredPost.excerpt}
                   </p>
-                  <Button className="w-fit rounded-full">
+                  <Button className="w-fit rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all">
                     Read Story
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
@@ -169,7 +175,7 @@ const BlogPage = () => {
         <div className="container mx-auto max-w-5xl">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredPosts.map((post, index) => (
-              <Card key={index} className="border-2 border-foreground hover:shadow-lg transition-shadow cursor-pointer group">
+              <Card key={index} className="bg-gray-100 border-0 hover:bg-gray-200 transition-colors cursor-pointer group">
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Badge variant="secondary" className="text-xs">{post.category}</Badge>
@@ -200,31 +206,34 @@ const BlogPage = () => {
         </div>
       </section>
 
-      {/* Simple Newsletter */}
-      <section className="py-16 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-2xl text-center">
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold">
-              Get stories in your inbox
-            </h2>
-            <p className="text-muted-foreground">
-              Weekly insights from people who've made it happen
-            </p>
-            
-            <form className="flex gap-3 max-w-md mx-auto">
-              <Input
-                type="email"
-                placeholder="Your email"
-                className="flex-1 rounded-full border-2 border-muted-foreground/20 focus:border-foreground"
-              />
-              <Button type="submit" className="rounded-full px-6">
-                Subscribe
-              </Button>
-            </form>
+      {/* Newsletter - Footer Bar Style */}
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="bg-[#efffba] rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-xl font-semibold mb-2 text-black">
+                  Get stories in your inbox
+                </h3>
+                <p className="text-sm text-black/70">
+                  Weekly insights from people who've made it happen
+                </p>
+              </div>
+              <div className="flex gap-3">
+                <Input
+                  type="email"
+                  placeholder="Your email"
+                  className="rounded-full border-2 border-black/20 focus:border-black bg-white"
+                />
+                <Button type="submit" className="rounded-full px-6 bg-[#081d34] text-white hover:bg-[#0a2040] transition-all">
+                  Subscribe
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </StandardPage>
   )
 }
 

@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Link } from 'react-router-dom'
-import { ChevronDown, Search, MessageCircle } from 'lucide-react'
+import { Search, MessageCircle, ArrowRight } from 'lucide-react'
+import StandardPage from '@/components/layout/StandardPage'
 import SectionTitle from '@/components/common/SectionTitle'
 import { useState } from 'react'
 
@@ -86,19 +86,29 @@ const FAQPage = () => {
     ? faqs 
     : faqs.filter(faq => faq.category === selectedCategory)
 
+  const headerActions = (
+    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+      <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
+        <Link to="/browse">
+          Find Your Expert
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </Button>
+      <Button size="lg" className="rounded-full px-8 border-2 border-white text-white bg-transparent hover:bg-white hover:text-black transition-all" asChild>
+        <Link to="/contact">
+          Contact Support
+        </Link>
+      </Button>
+    </div>
+  )
+
   return (
-    <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-6">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            Find answers to common questions about TapTime, our experts, and how our platform works.
-          </p>
-        </div>
-      </section>
+    <StandardPage
+      title="Frequently Asked Questions"
+      description="Find answers to common questions about TapTime, our experts, and how our platform works."
+      actions={headerActions}
+      headerSize="large"
+    >
 
       {/* Search Bar */}
       <section className="px-4 pb-8">
@@ -121,10 +131,12 @@ const FAQPage = () => {
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={selectedCategory === category ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
-                className="rounded-full border-2 border-foreground"
+                className={selectedCategory === category 
+                  ? "rounded-full px-6 bg-[#efffba] text-black hover:bg-black hover:text-white transition-all" 
+                  : "rounded-full px-6 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all"
+                }
               >
                 {category}
               </Button>
@@ -133,69 +145,59 @@ const FAQPage = () => {
         </div>
       </section>
 
-      {/* FAQ Items */}
-      <section className="py-8 px-4">
+      {/* FAQ Items - Blue Background Section */}
+      <section className="py-20 px-4" style={{background: '#081d34'}}>
         <div className="container mx-auto max-w-4xl">
-          <div className="space-y-4">
+          <SectionTitle 
+            title="Browse Questions by Category"
+            titleClassName="text-xl md:text-2xl font-semibold text-white"
+            description="Click on any question to see the answer"
+            descriptionClassName="text-white/90"
+            className="mb-12"
+          />
+          
+          <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
             {filteredFAQs.map((faq, index) => (
-              <Card key={index} className="border-2 border-foreground">
-                <CardHeader 
-                  className="cursor-pointer"
-                  onClick={() => toggleItem(index)}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <Badge variant="secondary" className="text-xs">
-                        {faq.category}
-                      </Badge>
-                      <CardTitle className="text-lg font-semibold">
-                        {faq.question}
-                      </CardTitle>
-                    </div>
-                    <ChevronDown 
-                      className={`w-5 h-5 transition-transform ${
-                        openItems[index] ? 'rotate-180' : ''
-                      }`}
-                    />
+              <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-100 last:border-0">
+                <AccordionTrigger className="text-left font-semibold text-base px-6 py-4 hover:no-underline">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-xs text-[#efffba] font-medium">{faq.category}</span>
+                    <span>{faq.question}</span>
                   </div>
-                </CardHeader>
-                {openItems[index] && (
-                  <CardContent className="pt-0">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
+                </AccordionTrigger>
+                <AccordionContent className="px-6 pb-4 text-sm text-black/70 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
             ))}
-          </div>
+          </Accordion>
         </div>
       </section>
 
-      {/* Contact CTA */}
-      <section className="py-20 px-4 bg-muted/30">
-        <div className="container mx-auto max-w-4xl text-center">
-          <div className="flex items-center justify-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-foreground text-background flex items-center justify-center">
-              <MessageCircle className="w-8 h-8" />
+      {/* Contact CTA - Footer Bar Style */}
+      <div className="py-8 px-4">
+        <div className="container mx-auto max-w-5xl">
+          <div className="bg-[#efffba] rounded-2xl p-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-xl font-semibold mb-2 text-black">
+                  Still have questions?
+                </h3>
+                <p className="text-sm text-black/70">
+                  Can't find what you're looking for? Our support team is here to help.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-[#081d34] text-white rounded-full font-semibold text-sm hover:bg-[#0a2040] transition-all">
+                  Contact Support
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </div>
-          <h2 className="text-3xl font-semibold mb-4">
-            Still have questions?
-          </h2>
-          <p className="text-muted-foreground mb-8 text-lg">
-            Can't find what you're looking for? Our support team is here to help.
-          </p>
-          <div className="flex justify-center">
-            <Button size="lg" className="rounded-full px-8" asChild>
-              <Link to="/contact">
-                Contact Support
-              </Link>
-            </Button>
-          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </StandardPage>
   )
 }
 
