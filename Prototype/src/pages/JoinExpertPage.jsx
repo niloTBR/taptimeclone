@@ -101,7 +101,7 @@ const JoinExpertPage = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Enhanced Hero Section with Background */}
-      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-20 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
+      <section className="relative bg-gradient-to-r from-slate-900 to-blue-900 text-white px-4 py-12 pt-32" style={{backgroundImage: "url('/yianni-mathioudakis-clhGuYYPJpE-unsplash.jpg')", backgroundSize: "cover", backgroundPosition: "center"}}>
         <div className="absolute inset-0 bg-[#48768c]/80"></div>
         <div className="relative z-10">
         <div className="container mx-auto max-w-5xl">
@@ -150,7 +150,7 @@ const JoinExpertPage = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-20 px-4">
+      <section className="py-12 px-4">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
             miniTitle="Why Join TapTime"
