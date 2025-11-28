@@ -91,13 +91,13 @@ const AboutPage = () => {
 
   const headerActions = (
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      <Button size="lg" className="rounded-full px-8" asChild>
+      <Button size="lg" className="rounded-full px-8 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black hover:-translate-y-0.5 transition-all duration-300 shadow-sm hover:shadow-lg" asChild>
         <Link to="/browse">
           Find Your Expert
           <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </Button>
-      <Button size="lg" variant="outline" className="rounded-full px-8 border-2 border-foreground" asChild>
+      <Button size="lg" className="rounded-full px-8 border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-all" asChild>
         <Link to="/join-expert">
           Become an Expert
         </Link>
@@ -138,8 +138,8 @@ const AboutPage = () => {
       <Section background="muted" spacing="default">
         <PageContainer size="wide">
           <SectionTitle 
-            miniTitle="The Challenge"
             title="Real Guidance Comes from Many Voices"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="We identified three major problems that keep professionals from getting the guidance they need"
             className="mb-16"
           />
@@ -168,8 +168,8 @@ const AboutPage = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
-            miniTitle="Our Solution"
             title="We're changing how expertise flows"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="TapTime makes expert knowledge accessible, affordable, and immediate"
             className="mb-16"
           />
@@ -198,8 +198,8 @@ const AboutPage = () => {
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
-            miniTitle="Real Results"
             title="Success stories from our community"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="See how TapTime has helped professionals achieve breakthrough moments"
             className="mb-16"
           />
@@ -231,8 +231,8 @@ const AboutPage = () => {
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <SectionTitle 
-            miniTitle="Our Story"
             title="Building the future of professional growth"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="How we're democratizing access to expert knowledge"
             className="mb-12"
           />
@@ -255,8 +255,8 @@ const AboutPage = () => {
       <section className="py-20 px-4 bg-muted/30">
         <div className="container mx-auto max-w-6xl">
           <SectionTitle 
-            miniTitle="Our Values"
             title="What drives us every day"
+            titleClassName="text-xl md:text-2xl font-semibold"
             description="The principles that guide how we build and grow TapTime"
             className="mb-16"
           />

@@ -10,13 +10,13 @@ const PageHeader = ({
   size = 'default' // 'default' | 'large'
 }) => {
   const sizeClasses = {
-    default: 'py-16',
-    large: 'py-24'
+    default: 'py-16 pt-32',
+    large: 'py-24 pt-48'
   }
 
   const titleClasses = {
-    default: 'text-3xl md:text-4xl lg:text-5xl',
-    large: 'text-4xl md:text-5xl lg:text-6xl'
+    default: 'text-xl md:text-2xl',
+    large: 'text-xl md:text-2xl'
   }
 
   return (
