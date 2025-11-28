@@ -768,3 +768,45 @@ button:has(.lucide-sparkles) svg {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Mobile-specific fixes for color consistency */
+@media (max-width: 768px) {
+  /* Ensure primary brand color is consistent on mobile */
+  .bg-\\[\\#efffba\\],
+  [style*="background-color: #efffba"],
+  [class*="bg-[#efffba]"] {
+    background-color: #efffba !important;
+    color: #000000 !important;
+  }
+  
+  /* Force reload of brand colors on mobile */
+  :root {
+    --brand-primary: #efffba;
+    --brand-primary-rgb: 239, 255, 186;
+  }
+  
+  /* Override any mobile browser default styling */
+  .primary-button,
+  .ios-button.login,
+  button[class*="efffba"] {
+    background-color: #efffba !important;
+    color: #000000 !important;
+    border-color: #efffba !important;
+  }
+}
+
+/* Touch device specific fixes */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile touch devices */
+  .bg-\\[\\#efffba\\] {
+    background-color: #efffba !important;
+    color: #000000 !important;
+  }
+  
+  /* Ensure buttons maintain brand color on touch devices */
+  button.primary-button,
+  .ios-button.login {
+    background-color: #efffba !important;
+    color: #000000 !important;
+  }
+}
