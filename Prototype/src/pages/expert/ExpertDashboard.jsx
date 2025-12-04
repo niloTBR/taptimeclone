@@ -683,12 +683,10 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Topic and Summary */}
+                      {/* Session Topic */}
                       <div>
-                        <h4 className="font-medium text-sm mb-1">{session.topic}</h4>
-                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
-                          {session.summary}
-                        </p>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Session Topic</p>
+                        <h4 className="font-medium text-sm text-black">{session.topic}</h4>
                       </div>
                       
                       {/* Session Details */}
@@ -696,6 +694,13 @@ const ExpertDashboard = () => {
                         <p>📅 {session.date} at {session.time}</p>
                         <p>⏱️ {session.duration}</p>
                         <p className="text-gray-900 font-semibold">{session.cost}</p>
+                      </div>
+                      
+                      {/* Summary */}
+                      <div>
+                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
+                          {session.summary}
+                        </p>
                       </div>
                     </div>
 
@@ -773,12 +778,10 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Topic and Summary */}
+                      {/* Session Topic */}
                       <div>
-                        <h4 className="font-medium text-sm mb-1">{session.topic}</h4>
-                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
-                          {session.feedback}
-                        </p>
+                        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Session Topic</p>
+                        <h4 className="font-medium text-sm text-black">{session.topic}</h4>
                       </div>
                       
                       {/* Session Details */}
@@ -811,6 +814,13 @@ const ExpertDashboard = () => {
                             </span>
                           )}
                         </div>
+                      </div>
+                      
+                      {/* Client Feedback */}
+                      <div>
+                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
+                          {session.feedback}
+                        </p>
                       </div>
                     </div>
 
