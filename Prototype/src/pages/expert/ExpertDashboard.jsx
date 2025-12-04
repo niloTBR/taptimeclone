@@ -45,8 +45,7 @@ import {
   Package,
   DollarSign,
   Trash2,
-  Save,
-  X
+  Save
 } from 'lucide-react'
 
 const ExpertDashboard = () => {
