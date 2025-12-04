@@ -1618,7 +1618,7 @@ const ExpertDashboard = () => {
 
                       {/* Short Bio */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio (160)</label>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio (160 characters)</label>
                         <div className="relative">
                           <textarea 
                             rows="2"
@@ -1645,6 +1645,39 @@ const ExpertDashboard = () => {
                           placeholder="Tell us about your experience and what you can help others with..."
                           defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies. Specializing in product-market fit, go-to-market strategies, and building high-performing product teams."
                         />
+                      </div>
+
+                      {/* Expertise */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Expertise</label>
+                        <div className="space-y-3">
+                          {/* Primary Expertise */}
+                          <div>
+                            <label className="text-xs font-medium text-gray-600 mb-2 block">Primary Area</label>
+                            <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
+                              <option value="Product Strategy" selected>Product Strategy</option>
+                              <option value="Business Strategy">Business Strategy</option>
+                              <option value="Marketing">Marketing</option>
+                              <option value="Engineering">Engineering</option>
+                              <option value="Design">Design</option>
+                              <option value="Sales">Sales</option>
+                              <option value="Finance">Finance</option>
+                              <option value="Leadership">Leadership</option>
+                              <option value="Operations">Operations</option>
+                            </select>
+                          </div>
+                          
+                          {/* Skills/Topics */}
+                          <div>
+                            <label className="text-xs font-medium text-gray-600 mb-2 block">Skills & Topics (comma separated)</label>
+                            <input 
+                              type="text" 
+                              placeholder="e.g., Product-Market Fit, Go-to-Market Strategy, User Research"
+                              className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                              defaultValue="Product-Market Fit, Go-to-Market Strategy, User Research, Roadmapping, Team Building"
+                            />
+                          </div>
+                        </div>
                       </div>
 
                       {/* LinkedIn Profile */}
