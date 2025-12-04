@@ -683,9 +683,12 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Title */}
+                      {/* Session Title and Client Response */}
                       <div>
-                        <h4 className="font-semibold text-base text-black mb-2">{session.topic}</h4>
+                        <h4 className="font-semibold text-base text-black mb-1">{session.topic}</h4>
+                        <p className="text-sm text-gray-600 italic mb-3">
+                          "I'm struggling with user retention in my SaaS product. Our churn rate is 15% monthly and I need strategies to improve engagement."
+                        </p>
                         <div className="space-y-1 text-xs text-muted-foreground">
                           <p>📅 {session.date} at {session.time}</p>
                           <p>⏱️ {session.duration}</p>
@@ -693,14 +696,8 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Challenge Response */}
-                      <div className="space-y-2">
-                        <p className="text-xs text-muted-foreground">What specific challenge would you like to discuss?</p>
-                        <p className="text-sm text-gray-700 italic">
-                          "I'm struggling with user retention in my SaaS product. Our churn rate is 15% monthly and I need strategies to improve engagement."
-                        </p>
-                        
-                        {/* Attachments */}
+                      {/* Attachments */}
+                      <div>
                         <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
                           <Download className="w-3 h-3 text-gray-600" />
                           <span className="text-xs text-gray-600">3 attachments</span>
@@ -782,23 +779,20 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Title */}
+                      {/* Session Title and Client Response */}
                       <div>
-                        <h4 className="font-semibold text-base text-black mb-2">{session.topic}</h4>
+                        <h4 className="font-semibold text-base text-black mb-1">{session.topic}</h4>
+                        <p className="text-sm text-gray-600 italic mb-3 line-clamp-2">
+                          "{session.feedback}"
+                        </p>
                         <div className="space-y-1 text-xs text-muted-foreground">
                           <p>📅 {session.date} • Session {session.sessionNumber}</p>
                           <p>⏱️ {session.duration}</p>
                         </div>
                       </div>
                       
-                      {/* Challenge Response */}
-                      <div className="space-y-2">
-                        <p className="text-xs text-muted-foreground">What specific challenge would you like to discuss?</p>
-                        <p className="text-sm text-gray-700 italic line-clamp-2">
-                          "{session.feedback}"
-                        </p>
-                        
-                        {/* Attachments */}
+                      {/* Attachments */}
+                      <div>
                         <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
                           <Download className="w-3 h-3 text-gray-600" />
                           <span className="text-xs text-gray-600">2 attachments</span>
