@@ -1616,14 +1616,34 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
 
-                      {/* Professional Bio */}
+                      {/* Short Bio */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Professional Bio</label>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio (160)</label>
+                        <div className="relative">
+                          <textarea 
+                            rows="2"
+                            maxLength="160"
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
+                            placeholder="Brief description visible on your profile..."
+                            defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions."
+                            onChange={(e) => {
+                              const charCount = e.target.value.length;
+                              const counter = e.target.parentElement.querySelector('.char-counter');
+                              if (counter) counter.textContent = `${charCount}/160`;
+                            }}
+                          />
+                          <span className="char-counter absolute bottom-2 right-3 text-xs text-gray-500">107/160</span>
+                        </div>
+                      </div>
+
+                      {/* About */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">About</label>
                         <textarea 
                           rows="5"
                           className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
                           placeholder="Tell us about your experience and what you can help others with..."
-                          defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies."
+                          defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies. Specializing in product-market fit, go-to-market strategies, and building high-performing product teams."
                         />
                       </div>
 
