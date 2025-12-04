@@ -684,9 +684,9 @@ const ExpertDashboard = () => {
                       </div>
                       
                       {/* Session Title and Client Response */}
-                      <div>
-                        <h4 className="font-semibold text-base text-black mb-1">{session.topic}</h4>
-                        <p className="text-sm text-gray-600 italic mb-3">
+                      <div className="space-y-3">
+                        <h4 className="font-bold text-sm text-black">{session.topic}</h4>
+                        <p className="text-sm text-gray-600 italic">
                           "I'm struggling with user retention in my SaaS product. Our churn rate is 15% monthly and I need strategies to improve engagement."
                         </p>
                         <div className="space-y-1 text-xs text-muted-foreground">
@@ -780,9 +780,9 @@ const ExpertDashboard = () => {
                       </div>
                       
                       {/* Session Title and Client Response */}
-                      <div>
-                        <h4 className="font-semibold text-base text-black mb-1">{session.topic}</h4>
-                        <p className="text-sm text-gray-600 italic mb-3 line-clamp-2">
+                      <div className="space-y-3">
+                        <h4 className="font-bold text-sm text-black">{session.topic}</h4>
+                        <p className="text-sm text-gray-600 italic line-clamp-2">
                           "{session.feedback}"
                         </p>
                         <div className="space-y-1 text-xs text-muted-foreground">
