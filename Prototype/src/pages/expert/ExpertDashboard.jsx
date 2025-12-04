@@ -664,38 +664,20 @@ const ExpertDashboard = () => {
                     setShowSessionDetail(true)
                   }}
                 >
-                  {/* Expert Photo Header */}
-                  <div className="relative h-32 overflow-hidden rounded-t-lg bg-gray-100">
-                    <img 
-                      src={session.expertImage} 
-                      alt={session.expertName}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-black text-xs px-2 py-1 shadow-sm">
-                        {session.category}
-                      </Badge>
-                    </div>
-                    
-                  </div>
-
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
                       {/* Profile Picture and Client Info */}
-                      <div className="flex items-start gap-3">
-                        <Avatar className="w-12 h-12">
+                      <div className="flex items-start gap-4">
+                        <Avatar className="w-20 h-20">
                           <AvatarImage src={session.avatar} alt={session.clientName} />
-                          <AvatarFallback className="text-sm">{getInitials(session.clientName)}</AvatarFallback>
+                          <AvatarFallback className="text-lg font-semibold">{getInitials(session.clientName)}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-base leading-tight text-left text-black">
+                          <h3 className="font-semibold text-lg leading-tight text-left text-black">
                             {session.clientName}
                           </h3>
-                          <p className="text-xs text-muted-foreground mt-1 text-left flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
+                          <p className="text-sm text-muted-foreground mt-1 text-left flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
                             {session.clientLocation}
                           </p>
                         </div>
@@ -772,38 +754,20 @@ const ExpertDashboard = () => {
                     setShowSessionDetail(true)
                   }}
                 >
-                  {/* Expert Photo Header */}
-                  <div className="relative h-32 overflow-hidden rounded-t-lg bg-gray-100">
-                    <img 
-                      src={session.expertImage} 
-                      alt={session.expertName}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-3 right-3">
-                      <Badge variant="secondary" className="bg-white/90 backdrop-blur-sm text-black text-xs px-2 py-1 shadow-sm">
-                        {session.category}
-                      </Badge>
-                    </div>
-                    
-                  </div>
-
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
                       {/* Profile Picture and Client Info */}
-                      <div className="flex items-start gap-3">
-                        <Avatar className="w-12 h-12">
+                      <div className="flex items-start gap-4">
+                        <Avatar className="w-20 h-20">
                           <AvatarImage src={session.avatar} alt={session.clientName} />
-                          <AvatarFallback className="text-sm">{getInitials(session.clientName)}</AvatarFallback>
+                          <AvatarFallback className="text-lg font-semibold">{getInitials(session.clientName)}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <h3 className="font-semibold text-base leading-tight text-left text-black">
+                          <h3 className="font-semibold text-lg leading-tight text-left text-black">
                             {session.clientName}
                           </h3>
-                          <p className="text-xs text-muted-foreground mt-1 text-left flex items-center gap-1">
-                            <MapPin className="w-3 h-3" />
+                          <p className="text-sm text-muted-foreground mt-1 text-left flex items-center gap-1">
+                            <MapPin className="w-4 h-4" />
                             {session.clientLocation}
                           </p>
                         </div>
