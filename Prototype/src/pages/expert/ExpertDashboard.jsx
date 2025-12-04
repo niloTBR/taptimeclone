@@ -1445,7 +1445,7 @@ const ExpertDashboard = () => {
                 <nav className="space-y-2">
                   {[
                     { id: 'basic', label: 'Basic Information', icon: User },
-                    { id: 'professional', label: 'Professional Profile', icon: Building },
+                    { id: 'professional', label: 'Professional & Expertise', icon: Briefcase },
                     { id: 'billing', label: 'Billing Information', icon: CreditCard },
                     { id: 'invoices', label: 'Invoices', icon: Receipt }
                   ].map((tab) => (
@@ -1471,6 +1471,20 @@ const ExpertDashboard = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-6">Basic Information</h3>
                     <div className="space-y-6">
+                      {/* Profile Picture */}
+                      <div className="flex items-center gap-4">
+                        <Avatar className="w-20 h-20">
+                          <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
+                          <AvatarFallback className="text-xl">{getInitials()}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <Button className="mb-2 rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4 py-2 text-sm font-medium">
+                            Change Photo
+                          </Button>
+                          <p className="text-xs text-gray-500">JPG, PNG or GIF. Max size 5MB.</p>
+                        </div>
+                      </div>
+
                       {/* Name Fields */}
                       <div className="grid grid-cols-2 gap-6">
                         <div>
@@ -1571,7 +1585,7 @@ const ExpertDashboard = () => {
                 
                 {settingsTab === 'professional' && (
                   <div>
-                    <h3 className="text-lg font-semibold mb-6">Professional Profile</h3>
+                    <h3 className="text-lg font-semibold mb-6">Professional & Expertise</h3>
                     <div className="space-y-6">
                       {/* Professional Title */}
                       <div>
@@ -1580,130 +1594,128 @@ const ExpertDashboard = () => {
                           <Building className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                           <input 
                             type="text" 
-                            placeholder="Senior Product Manager"
+                            placeholder="e.g., Senior Product Manager, Marketing Director"
                             className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
                             defaultValue="Product Strategy Expert"
                           />
                         </div>
                       </div>
 
-                      {/* Company */}
-                      <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Company</label>
-                        <div className="relative">
-                          <Building className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-                          <input 
-                            type="text" 
-                            placeholder="TechCorp Inc."
-                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
-                            defaultValue="Independent Consultant"
-                          />
-                        </div>
-                      </div>
-
-                      {/* Industry and Experience */}
-                      <div className="grid grid-cols-2 gap-6">
-                        <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Industry</label>
-                          <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
-                            <option value="Healthcare">Healthcare</option>
-                            <option value="Technology" selected>Technology</option>
-                            <option value="Finance">Finance</option>
-                            <option value="Education">Education</option>
-                            <option value="Retail">Retail</option>
-                            <option value="Manufacturing">Manufacturing</option>
-                            <option value="Other">Other</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Experience</label>
-                          <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
-                            <option value="1-2">1-2 years</option>
-                            <option value="3-5">3-5 years</option>
-                            <option value="5-10">5-10 years</option>
-                            <option value="10+" selected>10+ years</option>
-                          </select>
-                        </div>
-                      </div>
-
                       {/* Short Bio */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio (160 characters)</label>
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Bio <span className="text-xs font-normal text-gray-500">140 characters</span></label>
                         <div className="relative">
+                          <FileText className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
                           <textarea 
                             rows="2"
-                            maxLength="160"
-                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
-                            placeholder="Brief description visible on your profile..."
+                            maxLength="140"
+                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
+                            placeholder="Quick bio that captures your essence in one line..."
                             defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions."
                             onChange={(e) => {
                               const charCount = e.target.value.length;
                               const counter = e.target.parentElement.querySelector('.char-counter');
-                              if (counter) counter.textContent = `${charCount}/160`;
+                              if (counter) counter.textContent = `${charCount}/140`;
                             }}
                           />
-                          <span className="char-counter absolute bottom-2 right-3 text-xs text-gray-500">107/160</span>
+                          <span className="char-counter absolute bottom-2 right-3 text-xs text-gray-500">107/140</span>
                         </div>
                       </div>
 
                       {/* About */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">About</label>
-                        <textarea 
-                          rows="5"
-                          className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
-                          placeholder="Tell us about your experience and what you can help others with..."
-                          defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies. Specializing in product-market fit, go-to-market strategies, and building high-performing product teams."
-                        />
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">About <span className="text-xs font-normal text-gray-500">Up to 500 words</span></label>
+                        <div className="relative">
+                          <FileText className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
+                          <textarea 
+                            rows="6"
+                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
+                            placeholder="Tell your story. What's your background? What unique insights do you bring? What can clients expect from working with you?"
+                            defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies. Specializing in product-market fit, go-to-market strategies, and building high-performing product teams."
+                          />
+                        </div>
+                      </div>
+
+                      {/* Industry */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Industry</label>
+                        <p className="text-xs text-gray-500 mb-4">Select all industries that apply to your work</p>
+                        <div className="space-y-3">
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Education & Training</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Real Estate</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Legal & Consulting</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" defaultChecked />
+                            <span className="text-sm">Technology</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Healthcare</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Finance</span>
+                          </label>
+                          <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
+                            <span className="text-sm">Other</span>
+                          </label>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-2">Selected: 1 industry</p>
                       </div>
 
                       {/* Expertise */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Expertise</label>
-                        <div className="space-y-3">
-                          {/* Primary Expertise */}
-                          <div>
-                            <label className="text-xs font-medium text-gray-600 mb-2 block">Primary Area</label>
-                            <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
-                              <option value="Product Strategy" selected>Product Strategy</option>
-                              <option value="Business Strategy">Business Strategy</option>
-                              <option value="Marketing">Marketing</option>
-                              <option value="Engineering">Engineering</option>
-                              <option value="Design">Design</option>
-                              <option value="Sales">Sales</option>
-                              <option value="Finance">Finance</option>
-                              <option value="Leadership">Leadership</option>
-                              <option value="Operations">Operations</option>
-                            </select>
-                          </div>
-                          
-                          {/* Skills/Topics */}
-                          <div>
-                            <label className="text-xs font-medium text-gray-600 mb-2 block">Skills & Topics (comma separated)</label>
-                            <input 
-                              type="text" 
-                              placeholder="e.g., Product-Market Fit, Go-to-Market Strategy, User Research"
-                              className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
-                              defaultValue="Product-Market Fit, Go-to-Market Strategy, User Research, Roadmapping, Team Building"
-                            />
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Expertise</label>
+                        <p className="text-xs text-gray-500 mb-4">Select your expertise areas and specific skills</p>
+                        
+                        {/* All Expertise Areas - Main Checkbox */}
+                        <div className="bg-gray-50 rounded-lg p-4 mb-3">
+                          <label className="flex items-center gap-3 cursor-pointer font-medium">
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" defaultChecked />
+                            <span className="text-sm">All Expertise Areas</span>
+                          </label>
+                        </div>
+                        
+                        {/* Individual Areas with Expand */}
+                        <div className="space-y-2 ml-6">
+                          <div className="space-y-2">
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Business & Startups</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Technology & Innovation</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Design & Creativity</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Marketing & Growth</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Finance & Economics</span>
+                            </label>
+                            <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
+                              <ChevronRight className="w-4 h-4 text-gray-400" />
+                              <span className="text-sm">Health & Wellness</span>
+                            </label>
                           </div>
                         </div>
-                      </div>
-
-                      {/* LinkedIn Profile */}
-                      <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">LinkedIn Profile (Optional)</label>
-                        <div className="relative">
-                          <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
-                          </svg>
-                          <input 
-                            type="url" 
-                            placeholder="linkedin.com/in/yourprofile"
-                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
-                            defaultValue="linkedin.com/in/michael-chen"
-                          />
-                        </div>
+                        <p className="text-xs text-gray-500 mt-3">0 specific skills selected</p>
                       </div>
                     </div>
                   </div>

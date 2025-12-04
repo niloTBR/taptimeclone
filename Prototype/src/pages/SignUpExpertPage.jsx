@@ -41,39 +41,33 @@ const SignUpExpertPage = () => {
     email: '',
     password: '',
     confirmPassword: '',
-    
-    // Step 2: Professional Info
-    title: '',
-    company: '',
-    industry: '',
-    yearsExperience: '',
     location: '',
     language: '',
     gender: '',
+    
+    // Step 2: Professional & Expertise
+    title: '',
     bio: '',
-    linkedin: '',
-    
-    // Step 3: Expertise & Services
+    about: '',
+    industries: [],
     expertise: [],
-    sessionTypes: [],
-    hourlyRate: 150,
     
-    // Step 4: Availability
+    // Step 3: Availability
     timezone: '',
     availableDays: [],
     preferredHours: '',
+    hourlyRate: 150,
     
-    // Step 5: Documents
+    // Step 4: Documents
     resume: null,
     certifications: []
   })
 
   const steps = [
     { step: 1, title: 'Account' },
-    { step: 2, title: 'Professional' },
-    { step: 3, title: 'Expertise' },
-    { step: 4, title: 'Availability' },
-    { step: 5, title: 'Documents' }
+    { step: 2, title: 'Professional & Expertise' },
+    { step: 3, title: 'Availability' },
+    { step: 4, title: 'Documents' }
   ]
 
   const industries = [
@@ -319,9 +313,10 @@ const SignUpExpertPage = () => {
               </div>
             )}
 
-            {/* Step 2: Professional Information */}
+            {/* Step 2: Professional & Expertise */}
             {currentStep === 2 && (
-              <div className="space-y-4">
+              <div className="space-y-5">
+                {/* Professional Title */}
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">
                     Professional Title
@@ -333,164 +328,115 @@ const SignUpExpertPage = () => {
                       value={formData.title}
                       onChange={(e) => handleInputChange('title', e.target.value)}
                       className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="Senior Product Manager"
+                      placeholder="e.g., Senior Product Manager, Marketing Director"
                     />
                   </div>
                 </div>
 
+                {/* Bio */}
                 <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Company
+                  <label className="block text-sm font-medium text-black mb-1">
+                    Bio <span className="text-xs text-gray-500">140 characters</span>
                   </label>
                   <div className="relative">
-                    <Building className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="text"
-                      value={formData.company}
-                      onChange={(e) => handleInputChange('company', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="TechCorp Inc."
+                    <FileText className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <textarea
+                      value={formData.bio}
+                      onChange={(e) => handleInputChange('bio', e.target.value)}
+                      maxLength={140}
+                      rows={2}
+                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
+                      placeholder="Quick bio that captures your essence in one line..."
                     />
+                    <span className="absolute bottom-2 right-2 text-xs text-gray-400">
+                      {formData.bio.length}/140
+                    </span>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Industry
-                    </label>
-                    <select
-                      value={formData.industry}
-                      onChange={(e) => handleInputChange('industry', e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                    >
-                      <option value="">Select industry</option>
-                      {industries.map(ind => (
-                        <option key={ind} value={ind}>{ind}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Experience
-                    </label>
-                    <select
-                      value={formData.yearsExperience}
-                      onChange={(e) => handleInputChange('yearsExperience', e.target.value)}
-                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                    >
-                      <option value="">Select years</option>
-                      <option value="1-3">1-3 years</option>
-                      <option value="3-5">3-5 years</option>
-                      <option value="5-10">5-10 years</option>
-                      <option value="10+">10+ years</option>
-                    </select>
-                  </div>
-                </div>
-
+                {/* About */}
                 <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Professional Bio
-                  </label>
-                  <textarea
-                    value={formData.bio}
-                    onChange={(e) => handleInputChange('bio', e.target.value)}
-                    rows={4}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
-                    placeholder="Tell us about your experience and what you can help others with..."
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    LinkedIn Profile (Optional)
+                  <label className="block text-sm font-medium text-black mb-1">
+                    About <span className="text-xs text-gray-500">Up to 500 words</span>
                   </label>
                   <div className="relative">
-                    <Globe className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="url"
-                      value={formData.linkedin}
-                      onChange={(e) => handleInputChange('linkedin', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="linkedin.com/in/yourprofile"
+                    <FileText className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+                    <textarea
+                      value={formData.about}
+                      onChange={(e) => handleInputChange('about', e.target.value)}
+                      rows={5}
+                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors resize-none"
+                      placeholder="Tell your story. What's your background? What unique insights do you bring? What can clients expect from working with you?"
                     />
                   </div>
                 </div>
-              </div>
-            )}
 
-            {/* Step 3: Expertise & Services */}
-            {currentStep === 3 && (
-              <div className="space-y-5">
+                {/* Industry */}
                 <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Areas of Expertise
+                  <label className="block text-sm font-medium text-black mb-1">
+                    Industry
                   </label>
-                  <div className="flex flex-wrap gap-2">
-                    {expertiseAreas.map(area => (
-                      <button
-                        key={area}
-                        type="button"
-                        onClick={() => handleArrayToggle('expertise', area)}
-                        className={`px-3 py-1.5 rounded-full text-sm transition-colors ${
-                          formData.expertise.includes(area)
-                            ? 'bg-[#efffba] text-black'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }`}
-                      >
-                        {area}
-                      </button>
+                  <p className="text-xs text-gray-500 mb-3">Select all industries that apply to your work</p>
+                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                    {['Education & Training', 'Real Estate', 'Legal & Consulting', 'Technology', 'Healthcare', 'Finance', 'Marketing', 'Other'].map(ind => (
+                      <label key={ind} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={formData.industries.includes(ind)}
+                          onChange={() => handleArrayToggle('industries', ind)}
+                          className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                        />
+                        <span className="text-sm">{ind}</span>
+                      </label>
                     ))}
                   </div>
+                  <p className="text-xs text-gray-500 mt-2">Selected: {formData.industries.length} {formData.industries.length === 1 ? 'industry' : 'industries'}</p>
                 </div>
 
+                {/* Expertise */}
                 <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Session Types You Offer
+                  <label className="block text-sm font-medium text-black mb-1">
+                    Expertise
                   </label>
+                  <p className="text-xs text-gray-500 mb-3">Select your expertise areas and specific skills</p>
+                  
                   <div className="space-y-2">
-                    {sessionTypeOptions.map(type => {
-                      const Icon = type.icon
-                      return (
-                        <label key={type.id} className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:bg-gray-50 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={formData.sessionTypes.includes(type.id)}
-                            onChange={() => handleArrayToggle('sessionTypes', type.id)}
-                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
-                          />
-                          <Icon className="w-4 h-4 text-gray-400" />
-                          <span className="text-sm text-gray-700">{type.name}</span>
-                        </label>
-                      )
-                    })}
-                  </div>
-                </div>
+                    {/* All Expertise Areas */}
+                    <div className="bg-gray-50 rounded-lg p-3">
+                      <label className="flex items-center gap-3 cursor-pointer font-medium">
+                        <input
+                          type="checkbox"
+                          checked={formData.expertise.length === 6}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              handleInputChange('expertise', ['Business & Startups', 'Technology & Innovation', 'Design & Creativity', 'Marketing & Growth', 'Finance & Economics', 'Health & Wellness'])
+                            } else {
+                              handleInputChange('expertise', [])
+                            }
+                          }}
+                          className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                        />
+                        <span className="text-sm">All Expertise Areas</span>
+                      </label>
+                    </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Hourly Rate: ${formData.hourlyRate}
-                  </label>
-                  <input
-                    type="range"
-                    min="50"
-                    max="500"
-                    step="25"
-                    value={formData.hourlyRate}
-                    onChange={(e) => handleInputChange('hourlyRate', parseInt(e.target.value))}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>$50</span>
-                    <span>$250</span>
-                    <span>$500</span>
+                    {/* Individual Areas */}
+                    <div className="ml-6 space-y-2">
+                      {['Business & Startups', 'Technology & Innovation', 'Design & Creativity', 'Marketing & Growth', 'Finance & Economics', 'Health & Wellness'].map(area => (
+                        <label key={area} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                          <ChevronRight className="w-4 h-4 text-gray-400" />
+                          <span className="text-sm">{area}</span>
+                        </label>
+                      ))}
+                    </div>
                   </div>
+                  <p className="text-xs text-gray-500 mt-2">0 specific skills selected</p>
                 </div>
               </div>
             )}
 
-            {/* Step 4: Availability */}
-            {currentStep === 4 && (
+            {/* Step 3: Availability */}
+            {currentStep === 3 && (
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">
@@ -546,11 +492,31 @@ const SignUpExpertPage = () => {
                     <option value="flexible">Flexible</option>
                   </select>
                 </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-black mb-3">
+                    Hourly Rate: ${formData.hourlyRate}
+                  </label>
+                  <input
+                    type="range"
+                    min="50"
+                    max="500"
+                    step="25"
+                    value={formData.hourlyRate}
+                    onChange={(e) => handleInputChange('hourlyRate', parseInt(e.target.value))}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>$50</span>
+                    <span>$250</span>
+                    <span>$500</span>
+                  </div>
+                </div>
               </div>
             )}
 
-            {/* Step 5: Documents */}
-            {currentStep === 5 && (
+            {/* Step 4: Documents */}
+            {currentStep === 4 && (
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-black mb-3">
@@ -599,8 +565,8 @@ const SignUpExpertPage = () => {
               </div>
             )}
 
-            {/* Step 6: Success */}
-            {currentStep === 6 && (
+            {/* Step 5: Success */}
+            {currentStep === 5 && (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-[#efffba] rounded-full flex items-center justify-center mx-auto mb-4">
                   <Check className="w-8 h-8 text-black" />
