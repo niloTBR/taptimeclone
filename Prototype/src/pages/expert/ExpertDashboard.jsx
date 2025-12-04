@@ -28,7 +28,6 @@ import {
   Mail,
   Phone,
   Building,
-  Edit,
   Eye,
   X,
   ChevronLeft,
@@ -552,19 +551,10 @@ const ExpertDashboard = () => {
           <Card className="shadow-md border bg-white">
             <CardContent className="p-6 flex flex-col">
               <div className="flex gap-4 mb-4">
-                <div className="relative">
-                  <Avatar className="w-16 h-16">
-                    <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
-                    <AvatarFallback className="text-lg">{getInitials()}</AvatarFallback>
-                  </Avatar>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
-                    className="absolute bottom-0 right-0 rounded-full w-6 h-6 p-0 bg-white shadow-md border border-gray-200"
-                  >
-                    <Edit className="w-3 h-3" />
-                  </Button>
-                </div>
+                <Avatar className="w-16 h-16">
+                  <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
+                  <AvatarFallback className="text-lg">{getInitials()}</AvatarFallback>
+                </Avatar>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <h3 className="font-semibold text-lg">Dr. {user.firstName} {user.lastName}</h3>
