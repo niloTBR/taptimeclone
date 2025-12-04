@@ -698,7 +698,7 @@ const ExpertDashboard = () => {
                       
                       {/* Attachments */}
                       <div>
-                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors border border-gray-300">
                           <Download className="w-3 h-3 text-gray-600" />
                           <span className="text-xs text-gray-600">3 attachments</span>
                         </button>
@@ -785,46 +785,32 @@ const ExpertDashboard = () => {
                         <p className="text-sm text-gray-600 italic line-clamp-2">
                           "{session.feedback}"
                         </p>
+                        {/* Rating */}
+                        <div className="flex items-center gap-1">
+                          {session.rating ? (
+                            [...Array(5)].map((_, i) => (
+                              <Star 
+                                key={i} 
+                                className={`w-3 h-3 ${i < session.rating ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'}`} 
+                              />
+                            ))
+                          ) : (
+                            <span className="text-xs text-gray-500">No rating yet</span>
+                          )}
+                        </div>
                         <div className="space-y-1 text-xs text-muted-foreground">
                           <p>📅 {session.date} • Session {session.sessionNumber}</p>
                           <p>⏱️ {session.duration}</p>
+                          <p className="text-gray-900 font-semibold">{session.cost}</p>
                         </div>
                       </div>
                       
                       {/* Attachments */}
                       <div>
-                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors border border-gray-300">
                           <Download className="w-3 h-3 text-gray-600" />
                           <span className="text-xs text-gray-600">2 attachments</span>
                         </button>
-                      </div>
-                      
-                      {/* Rating */}
-                      <div className="flex items-center gap-2 text-xs">
-                        {session.rating ? (
-                          <>
-                            <span className="text-muted-foreground">Your rating:</span>
-                            <div className="flex items-center gap-1">
-                              {[...Array(5)].map((_, i) => (
-                                <Star 
-                                  key={i} 
-                                  className={`w-3 h-3 ${i < session.rating ? 'fill-black text-black' : 'text-gray-300'}`} 
-                                />
-                              ))}
-                            </div>
-                          </>
-                        ) : (
-                          <span 
-                            className="text-orange-600 cursor-pointer hover:text-orange-700 hover:underline"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              setSelectedSession(session)
-                              setShowRatingPopup(true)
-                            }}
-                          >
-                            Rate this session
-                          </span>
-                        )}
                       </div>
                     </div>
 
@@ -834,22 +820,8 @@ const ExpertDashboard = () => {
                         <div className="flex gap-2 w-full">
                           <Button 
                             size="sm" 
-                            className="rounded-full px-4 flex items-center gap-2 bg-[#efffba] text-black hover:bg-black hover:text-white border border-[#efffba] hover:border-black transition-all flex-1"
-                            onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              window.location.href = `/book/${session.expertName.toLowerCase().replace(' ', '-')}`
-                            }}
-                          >
-                            <span className="text-sm font-medium">{session.cost.split('/')[0]}</span>
-                            <span className="text-xs opacity-75">/{session.cost.split('/')[1]}</span>
-                            <span className="ms-1">Book</span>
-                          </Button>
-                          
-                          <Button 
-                            size="sm" 
                             variant="outline"
-                            className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium"
+                            className="rounded-full border border-black px-4 text-black hover:bg-black hover:text-white transition-all text-sm font-medium w-full"
                           >
                             View
                           </Button>
