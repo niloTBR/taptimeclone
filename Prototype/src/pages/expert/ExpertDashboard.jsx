@@ -957,20 +957,19 @@ const ExpertDashboard = () => {
                   </Button>
                 </div>
                 
-                {/* Expert Info with Photo - Moved above tabs */}
-                <div 
-                  className="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-lg cursor-pointer transition-colors mb-4"
-                  onClick={() => window.open(`/expert/${selectedSession.expertName.toLowerCase().replace(' ', '-')}`, '_blank')}
-                >
+                {/* Client Info with Photo - Moved above tabs */}
+                <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-4">
                   <Avatar className="w-12 h-12">
-                    <AvatarImage src={selectedSession.avatar} alt={selectedSession.expertName} />
-                    <AvatarFallback>{getInitials(selectedSession.expertName)}</AvatarFallback>
+                    <AvatarImage src={selectedSession.avatar} alt={selectedSession.clientName} />
+                    <AvatarFallback>{getInitials(selectedSession.clientName)}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
-                    <h4 className="font-semibold text-sm truncate">{selectedSession.expertName}</h4>
-                    <p className="text-xs text-muted-foreground truncate">{selectedSession.expertTitle}</p>
+                    <h4 className="font-semibold text-sm truncate">{selectedSession.clientName}</h4>
+                    <p className="text-xs text-muted-foreground truncate flex items-center gap-1">
+                      <MapPin className="w-3 h-3" />
+                      {selectedSession.clientLocation}
+                    </p>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
                 </div>
                 
                 {/* Tab Navigation */}
