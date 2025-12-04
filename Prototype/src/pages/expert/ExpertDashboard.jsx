@@ -679,7 +679,7 @@ const ExpertDashboard = () => {
               <Button 
                 variant="outline"
                 className="w-full rounded-full border-2 border-gray-300 hover:bg-gray-100 flex items-center justify-center gap-2"
-                onClick={() => window.open('http://localhost:5173/expert/michael-chen', '_blank')}
+                onClick={() => window.location.href = 'http://localhost:5173/expert/michael-chen'}
               >
                 <Eye className="w-4 h-4" />
                 View Public Profile
