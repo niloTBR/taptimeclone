@@ -1784,6 +1784,61 @@ const ExpertDashboard = () => {
                       Create the session types that clients will see when booking with you. You can always modify these later.
                     </p>
 
+                    {/* General Consultation */}
+                    <div className="mb-8">
+                      <h4 className="text-base font-semibold mb-4">General Consultation</h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Open-ended consultation where clients choose the duration
+                      </p>
+
+                      <div className="bg-white border border-gray-200 rounded-lg p-6">
+                        <label className="flex items-center gap-3 mb-4">
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                          />
+                          <span className="text-sm font-medium">Enable general consultation</span>
+                        </label>
+
+                        <p className="text-sm font-medium text-black mb-4">
+                          Set pricing for each duration:
+                        </p>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">15 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">30 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">45 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* Structured Sessions */}
                     <div className="mb-8">
                       <div className="flex items-center justify-between mb-4">
@@ -1930,106 +1985,6 @@ const ExpertDashboard = () => {
                       </div>
                     </div>
 
-                    {/* General Consultation */}
-                    <div className="mb-8">
-                      <h4 className="text-base font-semibold mb-4">General Consultation</h4>
-                      <p className="text-sm text-gray-600 mb-4">
-                        Open-ended consultation where clients choose the duration
-                      </p>
-
-                      <div className="bg-white border border-gray-200 rounded-lg p-6">
-                        <label className="flex items-center gap-3 mb-4">
-                          <input
-                            type="checkbox"
-                            defaultChecked
-                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
-                          />
-                          <span className="text-sm font-medium">Enable general consultation</span>
-                        </label>
-
-                        <p className="text-sm font-medium text-black mb-4">
-                          Set pricing for each duration:
-                        </p>
-
-                        <div className="space-y-3">
-                          <div className="flex items-center gap-4">
-                            <span className="text-sm w-20">15 min</span>
-                            <span className="text-lg font-medium">$</span>
-                            <input
-                              type="text"
-                              placeholder="500"
-                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
-                            />
-                          </div>
-                          
-                          <div className="flex items-center gap-4">
-                            <span className="text-sm w-20">30 min</span>
-                            <span className="text-lg font-medium">$</span>
-                            <input
-                              type="text"
-                              placeholder="500"
-                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
-                            />
-                          </div>
-                          
-                          <div className="flex items-center gap-4">
-                            <span className="text-sm w-20">45 min</span>
-                            <span className="text-lg font-medium">$</span>
-                            <input
-                              type="text"
-                              placeholder="500"
-                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Session Preview */}
-                    {sessions.length > 0 && (
-                      <div className="mb-8">
-                        <h4 className="text-base font-semibold mb-4">Session Preview</h4>
-                        <p className="text-sm text-gray-600 mb-4">
-                          Preview how your sessions will appear to clients when booking
-                        </p>
-                        
-                        <div className="space-y-3">
-                          {sessions.filter(session => session.title && session.price).map((session) => (
-                            <div
-                              key={session.id}
-                              className="p-4 rounded-lg border-2 border-gray-200 bg-white relative"
-                            >
-                              <div className="flex items-start justify-between">
-                                <div className="flex-1">
-                                  <h3 className="font-medium text-sm mb-1">{session.title}</h3>
-                                  {session.description && (
-                                    <p className="text-xs text-gray-600 mb-2">{session.description}</p>
-                                  )}
-                                  <div className="flex items-center gap-3 text-xs text-gray-500">
-                                    <span className="flex items-center gap-1">
-                                      <Clock className="w-3 h-3" />
-                                      {session.duration}
-                                    </span>
-                                    <span className="font-semibold text-black">${session.price}</span>
-                                  </div>
-                                </div>
-                                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0">
-                                </div>
-                              </div>
-                              
-                              {/* Delete preview button */}
-                              <button 
-                                onClick={() => deleteSession(session.id)}
-                                className="absolute top-2 right-2 text-gray-400 hover:text-red-600 transition-colors bg-white rounded-full p-1 shadow-sm"
-                                title="Delete session"
-                              >
-                                <X className="w-3 h-3" />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
 
                     {/* Platform Fee */}
                     <div className="bg-gray-50 rounded-lg p-4">
