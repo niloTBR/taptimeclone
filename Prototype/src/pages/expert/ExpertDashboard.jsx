@@ -82,6 +82,46 @@ const ExpertDashboard = () => {
   ])
   const [selectedSessionType, setSelectedSessionType] = useState(null)
   const [showNotifications, setShowNotifications] = useState(false)
+  
+  // Sessions state management
+  const [sessions, setSessions] = useState([
+    {
+      id: 1,
+      title: 'Product Strategy Review',
+      duration: '15 min',
+      price: '500',
+      description: 'Get clarity on whether you\'ve achieved PMF and what to focus on next'
+    }
+  ])
+  const [editingSession, setEditingSession] = useState(null)
+
+  // Session management functions
+  const addNewSession = () => {
+    const newSession = {
+      id: Date.now(),
+      title: '',
+      duration: '15 min',
+      price: '',
+      description: ''
+    }
+    setSessions([...sessions, newSession])
+    setEditingSession(newSession.id)
+  }
+
+  const updateSession = (sessionId, field, value) => {
+    setSessions(sessions.map(session => 
+      session.id === sessionId 
+        ? { ...session, [field]: value }
+        : session
+    ))
+  }
+
+  const deleteSession = (sessionId) => {
+    setSessions(sessions.filter(session => session.id !== sessionId))
+    if (editingSession === sessionId) {
+      setEditingSession(null)
+    }
+  }
 
   // Handle setting primary card
   const setPrimaryCard = (cardId) => {
@@ -1451,7 +1491,7 @@ const ExpertDashboard = () => {
                   {[
                     { id: 'basic', label: 'Basic Information', icon: User },
                     { id: 'professional', label: 'Professional & Expertise', icon: Briefcase },
-                    { id: 'consultation', label: 'Session Types & Pricing', icon: DollarSign },
+                    { id: 'consultation', label: 'Your Sessions', icon: DollarSign },
                     { id: 'billing', label: 'Billing Information', icon: CreditCard },
                     { id: 'invoices', label: 'Invoices', icon: Receipt }
                   ].map((tab) => (
@@ -1731,7 +1771,7 @@ const ExpertDashboard = () => {
                   <div>
                     <div className="flex items-center gap-2 mb-6">
                       <DollarSign className="w-5 h-5" />
-                      <h3 className="text-lg font-semibold">Session Types & Pricing</h3>
+                      <h3 className="text-lg font-semibold">Your Sessions</h3>
                     </div>
                     
                     <p className="text-sm text-gray-600 mb-6">
@@ -1742,7 +1782,10 @@ const ExpertDashboard = () => {
                     <div className="mb-8">
                       <div className="flex items-center justify-between mb-4">
                         <h4 className="text-base font-semibold">Structured Sessions</h4>
-                        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+                        <button 
+                          onClick={addNewSession}
+                          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+                        >
                           <Plus className="w-4 h-4" />
                           Add Session
                         </button>
@@ -1752,61 +1795,85 @@ const ExpertDashboard = () => {
                         Pre-defined consultation types with specific topics and durations
                       </p>
 
-                      {/* Session Details Card */}
-                      <div className="bg-white border border-gray-200 rounded-lg p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <h5 className="text-sm font-medium">Session Details</h5>
-                          <button className="text-gray-400 hover:text-gray-600">
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        </div>
+                      {/* Dynamic Session Cards */}
+                      <div className="space-y-4">
+                        {sessions.map((session) => (
+                          <div key={session.id} className="bg-white border border-gray-200 rounded-lg p-6">
+                            <div className="flex items-center justify-between mb-4">
+                              <h5 className="text-sm font-medium">Session Details</h5>
+                              <button 
+                                onClick={() => deleteSession(session.id)}
+                                className="text-gray-400 hover:text-red-600 transition-colors"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
+                            </div>
 
-                        <div className="grid grid-cols-3 gap-4 mb-4">
-                          <div className="col-span-1">
-                            <label className="block text-sm font-medium text-black mb-2">
-                              Session Title*
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="Product Strategy Review"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
-                            />
-                          </div>
-                          
-                          <div>
-                            <label className="block text-sm font-medium text-black mb-2">
-                              Duration
-                            </label>
-                            <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors">
-                              <option>15 min</option>
-                              <option>30 min</option>
-                              <option>45 min</option>
-                              <option>60 min</option>
-                            </select>
-                          </div>
-                          
-                          <div>
-                            <label className="block text-sm font-medium text-black mb-2">
-                              Price ($)
-                            </label>
-                            <input
-                              type="text"
-                              placeholder="500"
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
-                            />
-                          </div>
-                        </div>
+                            <div className="grid grid-cols-3 gap-4 mb-4">
+                              <div className="col-span-1">
+                                <label className="block text-sm font-medium text-black mb-2">
+                                  Session Title*
+                                </label>
+                                <input
+                                  type="text"
+                                  value={session.title}
+                                  onChange={(e) => updateSession(session.id, 'title', e.target.value)}
+                                  placeholder="Product Strategy Review"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                                />
+                              </div>
+                              
+                              <div>
+                                <label className="block text-sm font-medium text-black mb-2">
+                                  Duration
+                                </label>
+                                <select 
+                                  value={session.duration}
+                                  onChange={(e) => updateSession(session.id, 'duration', e.target.value)}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                                >
+                                  <option>15 min</option>
+                                  <option>30 min</option>
+                                  <option>45 min</option>
+                                  <option>60 min</option>
+                                </select>
+                              </div>
+                              
+                              <div>
+                                <label className="block text-sm font-medium text-black mb-2">
+                                  Price ($)
+                                </label>
+                                <input
+                                  type="text"
+                                  value={session.price}
+                                  onChange={(e) => updateSession(session.id, 'price', e.target.value)}
+                                  placeholder="500"
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                                />
+                              </div>
+                            </div>
 
-                        <div>
-                          <label className="block text-sm font-medium text-black mb-2">
-                            Description
-                          </label>
-                          <textarea
-                            rows={3}
-                            placeholder="Get clarity on whether you've achieved PMF and what to focus on next"
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors resize-none"
-                          />
-                        </div>
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Description
+                              </label>
+                              <textarea
+                                rows={3}
+                                value={session.description}
+                                onChange={(e) => updateSession(session.id, 'description', e.target.value)}
+                                placeholder="Get clarity on whether you've achieved PMF and what to focus on next"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors resize-none"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                        
+                        {sessions.length === 0 && (
+                          <div className="text-center py-8 text-gray-500">
+                            <p className="text-sm">No sessions created yet.</p>
+                            <p className="text-xs mt-1">Click "Add Session" to create your first session type.</p>
+                          </div>
+                        )}
                       </div>
                     </div>
 
