@@ -46,7 +46,6 @@ import {
   DollarSign,
   Trash2,
   Save,
-  Clock,
   X
 } from 'lucide-react'
 
