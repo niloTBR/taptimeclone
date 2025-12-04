@@ -28,12 +28,19 @@ import {
   ArrowRight,
   Star,
   Target,
-  Building
+  Building,
+  Trash2,
+  Save
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 const SignUpExpertPage = () => {
   const [currentStep, setCurrentStep] = useState(1)
+  
+  // Sessions state management
+  const [sessions, setSessions] = useState([])
+  const [savedSessions, setSavedSessions] = useState([])
+  
   const [formData, setFormData] = useState({
     // Step 1: Account Info
     firstName: '',
@@ -58,16 +65,17 @@ const SignUpExpertPage = () => {
     preferredHours: '',
     hourlyRate: 150,
     
-    // Step 4: Documents
-    resume: null,
-    certifications: []
+    // Step 5: Giving
+    charityName: '',
+    charityWebsite: ''
   })
 
   const steps = [
     { step: 1, title: 'Account' },
-    { step: 2, title: 'Professional & Expertise' },
-    { step: 3, title: 'Availability' },
-    { step: 4, title: 'Documents' }
+    { step: 2, title: 'Expertise' },
+    { step: 3, title: 'Your Sessions' },
+    { step: 4, title: 'Availability' },
+    { step: 5, title: 'Giving' }
   ]
 
   const industries = [
@@ -114,11 +122,11 @@ const SignUpExpertPage = () => {
   }
 
   const nextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep < 6) {
       setCurrentStep(currentStep + 1)
     } else {
       // Handle final submission
-      setCurrentStep(6) // Show success screen
+      setCurrentStep(7) // Show success screen
     }
   }
 
@@ -126,6 +134,42 @@ const SignUpExpertPage = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
+  }
+
+  // Session management functions
+  const addNewSession = () => {
+    const newSession = {
+      id: Date.now(),
+      title: '',
+      duration: '15 min',
+      price: '',
+      description: ''
+    }
+    setSessions([...sessions, newSession])
+  }
+
+  const updateSession = (sessionId, field, value) => {
+    setSessions(sessions.map(session => 
+      session.id === sessionId 
+        ? { ...session, [field]: value }
+        : session
+    ))
+  }
+
+  const deleteSession = (sessionId) => {
+    setSessions(sessions.filter(session => session.id !== sessionId))
+  }
+
+  const saveSession = (sessionId) => {
+    const sessionToSave = sessions.find(session => session.id === sessionId)
+    if (sessionToSave && sessionToSave.title && sessionToSave.price) {
+      setSavedSessions([...savedSessions, sessionToSave])
+      setSessions(sessions.filter(session => session.id !== sessionId))
+    }
+  }
+
+  const deleteSavedSession = (sessionId) => {
+    setSavedSessions(savedSessions.filter(session => session.id !== sessionId))
   }
 
   return (
@@ -143,7 +187,7 @@ const SignUpExpertPage = () => {
         </div>
 
         {/* Progress Steps */}
-        {currentStep < 6 && (
+        {currentStep < 7 && (
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center gap-2">
               {steps.map((step, index) => (
@@ -435,138 +479,313 @@ const SignUpExpertPage = () => {
               </div>
             )}
 
-            {/* Step 3: Availability */}
+            {/* Step 3: Your Sessions */}
             {currentStep === 3 && (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Time Zone
-                  </label>
-                  <div className="relative">
-                    <Clock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <select
-                      value={formData.timezone}
-                      onChange={(e) => handleInputChange('timezone', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                    >
-                      <option value="">Select timezone</option>
-                      {timezones.map(tz => (
-                        <option key={tz} value={tz}>{tz}</option>
-                      ))}
-                    </select>
-                  </div>
+              <div className="space-y-5">
+                <div className="flex items-center gap-2 mb-6">
+                  <DollarSign className="w-5 h-5" />
+                  <h3 className="text-lg font-semibold">Your Sessions</h3>
                 </div>
+                
+                <p className="text-sm text-gray-600 mb-6">
+                  Create the session types that clients will see when booking with you. You can always modify these later.
+                </p>
 
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Available Days
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {weekDays.map(day => (
-                      <label key={day} className="flex items-center gap-2 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+                {/* General Consultation */}
+                <div className="mb-8">
+                  <h4 className="text-base font-semibold mb-4">General Consultation</h4>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Open-ended consultation where clients choose the duration
+                  </p>
+
+                  <div className="bg-white border border-gray-200 rounded-lg p-6">
+                    <label className="flex items-center gap-3 mb-4">
+                      <input
+                        type="checkbox"
+                        defaultChecked
+                        className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                      />
+                      <span className="text-sm font-medium">Enable general consultation</span>
+                    </label>
+
+                    <p className="text-sm font-medium text-black mb-4">
+                      Set pricing for each duration:
+                    </p>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm w-20">15 min</span>
+                        <span className="text-lg font-medium">$</span>
                         <input
-                          type="checkbox"
-                          checked={formData.availableDays.includes(day)}
-                          onChange={() => handleArrayToggle('availableDays', day)}
-                          className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                          type="text"
+                          placeholder="500"
+                          className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
                         />
-                        <span className="text-sm text-gray-700">{day}</span>
-                      </label>
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm w-20">30 min</span>
+                        <span className="text-lg font-medium">$</span>
+                        <input
+                          type="text"
+                          placeholder="500"
+                          className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                        />
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm w-20">45 min</span>
+                        <span className="text-lg font-medium">$</span>
+                        <input
+                          type="text"
+                          placeholder="500"
+                          className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Structured Sessions */}
+                <div className="mb-8">
+                  <div className="flex items-center justify-between mb-4">
+                    <h4 className="text-base font-semibold">Structured Sessions</h4>
+                    <button 
+                      onClick={addNewSession}
+                      className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+                    >
+                      <Plus className="w-4 h-4" />
+                      Add Session
+                    </button>
+                  </div>
+                  
+                  <p className="text-sm text-gray-600 mb-4">
+                    Pre-defined consultation types with specific topics and durations
+                  </p>
+
+                  {/* Saved Session Cards */}
+                  {savedSessions.length > 0 && (
+                    <div className="space-y-4 mb-6">
+                      {savedSessions.map((session) => (
+                        <div
+                          key={session.id}
+                          className="p-4 rounded-lg border-2 border-gray-200 bg-white relative"
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h3 className="font-medium text-sm mb-1">{session.title}</h3>
+                              {session.description && (
+                                <p className="text-xs text-gray-600 mb-2">{session.description}</p>
+                              )}
+                              <div className="flex items-center gap-3 text-xs text-gray-500">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {session.duration}
+                                </span>
+                                <span className="font-semibold text-black">${session.price}</span>
+                              </div>
+                            </div>
+                            <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0">
+                            </div>
+                          </div>
+                          
+                          <button 
+                            onClick={() => deleteSavedSession(session.id)}
+                            className="absolute top-2 right-2 text-gray-400 hover:text-red-600 transition-colors bg-white rounded-full p-1 shadow-sm"
+                            title="Delete session"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Editing Session Cards */}
+                  <div className="space-y-4">
+                    {sessions.map((session) => (
+                      <div key={session.id} className="bg-white border border-gray-200 rounded-lg p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h5 className="text-sm font-medium">Session Details</h5>
+                          <button 
+                            onClick={() => deleteSession(session.id)}
+                            className="text-gray-400 hover:text-red-600 transition-colors"
+                            title="Delete session"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                          <div className="col-span-1">
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Session Title*
+                            </label>
+                            <input
+                              type="text"
+                              value={session.title}
+                              onChange={(e) => updateSession(session.id, 'title', e.target.value)}
+                              placeholder="Product Strategy Review"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Duration
+                            </label>
+                            <select 
+                              value={session.duration}
+                              onChange={(e) => updateSession(session.id, 'duration', e.target.value)}
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            >
+                              <option>15 min</option>
+                              <option>30 min</option>
+                              <option>45 min</option>
+                              <option>60 min</option>
+                            </select>
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Price ($)
+                            </label>
+                            <input
+                              type="text"
+                              value={session.price}
+                              onChange={(e) => updateSession(session.id, 'price', e.target.value)}
+                              placeholder="500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-black mb-2">
+                            Description
+                          </label>
+                          <textarea
+                            rows={3}
+                            value={session.description}
+                            onChange={(e) => updateSession(session.id, 'description', e.target.value)}
+                            placeholder="Get clarity on whether you've achieved PMF and what to focus on next"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors resize-none"
+                          />
+                          
+                          <button 
+                            onClick={() => saveSession(session.id)}
+                            className="mt-3 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            disabled={!session.title || !session.price}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </div>
                     ))}
+                    
+                    {sessions.length === 0 && savedSessions.length === 0 && (
+                      <div className="text-center py-8 text-gray-500">
+                        <p className="text-sm">No sessions created yet.</p>
+                        <p className="text-xs mt-1">Click "Add Session" to create your first session type.</p>
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Preferred Hours
-                  </label>
-                  <select
-                    value={formData.preferredHours}
-                    onChange={(e) => handleInputChange('preferredHours', e.target.value)}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                  >
-                    <option value="">Select hours</option>
-                    <option value="morning">Morning (6 AM - 12 PM)</option>
-                    <option value="afternoon">Afternoon (12 PM - 6 PM)</option>
-                    <option value="evening">Evening (6 PM - 10 PM)</option>
-                    <option value="flexible">Flexible</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Hourly Rate: ${formData.hourlyRate}
-                  </label>
-                  <input
-                    type="range"
-                    min="50"
-                    max="500"
-                    step="25"
-                    value={formData.hourlyRate}
-                    onChange={(e) => handleInputChange('hourlyRate', parseInt(e.target.value))}
-                    className="w-full"
-                  />
-                  <div className="flex justify-between text-xs text-gray-500 mt-1">
-                    <span>$50</span>
-                    <span>$250</span>
-                    <span>$500</span>
-                  </div>
+                {/* Platform Fee */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h4 className="text-sm font-medium text-black mb-2">Platform Fee</h4>
+                  <p className="text-sm text-gray-600">
+                    TapTime charges a 20% platform fee on all sessions. This includes payment processing, support, and platform maintenance.
+                  </p>
                 </div>
               </div>
             )}
 
-            {/* Step 4: Documents */}
+            {/* Step 4: Availability */}
             {currentStep === 4 && (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Upload Resume/CV
-                  </label>
-                  <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
-                    <Upload className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                    <p className="text-sm text-gray-600 mb-2">
-                      Click to upload or drag and drop
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      PDF, DOC up to 10MB
-                    </p>
-                    <input
-                      type="file"
-                      accept=".pdf,.doc,.docx"
-                      className="hidden"
-                      onChange={(e) => handleInputChange('resume', e.target.files[0])}
-                    />
-                  </div>
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <CalendarIcon className="w-5 h-5" />
+                  <h3 className="text-lg font-semibold">Set Your Availability</h3>
                 </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-black mb-3">
-                    Certifications (Optional)
-                  </label>
-                  <div className="space-y-2">
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors">
-                      <Plus className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600">
-                        Add certification
-                      </p>
-                    </div>
+                <div className="flex flex-col items-center justify-center py-12">
+                  <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-6">
+                    <CalendarIcon className="w-8 h-8 text-gray-500" />
+                  </div>
+                  
+                  <h4 className="text-xl font-semibold text-black mb-3">Connect with Calendly</h4>
+                  
+                  <p className="text-gray-600 text-center mb-8">
+                    Sync your availability with Calendly to manage your booking schedule
+                  </p>
+
+                  <Button 
+                    type="button"
+                    className="px-6 py-3 bg-white hover:bg-gray-50 text-black border-2 border-gray-300 rounded-lg flex items-center gap-3 transition-all"
+                  >
+                    <CalendarIcon className="w-5 h-5" />
+                    Connect Calendly
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5: Giving */}
+            {currentStep === 5 && (
+              <div className="space-y-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Heart className="w-5 h-5" />
+                  <h3 className="text-lg font-semibold">Donate for charity (Optional)</h3>
+                </div>
+
+                <p className="text-gray-600 text-sm">
+                  Inspire others by supporting a cause you love (You'll manage donations directly — TapTime doesn't handle transactions.)
+                </p>
+
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Charity Name
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.charityName}
+                      onChange={(e) => handleInputChange('charityName', e.target.value)}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                      placeholder="Charity Name"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Charity Website URL
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.charityWebsite}
+                      onChange={(e) => handleInputChange('charityWebsite', e.target.value)}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                      placeholder="Charity Website URL"
+                    />
                   </div>
                 </div>
 
                 <div className="p-4 bg-gray-50 rounded-lg">
                   <div className="flex items-start gap-3">
-                    <FileText className="w-5 h-5 text-gray-400 mt-0.5" />
+                    <Heart className="w-5 h-5 text-gray-400 mt-0.5" />
                     <div className="text-sm text-gray-600">
-                      <p className="font-medium mb-1">Verification Process</p>
-                      <p>Your application will be reviewed within 2-3 business days. We'll verify your credentials and notify you via email.</p>
+                      <p className="font-medium mb-1">About Charity Support</p>
+                      <p>Adding a charity to your profile shows clients that you support meaningful causes. Clients can choose to donate directly to your chosen charity.</p>
                     </div>
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Step 5: Success */}
-            {currentStep === 5 && (
+            {/* Step 6: Success */}
+            {currentStep === 6 && (
               <div className="text-center py-8">
                 <div className="w-16 h-16 bg-[#efffba] rounded-full flex items-center justify-center mx-auto mb-4">
                   <Check className="w-8 h-8 text-black" />
@@ -608,7 +827,7 @@ const SignUpExpertPage = () => {
             )}
 
             {/* Navigation Buttons */}
-            {currentStep < 6 && (
+            {currentStep < 7 && (
               <div className="flex gap-3 mt-6">
                 {currentStep > 1 && (
                   <Button
@@ -627,7 +846,7 @@ const SignUpExpertPage = () => {
                   onClick={nextStep}
                   className="flex-1 rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-all"
                 >
-                  {currentStep === 5 ? 'Submit Application' : 'Continue'}
+                  {currentStep === 6 ? 'Submit Application' : 'Continue'}
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
               </div>
@@ -636,7 +855,7 @@ const SignUpExpertPage = () => {
         </Card>
 
         {/* Footer Links */}
-        {currentStep < 6 && (
+        {currentStep < 7 && (
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}

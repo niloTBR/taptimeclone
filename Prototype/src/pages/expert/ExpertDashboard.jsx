@@ -45,7 +45,8 @@ import {
   Package,
   DollarSign,
   Trash2,
-  Save
+  Save,
+  Heart
 } from 'lucide-react'
 
 const ExpertDashboard = () => {
@@ -83,6 +84,7 @@ const ExpertDashboard = () => {
   ])
   const [selectedSessionType, setSelectedSessionType] = useState(null)
   const [showNotifications, setShowNotifications] = useState(false)
+  const [paymentSubTab, setPaymentSubTab] = useState('details')
   
   // Sessions state management
   const [sessions, setSessions] = useState([])
@@ -1498,8 +1500,10 @@ const ExpertDashboard = () => {
                     { id: 'basic', label: 'Basic Information', icon: User },
                     { id: 'professional', label: 'Expertise', icon: Briefcase },
                     { id: 'consultation', label: 'Your Sessions', icon: DollarSign },
-                    { id: 'billing', label: 'Billing Information', icon: CreditCard },
-                    { id: 'invoices', label: 'Invoices', icon: Receipt }
+                    { id: 'availability', label: 'Availability', icon: Calendar },
+                    { id: 'giving', label: 'Giving', icon: Heart },
+                    { id: 'verification', label: 'Verification', icon: CheckCircle },
+                    { id: 'payments', label: 'Payments', icon: CreditCard }
                   ].map((tab) => (
                     <button
                       key={tab.id}
@@ -1996,231 +2000,389 @@ const ExpertDashboard = () => {
                   </div>
                 )}
                 
-                {settingsTab === 'billing' && (
+                {settingsTab === 'availability' && (
                   <div>
-                    <h3 className="text-lg font-semibold mb-6">Billing Information</h3>
-                    <div className="space-y-8">
-                      {/* Current Payment Methods */}
-                      <div className="bg-gray-50 rounded-xl p-6">
-                        <h4 className="text-md font-semibold mb-4 text-gray-700">Saved Credit/Debit Cards</h4>
-                        <div className="space-y-3 mb-6">
-                          {savedCards.map((card) => (
-                            <div key={card.id} className={`flex items-center justify-between p-5 border rounded-xl bg-white shadow-sm transition-all ${
-                              card.isPrimary ? 'border-green-300 bg-green-50' : 'border-gray-300 hover:border-gray-400'
-                            }`}>
-                              <div className="flex items-center gap-4">
-                                {savedCards.length > 1 && (
-                                  <input 
-                                    type="radio" 
-                                    name="primaryCard" 
-                                    checked={card.isPrimary}
-                                    onChange={() => setPrimaryCard(card.id)}
-                                    className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500"
-                                  />
-                                )}
-                                <div className={`w-12 h-8 bg-gradient-to-r ${card.gradient} rounded-lg text-white text-xs flex items-center justify-center font-bold`}>
-                                  {card.type}
-                                </div>
-                                <div>
-                                  <p className="font-semibold text-sm text-gray-900">•••• •••• •••• {card.last4}</p>
-                                  <p className="text-xs text-gray-500">Expires {card.expiry}</p>
-                                </div>
-                                {card.isPrimary && (
-                                  <Badge variant="secondary" className="ml-2 bg-green-100 text-green-800 border-green-200">Primary</Badge>
-                                )}
-                              </div>
-                              <div className="flex gap-2">
-                                <Button 
-                                  variant="outline" 
-                                  size="sm" 
-                                  className="border-gray-300 hover:bg-gray-50"
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    // Edit card functionality
-                                  }}
-                                >
-                                  Edit
-                                </Button>
-                                <Button 
-                                  variant="outline" 
-                                  size="sm" 
-                                  className="text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
-                                  onClick={(e) => {
-                                    e.preventDefault()
-                                    // Remove card functionality - could implement here
-                                  }}
-                                >
-                                  Remove
-                                </Button>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        
-                        <Button 
-                          className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-6 transition-colors"
-                          onClick={() => setShowAddPaymentForm(!showAddPaymentForm)}
-                        >
-                          <Plus className="w-4 h-4 mr-2" />
-                          Add Credit/Debit Card
-                        </Button>
+                    <div className="flex items-center gap-2 mb-6">
+                      <Calendar className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Set Your Availability</h3>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-center py-16">
+                      <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-8">
+                        <Calendar className="w-10 h-10 text-gray-500" />
                       </div>
+                      
+                      <h4 className="text-2xl font-semibold text-black mb-4">Connect with Calendly</h4>
+                      
+                      <p className="text-gray-600 text-center mb-10 max-w-md">
+                        Sync your availability with Calendly to manage your booking schedule
+                      </p>
 
-                      {/* Add New Payment Method */}
-                      {showAddPaymentForm && (
-                        <div className="bg-gray-50 rounded-xl p-6">
-                        <h4 className="text-md font-semibold mb-4 text-gray-700">Add New Payment Method</h4>
-                        
-                        {/* Credit/Debit Card Form */}
-                        <div className="space-y-4 mb-6">
-                          <label className="text-sm font-semibold text-gray-700 block">Add New Card</label>
-                        </div>
-
-                        {/* Credit Card Form */}
-                        <div className="space-y-4">
-                            <div className="space-y-4">
-                              {/* Card Number */}
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Card Number</label>
-                                <input 
-                                  type="text" 
-                                  placeholder="1234 5678 9012 3456"
-                                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                />
-                              </div>
-
-                              {/* Expiry and CVC */}
-                              <div className="grid grid-cols-2 gap-4">
-                                <div>
-                                  <label className="text-sm font-medium mb-2 block">Expiry Date</label>
-                                  <input 
-                                    type="text" 
-                                    placeholder="MM/YY"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                  />
-                                </div>
-                                <div>
-                                  <label className="text-sm font-medium mb-2 block">CVC</label>
-                                  <input 
-                                    type="text" 
-                                    placeholder="123"
-                                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                  />
-                                </div>
-                              </div>
-
-                              {/* Cardholder Name */}
-                              <div>
-                                <label className="text-sm font-medium mb-2 block">Cardholder Name</label>
-                                <input 
-                                  type="text" 
-                                  placeholder="John Smith"
-                                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                />
-                              </div>
-
-                              {/* Billing Address */}
-                              <div className="border-t pt-4">
-                                <h5 className="font-medium text-sm mb-3">Billing Address</h5>
-                                <div className="space-y-4">
-                                  <div>
-                                    <label className="text-sm font-medium mb-2 block">Address Line 1</label>
-                                    <input 
-                                      type="text" 
-                                      placeholder="123 Main Street"
-                                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                    />
-                                  </div>
-                                  <div>
-                                    <label className="text-sm font-medium mb-2 block">Address Line 2 (Optional)</label>
-                                    <input 
-                                      type="text" 
-                                      placeholder="Apartment, suite, etc."
-                                      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                    />
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                      <label className="text-sm font-medium mb-2 block">City</label>
-                                      <input 
-                                        type="text" 
-                                        placeholder="San Francisco"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="text-sm font-medium mb-2 block">State</label>
-                                      <input 
-                                        type="text" 
-                                        placeholder="CA"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="grid grid-cols-2 gap-4">
-                                    <div>
-                                      <label className="text-sm font-medium mb-2 block">Postal Code</label>
-                                      <input 
-                                        type="text" 
-                                        placeholder="94102"
-                                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                                      />
-                                    </div>
-                                    <div>
-                                      <label className="text-sm font-medium mb-2 block">Country</label>
-                                      <select className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent">
-                                        <option value="US">United States</option>
-                                        <option value="CA">Canada</option>
-                                        <option value="GB">United Kingdom</option>
-                                        <option value="AU">Australia</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-
-
-                          <Button className="w-full mt-4">
-                            Add Credit/Debit Card
-                          </Button>
-                        </div>
-                        </div>
-                      )}
+                      <Button 
+                        type="button"
+                        className="px-8 py-3 bg-white hover:bg-gray-50 text-black border-2 border-gray-300 rounded-lg flex items-center gap-3 transition-all"
+                      >
+                        <Calendar className="w-5 h-5" />
+                        Connect Calendly
+                      </Button>
                     </div>
                   </div>
                 )}
                 
-                {settingsTab === 'invoices' && (
+                {settingsTab === 'giving' && (
                   <div>
-                    <h3 className="text-lg font-semibold mb-6">Invoices</h3>
-                    <div className="space-y-6">
+                    <div className="flex items-center gap-2 mb-6">
+                      <Heart className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Donate for charity (Optional)</h3>
+                    </div>
 
-                      {/* Invoice PDFs */}
-                      <div className="space-y-3">
-                        {[
-                          { session: 'Product Strategy Session', expert: 'Dr. Michael Chen', amount: '$200', date: 'Nov 1, 2024' },
-                          { session: 'Leadership Coaching', expert: 'Sarah Williams', amount: '$180', date: 'Oct 28, 2024' },
-                          { session: 'Tech Innovation Workshop', expert: 'David Rodriguez', amount: '$250', date: 'Oct 15, 2024' }
-                        ].map((invoice, index) => (
-                          <div key={index} className="flex justify-between items-center p-4 border border-gray-200 rounded-xl">
-                            <div>
-                              <p className="font-semibold text-gray-900">{invoice.expert}</p>
-                              <p className="text-sm text-gray-500">{invoice.date}</p>
-                              <p className="text-sm text-gray-600">{invoice.session}</p>
-                            </div>
-                            <div className="flex items-center gap-4">
-                              <span className="font-bold text-lg text-gray-900">{invoice.amount}</span>
-                              <Button size="sm" className="bg-[#efffba] text-black hover:bg-black hover:text-white rounded-full px-4">
-                                <Download className="w-4 h-4 mr-1" />
-                                PDF
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
+                    <p className="text-gray-600 text-sm mb-8">
+                      Inspire others by supporting a cause you love (You'll manage donations directly — TapTime doesn't handle transactions.)
+                    </p>
+
+                    <div className="space-y-6 max-w-2xl">
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Charity Name
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                          placeholder="Charity Name"
+                        />
                       </div>
 
+                      <div>
+                        <label className="block text-sm font-medium text-black mb-2">
+                          Charity Website URL
+                        </label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                          placeholder="Charity Website URL"
+                        />
+                      </div>
+
+                      <div className="p-4 bg-gray-50 rounded-lg">
+                        <div className="flex items-start gap-3">
+                          <Heart className="w-5 h-5 text-gray-400 mt-0.5" />
+                          <div className="text-sm text-gray-600">
+                            <p className="font-medium mb-1">About Charity Support</p>
+                            <p>Adding a charity to your profile shows clients that you support meaningful causes. Clients can choose to donate directly to your chosen charity.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-3">
+                        <Button 
+                          className="px-6 py-2 bg-[#efffba] text-black hover:bg-black hover:text-white rounded-lg transition-colors"
+                        >
+                          Save Charity
+                        </Button>
+                        <Button 
+                          variant="outline"
+                          className="px-6 py-2 border-gray-300 rounded-lg"
+                        >
+                          Remove Charity
+                        </Button>
+                      </div>
                     </div>
+                  </div>
+                )}
+                
+                {settingsTab === 'verification' && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">Verification</h3>
+                    <p className="text-gray-600 text-sm mb-8">
+                      Show your audience you're real. Share your booking link, tag us, and we'll verify you fast.
+                    </p>
+
+                    <div className="space-y-8 max-w-3xl">
+                      {/* Step 1 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <span className="text-green-600 font-semibold">Step 1:</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800">
+                            Add your booking link in at least one social media channel - LinkedIn / X / Threads / TikTok / Instagram
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Step 2 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <span className="text-green-600 font-semibold">Step 2:</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800">
+                            Tag us @taptime.ai
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Step 3 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <span className="text-green-600 font-semibold">Step 3:</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800">
+                            You will be verified within 72 hours
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Step 4 */}
+                      <div className="flex gap-4">
+                        <div className="flex-shrink-0">
+                          <span className="text-green-600 font-semibold">Step 4:</span>
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-gray-800 mb-4">
+                            Share your post here
+                          </p>
+                          <input
+                            type="text"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                            placeholder="Paste your post link here..."
+                          />
+                        </div>
+                      </div>
+
+                      <div className="pt-4">
+                        <Button 
+                          className="px-8 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                        >
+                          Submit for Verification
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
+                {settingsTab === 'payments' && (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-6">Payment Overview</h3>
+                    
+                    {/* Current Balance */}
+                    <div className="border border-gray-200 rounded-xl p-6 mb-6">
+                      <p className="text-sm text-gray-600 mb-2">Current Balance</p>
+                      <h2 className="text-4xl font-bold text-green-600 mb-3">$800</h2>
+                      <p className="text-sm text-green-600">Sufficient Balance. You can withdraw now</p>
+                    </div>
+
+                    {/* Sub-tabs */}
+                    <div className="flex gap-4 mb-6">
+                      <button
+                        onClick={() => setPaymentSubTab('details')}
+                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                          paymentSubTab === 'details' 
+                            ? 'bg-black text-white' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        Payment Details
+                      </button>
+                      <button
+                        onClick={() => setPaymentSubTab('withdrawal')}
+                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                          paymentSubTab === 'withdrawal' 
+                            ? 'bg-black text-white' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        Withdrawal request
+                      </button>
+                      <button
+                        onClick={() => setPaymentSubTab('history')}
+                        className={`px-6 py-2.5 rounded-full text-sm font-medium transition-colors ${
+                          paymentSubTab === 'history' 
+                            ? 'bg-black text-white' 
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                      >
+                        Withdrawal history
+                      </button>
+                    </div>
+
+                    {/* Payment Details Tab */}
+                    {paymentSubTab === 'details' && (
+                      <div>
+                        <h4 className="text-lg font-semibold mb-6">Bank information</h4>
+                        <div className="space-y-6">
+                          <div className="grid grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Bank account*
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="0000 0000 0000 0000"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Account Number*
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="0000 0000 0000 0000"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-6">
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                IBAN
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="Type here..."
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Bank Name
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="Type here..."
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-3 gap-6">
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Routing Number
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="City"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Branch
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="State"
+                                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-sm font-medium text-black mb-2">
+                                Country
+                              </label>
+                              <select className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors">
+                                <option>Select Country</option>
+                                <option>United States</option>
+                                <option>Canada</option>
+                                <option>United Kingdom</option>
+                                <option>Australia</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div className="flex justify-end gap-3 pt-4">
+                            <Button 
+                              variant="outline"
+                              className="px-6 py-2 border-gray-300 rounded-lg"
+                            >
+                              Cancel
+                            </Button>
+                            <Button 
+                              className="px-6 py-2 bg-[#efffba] text-black hover:bg-black hover:text-white rounded-lg transition-colors"
+                            >
+                              Save Bank Details
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Withdrawal Request Tab */}
+                    {paymentSubTab === 'withdrawal' && (
+                      <div>
+                        <h4 className="text-lg font-semibold mb-6">Request Withdrawal</h4>
+                        <div className="space-y-6">
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Withdrawal Amount
+                            </label>
+                            <div className="relative">
+                              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                              <input
+                                type="text"
+                                placeholder="Enter amount"
+                                className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                              />
+                            </div>
+                            <p className="text-sm text-gray-600 mt-2">Available balance: $800</p>
+                          </div>
+
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Bank Account
+                            </label>
+                            <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors">
+                              <option>•••• •••• •••• 4242 (Primary)</option>
+                            </select>
+                          </div>
+
+                          <div className="bg-gray-50 rounded-lg p-4">
+                            <h5 className="text-sm font-medium mb-2">Processing Time</h5>
+                            <p className="text-sm text-gray-600">
+                              Withdrawals are processed within 3-5 business days. You'll receive an email confirmation once the transfer is initiated.
+                            </p>
+                          </div>
+
+                          <Button 
+                            className="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors"
+                          >
+                            Request Withdrawal
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Withdrawal History Tab */}
+                    {paymentSubTab === 'history' && (
+                      <div>
+                        <h4 className="text-lg font-semibold mb-6">Withdrawal History</h4>
+                        <div className="space-y-3">
+                          {[
+                            { amount: '$500', date: 'Nov 15, 2024', status: 'Completed', bank: '•••• 4242' },
+                            { amount: '$350', date: 'Oct 28, 2024', status: 'Completed', bank: '•••• 4242' },
+                            { amount: '$800', date: 'Oct 10, 2024', status: 'Completed', bank: '•••• 4242' },
+                            { amount: '$200', date: 'Sep 22, 2024', status: 'Completed', bank: '•••• 4242' }
+                          ].map((withdrawal, index) => (
+                            <div key={index} className="flex justify-between items-center p-4 border border-gray-200 rounded-lg">
+                              <div>
+                                <p className="font-semibold text-lg">{withdrawal.amount}</p>
+                                <p className="text-sm text-gray-600">{withdrawal.date}</p>
+                                <p className="text-xs text-gray-500">To: {withdrawal.bank}</p>
+                              </div>
+                              <Badge 
+                                variant="secondary"
+                                className="bg-green-100 text-green-800 border-green-200"
+                              >
+                                {withdrawal.status}
+                              </Badge>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
