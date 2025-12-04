@@ -667,10 +667,10 @@ const ExpertDashboard = () => {
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
                       {/* Profile Picture and Client Info */}
-                      <div className="flex items-start gap-4">
-                        <Avatar className="w-20 h-20">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="w-16 h-16">
                           <AvatarImage src={session.avatar} alt={session.clientName} />
-                          <AvatarFallback className="text-lg font-semibold">{getInitials(session.clientName)}</AvatarFallback>
+                          <AvatarFallback className="text-base font-semibold">{getInitials(session.clientName)}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <h3 className="font-semibold text-lg leading-tight text-left text-black">
@@ -757,10 +757,10 @@ const ExpertDashboard = () => {
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
                       {/* Profile Picture and Client Info */}
-                      <div className="flex items-start gap-4">
-                        <Avatar className="w-20 h-20">
+                      <div className="flex items-center gap-4">
+                        <Avatar className="w-16 h-16">
                           <AvatarImage src={session.avatar} alt={session.clientName} />
-                          <AvatarFallback className="text-lg font-semibold">{getInitials(session.clientName)}</AvatarFallback>
+                          <AvatarFallback className="text-base font-semibold">{getInitials(session.clientName)}</AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
                           <h3 className="font-semibold text-lg leading-tight text-left text-black">
