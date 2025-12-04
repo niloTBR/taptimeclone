@@ -629,7 +629,7 @@ const ExpertDashboard = () => {
                 
                 <div>
                   <h4 className="font-semibold text-gray-900 mb-2">Hourly Rate</h4>
-                  <p className="text-gray-900 font-semibold">{user.hourlyRate}</p>
+                  <p className="text-gray-600">{user.hourlyRate}</p>
                 </div>
               </div>
               
