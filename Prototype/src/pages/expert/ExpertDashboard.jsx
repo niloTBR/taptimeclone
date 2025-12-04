@@ -1445,8 +1445,7 @@ const ExpertDashboard = () => {
                 <nav className="space-y-2">
                   {[
                     { id: 'basic', label: 'Basic Information', icon: User },
-                    { id: 'security', label: 'Account Security', icon: Shield },
-                    { id: 'goals', label: 'Goals & Interests', icon: Target },
+                    { id: 'professional', label: 'Professional Profile', icon: Building },
                     { id: 'billing', label: 'Billing Information', icon: CreditCard },
                     { id: 'invoices', label: 'Invoices', icon: Receipt }
                   ].map((tab) => (
@@ -1560,112 +1559,88 @@ const ExpertDashboard = () => {
                   </div>
                 )}
                 
-                {settingsTab === 'security' && (
+                {settingsTab === 'professional' && (
                   <div>
-                    <h3 className="text-lg font-semibold mb-6">Account Security</h3>
+                    <h3 className="text-lg font-semibold mb-6">Professional Profile</h3>
                     <div className="space-y-6">
-                      {/* Current Password */}
+                      {/* Professional Title */}
                       <div>
-                        <label className="text-sm font-medium mb-2 block">Current Password</label>
-                        <input 
-                          type="password" 
-                          placeholder="Enter current password"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                        />
-                      </div>
-
-                      {/* New Password */}
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">New Password</label>
-                        <input 
-                          type="password" 
-                          placeholder="Enter new password"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                        />
-                        <p className="text-xs text-muted-foreground mt-1">Must be at least 8 characters with uppercase, lowercase, and number</p>
-                      </div>
-
-                      {/* Confirm Password */}
-                      <div>
-                        <label className="text-sm font-medium mb-2 block">Confirm New Password</label>
-                        <input 
-                          type="password" 
-                          placeholder="Confirm new password"
-                          className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                        />
-                      </div>
-
-                    </div>
-                  </div>
-                )}
-                
-                {settingsTab === 'goals' && (
-                  <div>
-                    <h3 className="text-lg font-semibold mb-6">Goals & Interests</h3>
-                    <div className="space-y-8">
-                      {/* Primary Goals */}
-                      <div className="bg-gray-50 rounded-xl p-6">
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What are your primary goals?</label>
-                        <textarea 
-                          value={user.primaryGoals}
-                          rows="4"
-                          className="w-full p-4 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
-                          placeholder="e.g., Start a new business, Improve leadership skills, Learn new technologies"
-                        />
-                        <p className="text-xs text-gray-500 mt-2">Help us understand what you want to achieve</p>
-                      </div>
-
-                      {/* Expertise Areas */}
-                      <div className="bg-gray-50 rounded-xl p-6">
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Areas of Interest</label>
-                        <div className="grid grid-cols-2 gap-3 mb-4">
-                          {['Business & Startups', 'Technology & Innovation', 'Design & Creativity', 'Marketing & Growth', 'Finance & Economics', 'Health & Wellness'].map((area) => (
-                            <label key={area} className="flex items-center p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
-                              <input type="checkbox" className="mr-3 rounded" />
-                              <span className="text-sm font-medium">{area}</span>
-                            </label>
-                          ))}
-                        </div>
-                        <div>
-                          <label className="text-sm font-medium text-gray-600 mb-2 block">Other areas (specify)</label>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Professional Title</label>
+                        <div className="relative">
+                          <Building className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                           <input 
                             type="text" 
-                            className="w-full p-3 border border-gray-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-                            placeholder="Enter any other areas you're interested in"
+                            placeholder="Senior Product Manager"
+                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                            defaultValue="Product Strategy Expert"
                           />
                         </div>
                       </div>
 
-                      {/* Experience Level */}
-                      <div className="bg-gray-50 rounded-xl p-6">
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What's your experience level?</label>
-                        <div className="space-y-3">
-                          {[
-                            { value: 'beginner', label: 'Beginner', desc: 'Just starting out in my career' },
-                            { value: 'intermediate', label: 'Intermediate', desc: '2-5 years of experience' },
-                            { value: 'experienced', label: 'Experienced', desc: '5-10 years of experience' },
-                            { value: 'expert', label: 'Expert', desc: '10+ years of experience' }
-                          ].map((level) => (
-                            <label key={level.value} className="flex items-start p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-white transition-colors bg-white">
-                              <input type="radio" name="experienceLevel" className="mt-1 mr-3" />
-                              <div>
-                                <div className="font-medium text-sm">{level.label}</div>
-                                <div className="text-xs text-gray-500">{level.desc}</div>
-                              </div>
-                            </label>
-                          ))}
+                      {/* Company */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Company</label>
+                        <div className="relative">
+                          <Building className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                          <input 
+                            type="text" 
+                            placeholder="TechCorp Inc."
+                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                            defaultValue="Independent Consultant"
+                          />
                         </div>
                       </div>
 
-                      {/* Current Challenge */}
-                      <div className="bg-gray-50 rounded-xl p-6">
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">What's your biggest challenge right now?</label>
+                      {/* Industry and Experience */}
+                      <div className="grid grid-cols-2 gap-6">
+                        <div>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Industry</label>
+                          <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Technology" selected>Technology</option>
+                            <option value="Finance">Finance</option>
+                            <option value="Education">Education</option>
+                            <option value="Retail">Retail</option>
+                            <option value="Manufacturing">Manufacturing</option>
+                            <option value="Other">Other</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Experience</label>
+                          <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
+                            <option value="1-2">1-2 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+" selected>10+ years</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      {/* Professional Bio */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Professional Bio</label>
                         <textarea 
-                          rows="3"
-                          className="w-full p-4 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all resize-none"
-                          placeholder="Describe the main obstacle or challenge you're facing"
+                          rows="5"
+                          className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
+                          placeholder="Tell us about your experience and what you can help others with..."
+                          defaultValue="Helping companies build products that customers love through strategic planning and data-driven decisions. 15+ years of experience in product strategy and leadership across startups and Fortune 500 companies."
                         />
-                        <p className="text-xs text-gray-500 mt-2">This helps us recommend the most relevant experts</p>
+                      </div>
+
+                      {/* LinkedIn Profile */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-3 block">LinkedIn Profile (Optional)</label>
+                        <div className="relative">
+                          <svg className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+                          </svg>
+                          <input 
+                            type="url" 
+                            placeholder="linkedin.com/in/yourprofile"
+                            className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                            defaultValue="linkedin.com/in/michael-chen"
+                          />
+                        </div>
                       </div>
                     </div>
                   </div>
