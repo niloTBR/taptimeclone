@@ -24,7 +24,8 @@ const PrototypesPage = () => {
       category: 'Expert',
       icon: UserCheck,
       items: [
-        { name: 'Onboarding', path: '/signup/expert', description: 'Expert application flow' }
+        { name: 'Onboarding', path: '/signup/expert', description: 'Expert application flow' },
+        { name: 'Expert Dashboard', path: '/expert/dashboard', description: 'Expert control panel' }
       ]
     },
     {

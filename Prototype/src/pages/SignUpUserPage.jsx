@@ -13,7 +13,8 @@ import {
   ChevronRight,
   ArrowLeft,
   Globe,
-  ArrowRight
+  ArrowRight,
+  Search
 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -346,31 +347,63 @@ const SignUpUserPage = () => {
 
             {/* Step 4: Success */}
             {currentStep === 4 && (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-[#efffba] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-8 h-8 text-black" />
+              <div className="text-center py-12">
+                <div className="relative">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <Check className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full animate-ping opacity-30"></div>
                 </div>
                 
-                <h2 className="text-xl font-semibold text-black mb-2">Welcome to TapTime!</h2>
-                <p className="text-gray-600 mb-8">
-                  Your account has been created successfully. Start browsing experts to get personalized advice.
+                <h2 className="text-2xl font-bold text-black mb-3">Welcome aboard!</h2>
+                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                  Your account is ready. Connect with top experts and accelerate your growth journey.
                 </p>
 
-                <div className="space-y-3">
-                  <Button 
-                    className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-all"
-                    onClick={() => window.location.href = '/user/dashboard'}
+                {/* Account Number */}
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-6 mb-8 border border-gray-200">
+                  <p className="text-xs text-gray-500 mb-1">Account ID</p>
+                  <p className="font-mono text-2xl font-bold text-black tracking-wider">
+                    USR-{Math.random().toString(36).substr(2, 9).toUpperCase()}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">Your unique identifier</p>
+                </div>
+
+                {/* Quick Actions */}
+                <div className="space-y-4 mb-8">
+                  <Link
+                    to="/user/dashboard"
+                    className="flex items-center justify-center gap-3 p-4 rounded-xl bg-[#efffba] hover:bg-[#e8f5a0] transition-colors"
                   >
-                    Go to Dashboard
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                  <Button 
-                    variant="outline"
-                    className="w-full rounded-full border-2 border-black text-black hover:bg-black hover:text-white transition-all"
-                    onClick={() => window.location.href = '/browse'}
+                    <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                      <User className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-semibold">Dashboard</p>
+                      <p className="text-xs text-gray-600">View your personalized hub</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 ml-auto" />
+                  </Link>
+
+                  <Link
+                    to="/browse"
+                    className="flex items-center justify-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-gray-300 transition-colors"
                   >
-                    Browse Experts
-                  </Button>
+                    <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                      <Search className="w-5 h-5" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-sm font-semibold">Browse Experts</p>
+                      <p className="text-xs text-gray-600">Find your perfect match</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 ml-auto" />
+                  </Link>
+                </div>
+
+                <div className="pt-4">
+                  <p className="text-xs text-gray-500">
+                    Questions? Contact support@taptime.ai
+                  </p>
                 </div>
               </div>
             )}

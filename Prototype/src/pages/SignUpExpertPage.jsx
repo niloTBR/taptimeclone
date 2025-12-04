@@ -786,48 +786,58 @@ const SignUpExpertPage = () => {
 
             {/* Step 6: Success */}
             {currentStep === 6 && (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-[#efffba] rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="w-8 h-8 text-black" />
+              <div className="text-center py-12">
+                <div className="relative">
+                  <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <Check className="w-10 h-10 text-white" />
+                  </div>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full animate-ping opacity-30"></div>
                 </div>
                 
-                <h2 className="text-xl font-semibold text-black mb-2">Application Submitted!</h2>
-                <p className="text-gray-600 mb-8">
-                  Thank you for applying to become a TapTime expert. We'll review your application and get back to you within 2-3 business days.
+                <h2 className="text-2xl font-bold text-black mb-3">Welcome to TapTime!</h2>
+                <p className="text-gray-600 mb-8 max-w-md mx-auto">
+                  Your application has been successfully submitted. Our team will review your profile within 48-72 hours.
                 </p>
 
-                <div className="bg-gray-50 rounded-lg p-4 mb-6">
-                  <h3 className="font-medium text-black mb-3">What happens next?</h3>
-                  <div className="space-y-2 text-sm text-left">
-                    <div className="flex items-start gap-2">
-                      <span className="text-[#efffba] mt-0.5">•</span>
-                      <span className="text-gray-600">Our team will review your application</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-[#efffba] mt-0.5">•</span>
-                      <span className="text-gray-600">You'll receive an email with the decision</span>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <span className="text-[#efffba] mt-0.5">•</span>
-                      <span className="text-gray-600">Once approved, you can start accepting sessions</span>
-                    </div>
+                {/* Reference Number */}
+                <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-6 mb-8 border border-gray-200">
+                  <p className="text-xs text-gray-500 mb-1">Application Reference</p>
+                  <p className="font-mono text-2xl font-bold text-black tracking-wider">
+                    EXP-{Math.random().toString(36).substr(2, 9).toUpperCase()}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-2">Keep this for your records</p>
+                </div>
+
+                {/* Next Steps */}
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-[#efffba] flex items-center justify-center text-xs font-bold">1</div>
+                    <p className="text-sm text-gray-700">Application under review</p>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">2</div>
+                    <p className="text-sm text-gray-500">Email notification within 72 hours</p>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-500">3</div>
+                    <p className="text-sm text-gray-500">Start accepting bookings</p>
                   </div>
                 </div>
 
-                <div className="space-y-3">
-                  <Button 
-                    className="w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-all"
-                    onClick={() => window.location.href = '/'}
+                <div className="pt-4">
+                  <Link 
+                    to="/"
+                    className="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-black transition-colors"
                   >
-                    Back to Homepage
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                    Return to Homepage
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
             )}
 
             {/* Navigation Buttons */}
-            {currentStep < 7 && (
+            {currentStep < 6 && (
               <div className="flex gap-3 mt-6">
                 {currentStep > 1 && (
                   <Button
@@ -855,7 +865,7 @@ const SignUpExpertPage = () => {
         </Card>
 
         {/* Footer Links */}
-        {currentStep < 7 && (
+        {currentStep < 6 && (
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
               Already have an account?{' '}
