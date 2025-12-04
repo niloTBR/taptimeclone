@@ -187,52 +187,123 @@ const SignUpExpertPage = () => {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-black mb-2">
-                      First Name
+                      First Name *
                     </label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <input
-                        type="text"
-                        value={formData.firstName}
-                        onChange={(e) => handleInputChange('firstName', e.target.value)}
-                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                        placeholder="John"
-                      />
-                    </div>
+                    <input
+                      type="text"
+                      value={formData.firstName}
+                      onChange={(e) => handleInputChange('firstName', e.target.value)}
+                      className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                      placeholder="Enter your first name"
+                    />
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-black mb-2">
-                      Last Name
+                      Last Name *
                     </label>
                     <input
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => handleInputChange('lastName', e.target.value)}
                       className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="Smith"
+                      placeholder="Enter your last name"
                     />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Email Address *
+                    </label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <input
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                        placeholder="Enter your professional email"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Location *
+                    </label>
+                    <div className="relative">
+                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <select
+                        value={formData.location}
+                        onChange={(e) => handleInputChange('location', e.target.value)}
+                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
+                      >
+                        <option value="">Select your country</option>
+                        <option value="United States">United States</option>
+                        <option value="Canada">Canada</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="India">India</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Japan">Japan</option>
+                        <option value="China">China</option>
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Gender *
+                    </label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <select
+                        value={formData.gender}
+                        onChange={(e) => handleInputChange('gender', e.target.value)}
+                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
+                      >
+                        <option value="">Select gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-black mb-2">
+                      Language Preference *
+                    </label>
+                    <div className="relative">
+                      <Check className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-500" />
+                      <select
+                        value={formData.language}
+                        onChange={(e) => handleInputChange('language', e.target.value)}
+                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
+                      >
+                        <option value="">Select preferred language</option>
+                        <option value="English">English</option>
+                        <option value="Arabic">Arabic</option>
+                        <option value="English & Arabic">English & Arabic</option>
+                        <option value="Spanish">Spanish</option>
+                        <option value="French">French</option>
+                        <option value="German">German</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Japanese">Japanese</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-black mb-2">
-                    Email
-                  </label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Password
+                    Password *
                   </label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -240,22 +311,6 @@ const SignUpExpertPage = () => {
                       type="password"
                       value={formData.password}
                       onChange={(e) => handleInputChange('password', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
-                      placeholder="••••••••"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Confirm Password
-                  </label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <input
-                      type="password"
-                      value={formData.confirmPassword}
-                      onChange={(e) => handleInputChange('confirmPassword', e.target.value)}
                       className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
                       placeholder="••••••••"
                     />
@@ -329,79 +384,6 @@ const SignUpExpertPage = () => {
                       <option value="3-5">3-5 years</option>
                       <option value="5-10">5-10 years</option>
                       <option value="10+">10+ years</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Location *
-                    </label>
-                    <div className="relative">
-                      <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                      <select
-                        value={formData.location}
-                        onChange={(e) => handleInputChange('location', e.target.value)}
-                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                      >
-                        <option value="">Select your country</option>
-                        <option value="United States">United States</option>
-                        <option value="Canada">Canada</option>
-                        <option value="United Kingdom">United Kingdom</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Germany">Germany</option>
-                        <option value="France">France</option>
-                        <option value="India">India</option>
-                        <option value="Brazil">Brazil</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="Japan">Japan</option>
-                        <option value="China">China</option>
-                        <option value="Other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-black mb-2">
-                      Language Preference *
-                    </label>
-                    <div className="relative">
-                      <Check className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-500" />
-                      <select
-                        value={formData.language}
-                        onChange={(e) => handleInputChange('language', e.target.value)}
-                        className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                      >
-                        <option value="">Select preferred language</option>
-                        <option value="English">English</option>
-                        <option value="Arabic">Arabic</option>
-                        <option value="English & Arabic">English & Arabic</option>
-                        <option value="Spanish">Spanish</option>
-                        <option value="French">French</option>
-                        <option value="German">German</option>
-                        <option value="Chinese">Chinese</option>
-                        <option value="Japanese">Japanese</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-black mb-2">
-                    Gender *
-                  </label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                    <select
-                      value={formData.gender}
-                      onChange={(e) => handleInputChange('gender', e.target.value)}
-                      className="w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors appearance-none"
-                    >
-                      <option value="">Select gender</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                      <option value="Other">Other</option>
-                      <option value="Prefer not to say">Prefer not to say</option>
                     </select>
                   </div>
                 </div>
