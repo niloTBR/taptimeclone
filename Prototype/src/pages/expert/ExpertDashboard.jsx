@@ -247,22 +247,17 @@ const ExpertDashboard = () => {
   const upcomingSessions = [
     {
       id: 1,
-      expertName: 'Dr. Michael Chen',
-      expertTitle: 'Product Strategy Expert',
+      clientName: 'John Doe',
+      clientLocation: 'San Francisco, CA',
       date: 'Tomorrow',
       time: '2:00 PM',
       duration: '60 min',
       topic: 'Product Roadmap Review',
       summary: 'Review your current product strategy and identify areas for improvement. We\'ll discuss market positioning and competitive analysis.',
       cost: '$200',
-      avatar: '/portrait-2.webp',
-      expertImage: '/portrait-2.webp',
+      avatar: '/portrait-3.avif',
       category: 'Strategy',
-      rating: 4.9,
-      reviewCount: 89,
-      verified: true,
-      paymentStatus: 'paid',
-      expertise: ['Product Strategy']
+      paymentStatus: 'paid'
     }
   ]
 
@@ -270,8 +265,8 @@ const ExpertDashboard = () => {
     {
       id: 1,
       sessionNumber: '#5',
-      expertName: 'Emily Rodriguez',
-      expertTitle: 'UX Design Lead',
+      clientName: 'Emily Rodriguez',
+      clientLocation: 'New York, NY',
       date: 'Mar 18',
       rating: 5,
       topic: 'Design System Consultation',
@@ -280,19 +275,14 @@ const ExpertDashboard = () => {
       feedback: 'Excellent insights on building scalable design systems. Very actionable advice.',
       hasReview: false,
       avatar: '/portrait-4.avif',
-      expertImage: '/portrait-4.avif',
       category: 'Design',
-      expertRating: 4.9,
-      reviewCount: 76,
-      verified: true,
-      paymentStatus: 'paid',
-      expertise: ['UX Design']
+      paymentStatus: 'paid'
     },
     {
       id: 2,
       sessionNumber: '#4',
-      expertName: 'James Wilson',
-      expertTitle: 'Business Coach',
+      clientName: 'James Wilson',
+      clientLocation: 'Austin, TX',
       date: 'Mar 10',
       rating: 4,
       topic: 'Business Planning Strategy',
@@ -301,19 +291,14 @@ const ExpertDashboard = () => {
       feedback: 'Great strategic guidance. Helped clarify our business direction.',
       hasReview: true,
       avatar: '/portrait-5.avif',
-      expertImage: '/portrait-5.avif',
       category: 'Business',
-      expertRating: 4.7,
-      reviewCount: 54,
-      verified: true,
-      paymentStatus: 'paid',
-      expertise: ['Business Strategy']
+      paymentStatus: 'paid'
     },
     {
       id: 3,
       sessionNumber: '#3',
-      expertName: 'Anna Taylor',
-      expertTitle: 'Product Manager',
+      clientName: 'Anna Taylor',
+      clientLocation: 'Seattle, WA',
       date: 'Mar 5',
       rating: null,
       topic: 'Product Roadmap Planning',
@@ -322,13 +307,8 @@ const ExpertDashboard = () => {
       feedback: 'Amazing session! Clear roadmap and priorities established.',
       hasReview: true,
       avatar: '/portrait-1.avif',
-      expertImage: '/portrait-1.avif',
       category: 'Product',
-      expertRating: 4.8,
-      reviewCount: 92,
-      verified: true,
-      paymentStatus: 'paid',
-      expertise: ['Product Strategy']
+      paymentStatus: 'paid'
     }
   ]
 
@@ -704,27 +684,21 @@ const ExpertDashboard = () => {
 
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
-                      {/* Rating and Verification Row */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 fill-black text-black" />
-                            <span className="text-sm font-medium text-black">{session.rating}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">
-                            ({session.reviewCount})
-                          </span>
+                      {/* Profile Picture and Client Info */}
+                      <div className="flex items-start gap-3">
+                        <Avatar className="w-12 h-12">
+                          <AvatarImage src={session.avatar} alt={session.clientName} />
+                          <AvatarFallback className="text-sm">{getInitials(session.clientName)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-base leading-tight text-left text-black">
+                            {session.clientName}
+                          </h3>
+                          <p className="text-xs text-muted-foreground mt-1 text-left flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {session.clientLocation}
+                          </p>
                         </div>
-                      </div>
-
-                      {/* Expert Name and Title */}
-                      <div>
-                        <h3 className="font-semibold text-base leading-tight text-left text-black">
-                          {session.expertName}
-                        </h3>
-                        <p className="text-xs text-muted-foreground mt-2 text-left">
-                          {session.expertTitle}
-                        </p>
                       </div>
                       
                       {/* Session Topic and Summary */}
@@ -818,27 +792,21 @@ const ExpertDashboard = () => {
 
                   <CardContent className="p-6 flex flex-col min-h-0">
                     <div className="flex-1 space-y-5 text-left">
-                      {/* Rating and Verification Row */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="flex items-center gap-1">
-                            <Star className="w-4 h-4 fill-black text-black" />
-                            <span className="text-sm font-medium">{session.expertRating}</span>
-                          </div>
-                          <span className="text-xs text-muted-foreground">
-                            ({session.reviewCount})
-                          </span>
+                      {/* Profile Picture and Client Info */}
+                      <div className="flex items-start gap-3">
+                        <Avatar className="w-12 h-12">
+                          <AvatarImage src={session.avatar} alt={session.clientName} />
+                          <AvatarFallback className="text-sm">{getInitials(session.clientName)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-base leading-tight text-left text-black">
+                            {session.clientName}
+                          </h3>
+                          <p className="text-xs text-muted-foreground mt-1 text-left flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {session.clientLocation}
+                          </p>
                         </div>
-                      </div>
-
-                      {/* Expert Name and Title */}
-                      <div>
-                        <h3 className="font-semibold text-base leading-tight text-left text-black">
-                          {session.expertName}
-                        </h3>
-                        <p className="text-xs text-muted-foreground mt-2 text-left">
-                          {session.expertTitle}
-                        </p>
                       </div>
                       
                       {/* Session Topic and Summary */}
