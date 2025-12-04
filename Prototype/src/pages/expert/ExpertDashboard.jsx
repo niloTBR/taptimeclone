@@ -86,6 +86,7 @@ const ExpertDashboard = () => {
   
   // Sessions state management
   const [sessions, setSessions] = useState([])
+  const [savedSessions, setSavedSessions] = useState([])
   const [editingSession, setEditingSession] = useState(null)
 
   // Session management functions
@@ -114,6 +115,18 @@ const ExpertDashboard = () => {
     if (editingSession === sessionId) {
       setEditingSession(null)
     }
+  }
+
+  const saveSession = (sessionId) => {
+    const sessionToSave = sessions.find(session => session.id === sessionId)
+    if (sessionToSave && sessionToSave.title && sessionToSave.price) {
+      setSavedSessions([...savedSessions, sessionToSave])
+      setSessions(sessions.filter(session => session.id !== sessionId))
+    }
+  }
+
+  const deleteSavedSession = (sessionId) => {
+    setSavedSessions(savedSessions.filter(session => session.id !== sessionId))
   }
 
   // Handle setting primary card
@@ -1483,7 +1496,7 @@ const ExpertDashboard = () => {
                 <nav className="space-y-2">
                   {[
                     { id: 'basic', label: 'Basic Information', icon: User },
-                    { id: 'professional', label: 'Professional & Expertise', icon: Briefcase },
+                    { id: 'professional', label: 'Expertise', icon: Briefcase },
                     { id: 'consultation', label: 'Your Sessions', icon: DollarSign },
                     { id: 'billing', label: 'Billing Information', icon: CreditCard },
                     { id: 'invoices', label: 'Invoices', icon: Receipt }
@@ -1788,28 +1801,57 @@ const ExpertDashboard = () => {
                         Pre-defined consultation types with specific topics and durations
                       </p>
 
-                      {/* Dynamic Session Cards */}
+                      {/* Saved Session Cards */}
+                      {savedSessions.length > 0 && (
+                        <div className="space-y-4 mb-6">
+                          {savedSessions.map((session) => (
+                            <div
+                              key={session.id}
+                              className="p-4 rounded-lg border-2 border-gray-200 bg-white relative"
+                            >
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <h3 className="font-medium text-sm mb-1">{session.title}</h3>
+                                  {session.description && (
+                                    <p className="text-xs text-gray-600 mb-2">{session.description}</p>
+                                  )}
+                                  <div className="flex items-center gap-3 text-xs text-gray-500">
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      {session.duration}
+                                    </span>
+                                    <span className="font-semibold text-black">${session.price}</span>
+                                  </div>
+                                </div>
+                                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0">
+                                </div>
+                              </div>
+                              
+                              <button 
+                                onClick={() => deleteSavedSession(session.id)}
+                                className="absolute top-2 right-2 text-gray-400 hover:text-red-600 transition-colors bg-white rounded-full p-1 shadow-sm"
+                                title="Delete session"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Editing Session Cards */}
                       <div className="space-y-4">
                         {sessions.map((session) => (
                           <div key={session.id} className="bg-white border border-gray-200 rounded-lg p-6">
                             <div className="flex items-center justify-between mb-4">
                               <h5 className="text-sm font-medium">Session Details</h5>
-                              <div className="flex items-center gap-2">
-                                <button 
-                                  onClick={() => {/* Save functionality */}}
-                                  className="text-gray-400 hover:text-green-600 transition-colors"
-                                  title="Save session"
-                                >
-                                  <Save className="w-4 h-4" />
-                                </button>
-                                <button 
-                                  onClick={() => deleteSession(session.id)}
-                                  className="text-gray-400 hover:text-red-600 transition-colors"
-                                  title="Delete session"
-                                >
-                                  <Trash2 className="w-4 h-4" />
-                                </button>
-                              </div>
+                              <button 
+                                onClick={() => deleteSession(session.id)}
+                                className="text-gray-400 hover:text-red-600 transition-colors"
+                                title="Delete session"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </button>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -1867,11 +1909,19 @@ const ExpertDashboard = () => {
                                 placeholder="Get clarity on whether you've achieved PMF and what to focus on next"
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors resize-none"
                               />
+                              
+                              <button 
+                                onClick={() => saveSession(session.id)}
+                                className="mt-3 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
+                                disabled={!session.title || !session.price}
+                              >
+                                Add
+                              </button>
                             </div>
                           </div>
                         ))}
                         
-                        {sessions.length === 0 && (
+                        {sessions.length === 0 && savedSessions.length === 0 && (
                           <div className="text-center py-8 text-gray-500">
                             <p className="text-sm">No sessions created yet.</p>
                             <p className="text-xs mt-1">Click "Add Session" to create your first session type.</p>
