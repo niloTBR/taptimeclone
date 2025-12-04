@@ -683,24 +683,28 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Topic */}
+                      {/* Session Title */}
                       <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Session Topic</p>
-                        <h4 className="font-medium text-sm text-black">{session.topic}</h4>
+                        <h4 className="font-semibold text-base text-black mb-2">{session.topic}</h4>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <p>📅 {session.date} at {session.time}</p>
+                          <p>⏱️ {session.duration}</p>
+                          <p className="text-gray-900 font-semibold">{session.cost}</p>
+                        </div>
                       </div>
                       
-                      {/* Session Details */}
-                      <div className="space-y-1 text-xs text-muted-foreground">
-                        <p>📅 {session.date} at {session.time}</p>
-                        <p>⏱️ {session.duration}</p>
-                        <p className="text-gray-900 font-semibold">{session.cost}</p>
-                      </div>
-                      
-                      {/* Summary */}
-                      <div>
-                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
-                          {session.summary}
+                      {/* Challenge Response */}
+                      <div className="space-y-2">
+                        <p className="text-xs text-muted-foreground">What specific challenge would you like to discuss?</p>
+                        <p className="text-sm text-gray-700 italic">
+                          "I'm struggling with user retention in my SaaS product. Our churn rate is 15% monthly and I need strategies to improve engagement."
                         </p>
+                        
+                        {/* Attachments */}
+                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                          <Download className="w-3 h-3 text-gray-600" />
+                          <span className="text-xs text-gray-600">3 attachments</span>
+                        </button>
                       </div>
                     </div>
 
@@ -778,49 +782,55 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                       
-                      {/* Session Topic */}
+                      {/* Session Title */}
                       <div>
-                        <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Session Topic</p>
-                        <h4 className="font-medium text-sm text-black">{session.topic}</h4>
-                      </div>
-                      
-                      {/* Session Details */}
-                      <div className="space-y-1 text-xs text-muted-foreground">
-                        <p>📅 {session.date} • Session {session.sessionNumber}</p>
-                        <p>⏱️ {session.duration}</p>
-                        <div className="flex items-center gap-2">
-                          {session.rating ? (
-                            <>
-                              <span>Your rating:</span>
-                              <div className="flex items-center gap-1">
-                                {[...Array(5)].map((_, i) => (
-                                  <Star 
-                                    key={i} 
-                                    className={`w-3 h-3 ${i < session.rating ? 'fill-black text-black' : 'text-gray-300'}`} 
-                                  />
-                                ))}
-                              </div>
-                            </>
-                          ) : (
-                            <span 
-                              className="text-orange-600 cursor-pointer hover:text-orange-700 hover:underline"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setSelectedSession(session)
-                                setShowRatingPopup(true)
-                              }}
-                            >
-                              Unrated - Please rate this session
-                            </span>
-                          )}
+                        <h4 className="font-semibold text-base text-black mb-2">{session.topic}</h4>
+                        <div className="space-y-1 text-xs text-muted-foreground">
+                          <p>📅 {session.date} • Session {session.sessionNumber}</p>
+                          <p>⏱️ {session.duration}</p>
                         </div>
                       </div>
                       
-                      {/* Client Feedback */}
-                      <div>
-                        <p className="text-xs text-muted-foreground text-left leading-relaxed line-clamp-2">
-                          {session.feedback}
+                      {/* Challenge Response */}
+                      <div className="space-y-2">
+                        <p className="text-xs text-muted-foreground">What specific challenge would you like to discuss?</p>
+                        <p className="text-sm text-gray-700 italic line-clamp-2">
+                          "{session.feedback}"
                         </p>
+                        
+                        {/* Attachments */}
+                        <button className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                          <Download className="w-3 h-3 text-gray-600" />
+                          <span className="text-xs text-gray-600">2 attachments</span>
+                        </button>
+                      </div>
+                      
+                      {/* Rating */}
+                      <div className="flex items-center gap-2 text-xs">
+                        {session.rating ? (
+                          <>
+                            <span className="text-muted-foreground">Your rating:</span>
+                            <div className="flex items-center gap-1">
+                              {[...Array(5)].map((_, i) => (
+                                <Star 
+                                  key={i} 
+                                  className={`w-3 h-3 ${i < session.rating ? 'fill-black text-black' : 'text-gray-300'}`} 
+                                />
+                              ))}
+                            </div>
+                          </>
+                        ) : (
+                          <span 
+                            className="text-orange-600 cursor-pointer hover:text-orange-700 hover:underline"
+                            onClick={(e) => {
+                              e.stopPropagation()
+                              setSelectedSession(session)
+                              setShowRatingPopup(true)
+                            }}
+                          >
+                            Rate this session
+                          </span>
+                        )}
                       </div>
                     </div>
 
