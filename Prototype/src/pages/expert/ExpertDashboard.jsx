@@ -1471,89 +1471,99 @@ const ExpertDashboard = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-6">Basic Information</h3>
                     <div className="space-y-6">
-                      {/* Profile Picture */}
-                      <div className="flex items-center gap-4">
-                        <Avatar className="w-20 h-20">
-                          <AvatarImage src={user.avatar} alt={`${user.firstName} ${user.lastName}`} />
-                          <AvatarFallback className="text-xl">{getInitials()}</AvatarFallback>
-                        </Avatar>
-                        <div>
-                          <Button className="mb-2 rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors px-4 py-2 text-sm font-medium">
-                            Change Photo
-                          </Button>
-                          <p className="text-xs text-gray-500">JPG, PNG or GIF. Max size 5MB.</p>
-                        </div>
-                      </div>
-
                       {/* Name Fields */}
                       <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">First Name</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">First Name *</label>
                           <input 
                             type="text" 
-                            value={user.firstName}
-                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                            placeholder="Enter your first name"
+                            defaultValue={user.firstName}
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all placeholder-gray-400"
                           />
                         </div>
                         <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Last Name</label>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Last Name *</label>
                           <input 
                             type="text" 
-                            value={user.lastName}
-                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
+                            placeholder="Enter your last name"
+                            defaultValue={user.lastName}
+                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all placeholder-gray-400"
                           />
                         </div>
                       </div>
 
-                      {/* Email and Phone */}
+                      {/* Email and Location */}
                       <div className="grid grid-cols-2 gap-6">
                         <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Email Address</label>
-                          <input 
-                            type="email" 
-                            value={user.email}
-                            className="w-full p-4 border border-gray-200 rounded-xl bg-gray-100 text-gray-500 cursor-not-allowed"
-                            disabled
-                          />
-                          <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-                            <Shield className="w-3 h-3" />
-                            Email cannot be changed for security
-                          </p>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Email Address *</label>
+                          <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <input 
+                              type="email" 
+                              placeholder="Enter your professional email"
+                              defaultValue={user.email}
+                              className="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all placeholder-gray-400"
+                            />
+                          </div>
                         </div>
                         <div>
-                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Phone Number</label>
-                          <input 
-                            type="tel" 
-                            value={user.phone}
-                            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all"
-                          />
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Location *</label>
+                          <div className="relative">
+                            <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <select className="w-full pl-12 pr-10 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all appearance-none cursor-pointer">
+                              <option value="">Select your country</option>
+                              <option value="United States" selected>United States</option>
+                              <option value="Canada">Canada</option>
+                              <option value="United Kingdom">United Kingdom</option>
+                              <option value="Australia">Australia</option>
+                              <option value="Germany">Germany</option>
+                              <option value="France">France</option>
+                              <option value="India">India</option>
+                              <option value="Brazil">Brazil</option>
+                              <option value="Mexico">Mexico</option>
+                              <option value="Japan">Japan</option>
+                              <option value="China">China</option>
+                              <option value="Other">Other</option>
+                            </select>
+                            <ChevronRight className="absolute right-4 top-1/2 transform -translate-y-1/2 rotate-90 w-5 h-5 text-gray-400 pointer-events-none" />
+                          </div>
                         </div>
                       </div>
 
-                      {/* Country */}
-                      <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Country</label>
-                        <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
-                          <option value="United States">United States</option>
-                          <option value="Canada">Canada</option>
-                          <option value="United Kingdom">United Kingdom</option>
-                          <option value="Australia">Australia</option>
-                          <option value="Germany">Germany</option>
-                          <option value="France">France</option>
-                          <option value="Other">Other</option>
-                        </select>
-                      </div>
-
-                      {/* Time Zone */}
-                      <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Time Zone</label>
-                        <select className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all">
-                          <option value="PST">Pacific Standard Time (PST)</option>
-                          <option value="MST">Mountain Standard Time (MST)</option>
-                          <option value="CST">Central Standard Time (CST)</option>
-                          <option value="EST">Eastern Standard Time (EST)</option>
-                          <option value="GMT">Greenwich Mean Time (GMT)</option>
-                        </select>
+                      {/* Gender and Language */}
+                      <div className="grid grid-cols-2 gap-6">
+                        <div>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Gender *</label>
+                          <div className="relative">
+                            <User className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                            <select className="w-full pl-12 pr-10 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all appearance-none cursor-pointer">
+                              <option value="">Select gender</option>
+                              <option value="Male" selected>Male</option>
+                              <option value="Female">Female</option>
+                              <option value="Other">Other</option>
+                              <option value="Prefer not to say">Prefer not to say</option>
+                            </select>
+                            <ChevronRight className="absolute right-4 top-1/2 transform -translate-y-1/2 rotate-90 w-5 h-5 text-gray-400 pointer-events-none" />
+                          </div>
+                        </div>
+                        <div>
+                          <label className="text-sm font-semibold text-gray-700 mb-3 block">Language Preference *</label>
+                          <div className="relative">
+                            <Check className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-blue-500" />
+                            <select className="w-full pl-12 pr-10 py-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all appearance-none cursor-pointer">
+                              <option value="English" selected>English</option>
+                              <option value="Arabic">Arabic</option>
+                              <option value="English & Arabic">English & Arabic</option>
+                              <option value="Spanish">Spanish</option>
+                              <option value="French">French</option>
+                              <option value="German">German</option>
+                              <option value="Chinese">Chinese</option>
+                              <option value="Japanese">Japanese</option>
+                            </select>
+                            <ChevronRight className="absolute right-4 top-1/2 transform -translate-y-1/2 rotate-90 w-5 h-5 text-gray-400 pointer-events-none" />
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
