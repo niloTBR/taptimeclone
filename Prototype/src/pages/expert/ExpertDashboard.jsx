@@ -39,7 +39,12 @@ import {
   Receipt,
   LogOut,
   Menu,
-  Send
+  Send,
+  FileText,
+  Briefcase,
+  Package,
+  DollarSign,
+  Trash2
 } from 'lucide-react'
 
 const ExpertDashboard = () => {
@@ -1446,6 +1451,7 @@ const ExpertDashboard = () => {
                   {[
                     { id: 'basic', label: 'Basic Information', icon: User },
                     { id: 'professional', label: 'Professional & Expertise', icon: Briefcase },
+                    { id: 'consultation', label: 'Session Types & Pricing', icon: DollarSign },
                     { id: 'billing', label: 'Billing Information', icon: CreditCard },
                     { id: 'invoices', label: 'Invoices', icon: Receipt }
                   ].map((tab) => (
@@ -1717,6 +1723,154 @@ const ExpertDashboard = () => {
                         </div>
                         <p className="text-xs text-gray-500 mt-3">0 specific skills selected</p>
                       </div>
+                    </div>
+                  </div>
+                )}
+
+                {settingsTab === 'consultation' && (
+                  <div>
+                    <div className="flex items-center gap-2 mb-6">
+                      <DollarSign className="w-5 h-5" />
+                      <h3 className="text-lg font-semibold">Session Types & Pricing</h3>
+                    </div>
+                    
+                    <p className="text-sm text-gray-600 mb-6">
+                      Create the session types that clients will see when booking with you. You can always modify these later.
+                    </p>
+
+                    {/* Structured Sessions */}
+                    <div className="mb-8">
+                      <div className="flex items-center justify-between mb-4">
+                        <h4 className="text-base font-semibold">Structured Sessions</h4>
+                        <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm hover:bg-gray-50 transition-colors">
+                          <Plus className="w-4 h-4" />
+                          Add Session
+                        </button>
+                      </div>
+                      
+                      <p className="text-sm text-gray-600 mb-4">
+                        Pre-defined consultation types with specific topics and durations
+                      </p>
+
+                      {/* Session Details Card */}
+                      <div className="bg-white border border-gray-200 rounded-lg p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h5 className="text-sm font-medium">Session Details</h5>
+                          <button className="text-gray-400 hover:text-gray-600">
+                            <Trash2 className="w-4 h-4" />
+                          </button>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-4 mb-4">
+                          <div className="col-span-1">
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Session Title*
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="Product Strategy Review"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Duration
+                            </label>
+                            <select className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors">
+                              <option>15 min</option>
+                              <option>30 min</option>
+                              <option>45 min</option>
+                              <option>60 min</option>
+                            </select>
+                          </div>
+                          
+                          <div>
+                            <label className="block text-sm font-medium text-black mb-2">
+                              Price ($)
+                            </label>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium text-black mb-2">
+                            Description
+                          </label>
+                          <textarea
+                            rows={3}
+                            placeholder="Get clarity on whether you've achieved PMF and what to focus on next"
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors resize-none"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* General Consultation */}
+                    <div className="mb-8">
+                      <h4 className="text-base font-semibold mb-4">General Consultation</h4>
+                      <p className="text-sm text-gray-600 mb-4">
+                        Open-ended consultation where clients choose the duration
+                      </p>
+
+                      <div className="bg-white border border-gray-200 rounded-lg p-6">
+                        <label className="flex items-center gap-3 mb-4">
+                          <input
+                            type="checkbox"
+                            defaultChecked
+                            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                          />
+                          <span className="text-sm font-medium">Enable general consultation</span>
+                        </label>
+
+                        <p className="text-sm font-medium text-black mb-4">
+                          Set pricing for each duration:
+                        </p>
+
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">15 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">30 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">45 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Platform Fee */}
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <h4 className="text-sm font-medium text-black mb-2">Platform Fee</h4>
+                      <p className="text-sm text-gray-600">
+                        TapTime charges a 20% platform fee on all sessions. This includes payment processing, support, and platform maintenance.
+                      </p>
                     </div>
                   </div>
                 )}
