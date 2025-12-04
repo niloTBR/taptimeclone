@@ -1545,21 +1545,6 @@ const ExpertDashboard = () => {
                         </select>
                       </div>
 
-                      {/* Bio */}
-                      <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-3 block">Bio</label>
-                        <textarea 
-                          value={user.bio}
-                          rows="4"
-                          className="w-full p-4 border border-gray-300 rounded-xl bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent focus:bg-white transition-all resize-none"
-                          placeholder="Tell us about yourself..."
-                        />
-                        <p className="text-xs text-gray-500 mt-2 flex items-center gap-1">
-                          <Eye className="w-3 h-3" />
-                          Brief description visible to experts during session booking
-                        </p>
-                      </div>
-
                       {/* Time Zone */}
                       <div>
                         <label className="text-sm font-semibold text-gray-700 mb-3 block">Time Zone</label>
