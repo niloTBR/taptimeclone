@@ -44,7 +44,10 @@ import {
   Briefcase,
   Package,
   DollarSign,
-  Trash2
+  Trash2,
+  Save,
+  Clock,
+  X
 } from 'lucide-react'
 
 const ExpertDashboard = () => {
@@ -84,15 +87,7 @@ const ExpertDashboard = () => {
   const [showNotifications, setShowNotifications] = useState(false)
   
   // Sessions state management
-  const [sessions, setSessions] = useState([
-    {
-      id: 1,
-      title: 'Product Strategy Review',
-      duration: '15 min',
-      price: '500',
-      description: 'Get clarity on whether you\'ve achieved PMF and what to focus on next'
-    }
-  ])
+  const [sessions, setSessions] = useState([])
   const [editingSession, setEditingSession] = useState(null)
 
   // Session management functions
@@ -1801,12 +1796,22 @@ const ExpertDashboard = () => {
                           <div key={session.id} className="bg-white border border-gray-200 rounded-lg p-6">
                             <div className="flex items-center justify-between mb-4">
                               <h5 className="text-sm font-medium">Session Details</h5>
-                              <button 
-                                onClick={() => deleteSession(session.id)}
-                                className="text-gray-400 hover:text-red-600 transition-colors"
-                              >
-                                <Trash2 className="w-4 h-4" />
-                              </button>
+                              <div className="flex items-center gap-2">
+                                <button 
+                                  onClick={() => {/* Save functionality */}}
+                                  className="text-gray-400 hover:text-green-600 transition-colors"
+                                  title="Save session"
+                                >
+                                  <Save className="w-4 h-4" />
+                                </button>
+                                <button 
+                                  onClick={() => deleteSession(session.id)}
+                                  className="text-gray-400 hover:text-red-600 transition-colors"
+                                  title="Delete session"
+                                >
+                                  <Trash2 className="w-4 h-4" />
+                                </button>
+                              </div>
                             </div>
 
                             <div className="grid grid-cols-3 gap-4 mb-4">
@@ -1931,6 +1936,52 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
                     </div>
+
+                    {/* Session Preview */}
+                    {sessions.length > 0 && (
+                      <div className="mb-8">
+                        <h4 className="text-base font-semibold mb-4">Session Preview</h4>
+                        <p className="text-sm text-gray-600 mb-4">
+                          Preview how your sessions will appear to clients when booking
+                        </p>
+                        
+                        <div className="space-y-3">
+                          {sessions.filter(session => session.title && session.price).map((session) => (
+                            <div
+                              key={session.id}
+                              className="p-4 rounded-lg border-2 border-gray-200 bg-white relative"
+                            >
+                              <div className="flex items-start justify-between">
+                                <div className="flex-1">
+                                  <h3 className="font-medium text-sm mb-1">{session.title}</h3>
+                                  {session.description && (
+                                    <p className="text-xs text-gray-600 mb-2">{session.description}</p>
+                                  )}
+                                  <div className="flex items-center gap-3 text-xs text-gray-500">
+                                    <span className="flex items-center gap-1">
+                                      <Clock className="w-3 h-3" />
+                                      {session.duration}
+                                    </span>
+                                    <span className="font-semibold text-black">${session.price}</span>
+                                  </div>
+                                </div>
+                                <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex-shrink-0">
+                                </div>
+                              </div>
+                              
+                              {/* Delete preview button */}
+                              <button 
+                                onClick={() => deleteSession(session.id)}
+                                className="absolute top-2 right-2 text-gray-400 hover:text-red-600 transition-colors bg-white rounded-full p-1 shadow-sm"
+                                title="Delete session"
+                              >
+                                <X className="w-3 h-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Platform Fee */}
                     <div className="bg-gray-50 rounded-lg p-4">
