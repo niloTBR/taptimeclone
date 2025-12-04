@@ -393,10 +393,75 @@ const ExpertDashboard = () => {
     }
   ]
 
+  // Mock reviews data
+  const reviews = [
+    {
+      id: 1,
+      reviewerName: "Alex Thompson",
+      reviewerTitle: "Founder at DataFlow",
+      reviewerImage: "/portrait-2.webp",
+      rating: 5,
+      date: "2 days ago",
+      sessionTopic: "Product Strategy Session",
+      review: "Dr. Chen's insights were game-changing. He helped me identify exactly why our growth was plateauing and gave me a clear roadmap to achieve true PMF. The frameworks he shared are gold."
+    },
+    {
+      id: 2,
+      reviewerName: "Sarah Kim",
+      reviewerTitle: "CEO at HealthTech Solutions",
+      reviewerImage: "/portrait-3.avif",
+      rating: 5,
+      date: "1 week ago",
+      sessionTopic: "Business Strategy",
+      review: "Incredible session. Dr. Chen reviewed our business model and gave specific, actionable feedback that transformed our approach. We've seen 40% growth since implementing his suggestions."
+    },
+    {
+      id: 3,
+      reviewerName: "Marcus Rodriguez",
+      reviewerTitle: "Founder at EdTech Labs",
+      reviewerImage: "/portrait-4.avif",
+      rating: 5,
+      date: "2 weeks ago",
+      sessionTopic: "Scaling Strategy",
+      review: "Dr. Chen understands the challenges of scaling a product. His advice on team structure and processes helped us scale from 10 to 50 customers without losing quality."
+    },
+    {
+      id: 4,
+      reviewerName: "Jennifer Liu",
+      reviewerTitle: "Product Manager at AI Startup",
+      reviewerImage: "/portrait-5.avif",
+      rating: 4,
+      date: "3 weeks ago",
+      sessionTopic: "Product Development",
+      review: "As a first-time product manager, Dr. Chen's guidance was invaluable. He helped me prioritize features and build a sustainable product development process. Highly recommend!"
+    },
+    {
+      id: 5,
+      reviewerName: "David Park",
+      reviewerTitle: "CTO at FinTech Co",
+      reviewerImage: "/portrait-1.avif",
+      rating: 5,
+      date: "1 month ago",
+      sessionTopic: "Technical Architecture",
+      review: "Dr. Chen's technical expertise combined with business acumen is rare. He helped us redesign our architecture to support 10x growth. Worth every penny!"
+    },
+    {
+      id: 6,
+      reviewerName: "Emily Watson",
+      reviewerTitle: "VP Product at SaaS Company",
+      reviewerImage: "/portrait-2.webp",
+      rating: 5,
+      date: "1 month ago",
+      sessionTopic: "Product Strategy",
+      review: "The session exceeded my expectations. Dr. Chen quickly understood our challenges and provided practical solutions. We're already seeing improvements in our product metrics."
+    }
+  ]
+
   const tabs = [
     { id: 'upcoming', label: 'Upcoming', count: upcomingSessions.length },
     { id: 'past', label: 'Past Sessions', count: pastSessions.length },
-    { id: 'favourites', label: 'Favourites', count: favouriteExperts.length }
+    { id: 'favourites', label: 'Favourites', count: favouriteExperts.length },
+    { id: 'reviews', label: 'Reviews', count: reviews.length }
   ]
 
   return (
@@ -614,6 +679,7 @@ const ExpertDashboard = () => {
               <Button 
                 variant="outline"
                 className="w-full rounded-full border-2 border-gray-300 hover:bg-gray-100 flex items-center justify-center gap-2"
+                onClick={() => window.open('http://localhost:5173/expert/michael-chen', '_blank')}
               >
                 <Eye className="w-4 h-4" />
                 View Public Profile
@@ -845,6 +911,43 @@ const ExpertDashboard = () => {
                   showCrown={expert.isTopExpert}
                   showVerified={expert.isVerified}
                 />
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {reviews.map((review) => (
+                <div key={review.id} className="bg-white rounded-xl border-0 p-6 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Avatar className="w-10 h-10">
+                      <AvatarImage src={review.reviewerImage} alt={review.reviewerName} />
+                      <AvatarFallback>{getInitials(review.reviewerName)}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-medium text-sm">{review.reviewerName}</div>
+                      <div className="text-xs text-muted-foreground">{review.reviewerTitle}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <Star 
+                        key={i} 
+                        className={`w-4 h-4 ${i < review.rating ? 'fill-black text-black' : 'text-gray-300'}`} 
+                      />
+                    ))}
+                  </div>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                    {review.review}
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">{review.date}</span>
+                    <span className="text-xs font-medium text-gray-700">{review.sessionTopic}</span>
+                  </div>
+                </div>
               ))}
             </div>
           )}
