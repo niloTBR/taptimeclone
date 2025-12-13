@@ -215,11 +215,27 @@ const ExpertProfilePage = () => {
                   </div>
                 </div>
 
-                {/* Book Button */}
-                <div className="mt-6">
+                {/* Book Button and Availability */}
+                <div className="mt-6 flex items-center gap-4">
+                  {/* Next Availability */}
+                  <div className="flex-1">
+                    <p className="text-xs text-muted-foreground mb-1">Next availability</p>
+                    <p className="text-sm font-medium mb-2">
+                      {calendar.availableSlots[0].date} at {calendar.availableSlots[0].slots[0]}
+                    </p>
+                    <button 
+                      onClick={() => setActiveTab('calendar')}
+                      className="flex items-center gap-2 text-sm text-blue-600 hover:text-blue-700 transition-colors"
+                    >
+                      <Calendar className="w-4 h-4" />
+                      <span>View Available Slots</span>
+                    </button>
+                  </div>
+                  
+                  {/* Book Button - 50% width */}
                   <Button 
                     onClick={handleBookSession}
-                    className="w-full rounded-full bg-black text-white hover:bg-gray-800 py-6 text-base font-medium transition-all"
+                    className="w-1/2 rounded-full bg-black text-white hover:bg-gray-800 py-5 text-base font-medium transition-all"
                   >
                     <span className="mr-2">{expert.rate.split('/')[0]}</span>
                     <span className="text-sm opacity-80">/{expert.rate.split('/')[1]}</span>
