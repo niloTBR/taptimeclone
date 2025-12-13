@@ -252,47 +252,56 @@ const ExpertProfilePage = () => {
             </div>
           </div>
 
-          {/* Industries and Expertise Row */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Industries Card */}
-            <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
-              <div className="mb-6">
-                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                  </svg>
+          {/* Industries and Expertise Section - New Design */}
+          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+              {/* Industries Section */}
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-[#efffba] flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-4m-5 0H3m2 0h4M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Industries</h3>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5">
+                    {getCategoryFromExpertise(about.expertise[0])}
+                  </Badge>
+                  <Badge variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5">
+                    SaaS & Cloud Computing
+                  </Badge>
+                  <Badge variant="secondary" className="bg-gray-100 text-gray-700 hover:bg-gray-200 px-3 py-1.5">
+                    Entrepreneurship
+                  </Badge>
                 </div>
               </div>
-              <h3 className="text-lg font-medium mb-4">Industries</h3>
-              <div className="text-sm text-muted-foreground leading-relaxed">
-                {getCategoryFromExpertise(about.expertise[0])}, SaaS & Cloud Computing, Entrepreneurship
-              </div>
-            </div>
 
-            {/* Expertise Card */}
-            <div className="bg-gray-100 rounded-2xl border-0 p-8 shadow-lg">
-              <div className="mb-6">
-                <div className="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+              {/* Expertise Section */}
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-8 h-8 rounded-full bg-[#efffba] flex items-center justify-center">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">Expertise</h3>
                 </div>
-              </div>
-              <h3 className="text-lg font-medium mb-4">Expertise</h3>
-              <div className="text-sm text-muted-foreground leading-relaxed">
-                {about.expertise.map((skill, index) => (
-                  <span key={index}>
-                    <span 
-                      className="hover:text-blue-600 cursor-pointer transition-colors"
+                <div className="flex flex-wrap gap-2">
+                  {about.expertise.map((skill, index) => (
+                    <Badge 
+                      key={index}
+                      variant="outline" 
+                      className="border-gray-300 text-gray-700 hover:border-black hover:text-black cursor-pointer transition-all px-3 py-1.5"
                       onClick={() => {
                         console.log('Search for:', skill)
                       }}
                     >
                       {skill}
-                    </span>
-                    {index < about.expertise.length - 1 && ', '}
-                  </span>
-                ))}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
