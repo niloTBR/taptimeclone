@@ -217,39 +217,32 @@ const ExpertProfilePage = () => {
 
                 {/* Book Button and Availability */}
                 <div className="border-t pt-6 mt-6">
-                  <div className="flex items-center gap-6">
+                  <div className="flex items-center justify-between">
                     {/* Next Availability */}
-                    <div className="flex-1">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center flex-shrink-0">
-                          <Calendar className="w-5 h-5 text-gray-600" />
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Next Available</p>
-                          <p className="text-sm font-semibold text-black">
-                            {calendar.availableSlots[0].date}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {calendar.availableSlots[0].slots[0]}
-                          </p>
-                          <button 
-                            onClick={() => setActiveTab('calendar')}
-                            className="text-sm text-black hover:underline mt-1 font-medium"
-                          >
-                            View all times →
-                          </button>
-                        </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Next Available</p>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Calendar className="w-4 h-4 text-gray-500" />
+                        <p className="text-sm font-medium text-black">
+                          {calendar.availableSlots[0].date} at {calendar.availableSlots[0].slots[0]}
+                        </p>
                       </div>
+                      <button 
+                        onClick={() => setActiveTab('calendar')}
+                        className="text-sm text-gray-600 hover:text-black hover:underline transition-colors"
+                      >
+                        View all times →
+                      </button>
                     </div>
                     
-                    {/* Book Button - 50% width */}
+                    {/* Book Button - Smaller width */}
                     <Button 
                       onClick={handleBookSession}
-                      className="w-1/2 rounded-full bg-black text-white hover:bg-gray-800 py-5 font-medium transition-all flex items-center justify-between px-6"
+                      className="rounded-full bg-black text-white hover:bg-gray-800 py-4 px-8 font-medium transition-all flex items-center justify-between gap-6 min-w-[180px]"
                     >
                       <span className="text-base">
                         {expert.rate.split('/')[0]}
-                        <span className="text-sm opacity-70 ml-1">/{expert.rate.split('/')[1]}</span>
+                        <span className="text-sm opacity-70">/{expert.rate.split('/')[1]}</span>
                       </span>
                       <span className="text-base">Book</span>
                     </Button>
