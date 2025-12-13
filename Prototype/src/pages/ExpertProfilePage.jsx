@@ -216,26 +216,9 @@ const ExpertProfilePage = () => {
                 </div>
 
                 {/* Book Button and Availability */}
-                <div className="border-t pt-6 mt-6">
-                  <div className="flex items-center justify-between">
-                    {/* Next Availability */}
-                    <div>
-                      <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Next Available</p>
-                      <div className="flex items-center gap-2 mb-2">
-                        <Calendar className="w-4 h-4 text-gray-500" />
-                        <p className="text-sm font-medium text-black">
-                          {calendar.availableSlots[0].date} at {calendar.availableSlots[0].slots[0]}
-                        </p>
-                      </div>
-                      <button 
-                        onClick={() => setActiveTab('calendar')}
-                        className="text-sm text-gray-600 hover:text-black hover:underline transition-colors"
-                      >
-                        View all times →
-                      </button>
-                    </div>
-                    
-                    {/* Book Button - Smaller width */}
+                <div className="border-t pt-6 mt-6 grid grid-cols-2 gap-4">
+                  {/* Book Button - Left aligned with charity value above */}
+                  <div>
                     <Button 
                       onClick={handleBookSession}
                       className="rounded-full bg-black text-white hover:bg-gray-800 py-4 px-8 font-medium transition-all flex items-center justify-between gap-6 min-w-[180px]"
@@ -246,6 +229,23 @@ const ExpertProfilePage = () => {
                       </span>
                       <span className="text-base">Book</span>
                     </Button>
+                  </div>
+                  
+                  {/* Next Availability - Right side */}
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Next Available</p>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Calendar className="w-4 h-4 text-gray-500" />
+                      <p className="text-sm font-medium text-black">
+                        {calendar.availableSlots[0].date} at {calendar.availableSlots[0].slots[0]}
+                      </p>
+                    </div>
+                    <button 
+                      onClick={() => setActiveTab('calendar')}
+                      className="text-sm text-gray-600 hover:text-black hover:underline transition-colors"
+                    >
+                      View all times →
+                    </button>
                   </div>
                 </div>
               </div>
