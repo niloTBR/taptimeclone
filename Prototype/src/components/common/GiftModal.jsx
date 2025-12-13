@@ -133,8 +133,8 @@ const GiftModal = ({ isOpen, onClose }) => {
                 className="space-y-4"
               >
                 {/* Voucher Amount Selection */}
-                <div className="space-y-3">
-                  <Label className="text-black font-medium">Select Amount</Label>
+                <div className="space-y-2">
+                  <Label className="text-black text-sm">Select Amount</Label>
                   <div className="grid grid-cols-3 gap-2">
                     {presetAmounts.map((amount) => (
                       <Button
@@ -154,8 +154,8 @@ const GiftModal = ({ isOpen, onClose }) => {
                   </div>
                   
                   {/* Custom Amount */}
-                  <div className="space-y-2">
-                    <Label className="text-black">Or enter custom amount</Label>
+                  <div className="space-y-1 mt-2">
+                    <Label className="text-black text-sm">Or enter custom amount</Label>
                     <div className="relative">
                       <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
@@ -163,7 +163,7 @@ const GiftModal = ({ isOpen, onClose }) => {
                         placeholder="Custom amount"
                         value={voucherData.customAmount}
                         onChange={(e) => handleCustomAmountChange(e.target.value)}
-                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white"
+                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white h-9"
                         min="1"
                         max="5000"
                       />
@@ -172,8 +172,8 @@ const GiftModal = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Recipient Email */}
-                <div className="space-y-2">
-                  <Label htmlFor="recipientEmail" className="text-black font-medium">Recipient's Email *</Label>
+                <div className="space-y-1">
+                  <Label htmlFor="recipientEmail" className="text-black text-sm">Recipient's Email *</Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <Input
@@ -182,49 +182,51 @@ const GiftModal = ({ isOpen, onClose }) => {
                       placeholder="Enter recipient's email"
                       value={voucherData.recipientEmail}
                       onChange={(e) => handleInputChange('recipientEmail', e.target.value)}
-                      className="pl-10 border-2 border-gray-300 focus:border-black bg-white"
+                      className="pl-10 border-2 border-gray-300 focus:border-black bg-white h-9"
                       required
                     />
                   </div>
                 </div>
 
-                {/* Optional Message */}
-                <div className="space-y-2">
-                  <Label htmlFor="message" className="text-black font-medium">
-                    Personal Message (Optional)
-                  </Label>
-                  <Textarea
-                    id="message"
-                    placeholder="Add a personal message for the recipient..."
-                    value={voucherData.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    className="border-2 border-gray-300 focus:border-black bg-white resize-none"
-                    maxLength={maxMessageLength}
-                    rows={3}
-                  />
-                  <div className="text-right text-xs text-gray-500">
-                    {voucherData.message.length}/{maxMessageLength}
-                  </div>
-                </div>
-
                 {/* Your Name */}
-                <div className="space-y-2">
-                  <Label htmlFor="senderName" className="text-black font-medium">Your Name</Label>
+                <div className="space-y-1">
+                  <Label htmlFor="senderName" className="text-black text-sm">Your Name</Label>
                   <Input
                     id="senderName"
                     type="text"
                     placeholder="Enter your name"
                     value={voucherData.senderName}
                     onChange={(e) => handleInputChange('senderName', e.target.value)}
-                    className="border-2 border-gray-300 focus:border-black bg-white"
+                    className="border-2 border-gray-300 focus:border-black bg-white h-9"
+                  />
+                </div>
+
+                {/* Optional Message */}
+                <div className="space-y-1">
+                  <div className="flex justify-between items-center">
+                    <Label htmlFor="message" className="text-black text-sm">
+                      Personal Message (Optional)
+                    </Label>
+                    <span className="text-xs text-gray-500">
+                      {voucherData.message.length}/{maxMessageLength}
+                    </span>
+                  </div>
+                  <Textarea
+                    id="message"
+                    placeholder="Add a personal message..."
+                    value={voucherData.message}
+                    onChange={(e) => handleInputChange('message', e.target.value)}
+                    className="border-2 border-gray-300 focus:border-black bg-white resize-none text-sm"
+                    maxLength={maxMessageLength}
+                    rows={2}
                   />
                 </div>
 
                 <Button
                   type="button"
                   onClick={handleNextStep}
-                  className="w-full rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all"
-                  disabled={!voucherData.amount || !voucherData.recipientEmail}
+                  className="w-full rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all h-10 mt-2"
+                  disabled={!voucherData.recipientEmail || (!voucherData.amount && !voucherData.customAmount)}
                 >
                   Continue to Payment
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -318,21 +320,21 @@ const GiftModal = ({ isOpen, onClose }) => {
                   </div>
                 </div>
 
-                <div className="flex gap-3">
+                <div className="flex gap-2 pt-2">
                   <Button
                     type="button"
                     onClick={handlePrevStep}
                     variant="outline"
-                    className="flex-1 rounded-full border-2 border-gray-300 hover:border-black"
+                    className="flex-1 rounded-full border-2 border-gray-300 hover:border-black transition-all h-10"
                   >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
+                    <ArrowLeft className="mr-1 h-4 w-4" />
                     Back
                   </Button>
                   <Button
                     type="submit"
-                    className="flex-1 rounded-full bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-all"
+                    className="flex-1 rounded-full bg-black text-white hover:bg-gray-800 transition-all h-10"
                   >
-                    Purchase Voucher
+                    Complete Purchase
                   </Button>
                 </div>
               </motion.form>
