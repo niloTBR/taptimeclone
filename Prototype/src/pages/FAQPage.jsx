@@ -111,7 +111,7 @@ const FAQPage = () => {
     >
 
       {/* Search Bar */}
-      <section className="px-4 pb-8">
+      <section className="px-4 pt-12 pb-8">
         <div className="container mx-auto max-w-2xl">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
@@ -145,24 +145,16 @@ const FAQPage = () => {
         </div>
       </section>
 
-      {/* FAQ Items - Blue Background Section */}
-      <section className="py-20 px-4" style={{background: '#081d34'}}>
+      {/* FAQ Items - White Background Section */}
+      <section className="py-12 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
-          <SectionTitle 
-            title="Browse Questions by Category"
-            titleClassName="text-xl md:text-2xl font-semibold text-white"
-            description="Click on any question to see the answer"
-            descriptionClassName="text-white/90"
-            className="mb-12"
-          />
-          
-          <Accordion type="single" collapsible className="bg-white rounded-2xl p-2">
+          <Accordion type="single" collapsible className="bg-gray-50 rounded-2xl p-2">
             {filteredFAQs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`} className="border-b border-gray-100 last:border-0">
                 <AccordionTrigger className="text-left font-semibold text-base px-6 py-4 hover:no-underline">
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs text-[#efffba] font-medium">{faq.category}</span>
-                    <span>{faq.question}</span>
+                    <span className="text-xs text-gray-500 font-medium">{faq.category}</span>
+                    <span className="text-gray-900">{faq.question}</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-6 pb-4 text-sm text-black/70 leading-relaxed">

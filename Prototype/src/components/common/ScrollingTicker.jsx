@@ -1,12 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { Briefcase, Laptop, Palette, TrendingUp, DollarSign, Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
 const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
   const containerRef = useRef(null)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(true)
 
   // Icon mapping for categories
   const getIcon = (categoryName) => {
@@ -22,41 +20,43 @@ const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
     return <IconComponent className="w-4 h-4" />
   }
 
-  const checkScroll = () => {
-    if (containerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current
-      setCanScrollLeft(scrollLeft > 0)
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
-    }
-  }
-
-  useEffect(() => {
-    checkScroll()
-    window.addEventListener('resize', checkScroll)
-    return () => window.removeEventListener('resize', checkScroll)
-  }, [items])
-
   const scroll = (direction) => {
     if (containerRef.current) {
+      const container = containerRef.current
       const scrollAmount = 300
-      const newScrollLeft = containerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
-      containerRef.current.scrollTo({
+      const currentScroll = container.scrollLeft
+      const maxScroll = container.scrollWidth - container.clientWidth
+
+      let newScrollLeft
+      
+      if (direction === 'left') {
+        newScrollLeft = currentScroll - scrollAmount
+        // If we would scroll past the beginning, loop to the end
+        if (newScrollLeft < 0) {
+          newScrollLeft = maxScroll
+        }
+      } else {
+        newScrollLeft = currentScroll + scrollAmount
+        // If we would scroll past the end, loop to the beginning
+        if (newScrollLeft > maxScroll) {
+          newScrollLeft = 0
+        }
+      }
+      
+      container.scrollTo({
         left: newScrollLeft,
         behavior: 'smooth'
       })
-      setTimeout(checkScroll, 300)
     }
   }
 
   return (
-    <div className={`relative ${className}`}>
-      {/* Left Button */}
+    <div className={`relative px-16 ${className}`}>
+      {/* Left Button - Always Visible */}
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
-        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-2 shadow-md transition-all ${
-          canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        } hover:bg-[#efffba] hover:border-[#efffba]`}
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-transparent border-2 border-gray-300 text-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-700 transition-all"
         onClick={() => scroll('left')}
       >
         <ChevronLeft className="w-5 h-5" />
@@ -65,8 +65,7 @@ const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
       {/* Scrollable Container */}
       <div 
         ref={containerRef}
-        className="overflow-x-auto scrollbar-hide mx-12"
-        onScroll={checkScroll}
+        className="overflow-x-auto scrollbar-hide"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         <div className="flex items-center gap-2 px-4 py-2">
@@ -94,13 +93,11 @@ const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
         </div>
       </div>
 
-      {/* Right Button */}
+      {/* Right Button - Always Visible */}
       <Button
-        variant="outline"
+        variant="ghost"
         size="icon"
-        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-2 shadow-md transition-all ${
-          canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        } hover:bg-[#efffba] hover:border-[#efffba]`}
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-transparent border-2 border-gray-300 text-gray-500 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-700 transition-all"
         onClick={() => scroll('right')}
       >
         <ChevronRight className="w-5 h-5" />
