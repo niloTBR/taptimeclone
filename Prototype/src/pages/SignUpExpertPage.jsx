@@ -56,6 +56,7 @@ const SignUpExpertPage = () => {
     title: '',
     bio: '',
     about: '',
+    primaryIndustry: '',
     industries: [],
     expertise: [],
     
@@ -415,26 +416,53 @@ const SignUpExpertPage = () => {
                   </div>
                 </div>
 
-                {/* Industry */}
+                {/* Primary Industry */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    Primary Industry *
+                  </label>
+                  <p className="text-xs text-gray-500 mb-3">Select your main area of expertise</p>
+                  <select
+                    value={formData.primaryIndustry}
+                    onChange={(e) => handleInputChange('primaryIndustry', e.target.value)}
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  >
+                    <option value="">Choose primary industry...</option>
+                    <option value="Education & Training">Education & Training</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Legal & Consulting">Legal & Consulting</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance">Finance</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+
+                {/* Other Industries */}
                 <div>
                   <label className="block text-sm font-medium text-black mb-1">
-                    Industry
+                    Other Industries
                   </label>
-                  <p className="text-xs text-gray-500 mb-3">Select all industries that apply to your work</p>
-                  <div className="space-y-2 max-h-48 overflow-y-auto">
+                  <p className="text-xs text-gray-500 mb-3">Select any additional industries that apply to your work</p>
+                  <div className="space-y-2 max-h-48 overflow-y-auto border border-gray-200 rounded-lg p-3">
                     {['Education & Training', 'Real Estate', 'Legal & Consulting', 'Technology', 'Healthcare', 'Finance', 'Marketing', 'Other'].map(ind => (
                       <label key={ind} className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer">
                         <input
                           type="checkbox"
                           checked={formData.industries.includes(ind)}
                           onChange={() => handleArrayToggle('industries', ind)}
-                          className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0"
+                          disabled={formData.primaryIndustry === ind}
+                          className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0 disabled:opacity-50"
                         />
-                        <span className="text-sm">{ind}</span>
+                        <span className={`text-sm ${formData.primaryIndustry === ind ? 'text-gray-400' : ''}`}>
+                          {ind}
+                          {formData.primaryIndustry === ind && ' (Primary)'}
+                        </span>
                       </label>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">Selected: {formData.industries.length} {formData.industries.length === 1 ? 'industry' : 'industries'}</p>
+                  <p className="text-xs text-gray-500 mt-2">Selected: {formData.industries.length} additional {formData.industries.length === 1 ? 'industry' : 'industries'}</p>
                 </div>
 
                 {/* Expertise */}
@@ -539,6 +567,16 @@ const SignUpExpertPage = () => {
                         <input
                           type="text"
                           placeholder="500"
+                          className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                        />
+                      </div>
+                      
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm w-20">60 min</span>
+                        <span className="text-lg font-medium">$</span>
+                        <input
+                          type="text"
+                          placeholder="600"
                           className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
                         />
                       </div>
@@ -708,6 +746,28 @@ const SignUpExpertPage = () => {
                 <div className="flex items-center gap-2 mb-2">
                   <CalendarIcon className="w-5 h-5" />
                   <h3 className="text-lg font-semibold">Set Your Availability</h3>
+                </div>
+
+                {/* Timezone */}
+                <div>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    Timezone
+                  </label>
+                  <select
+                    defaultValue="America/New_York"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all bg-white"
+                  >
+                    <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                    <option value="America/Denver">Mountain Time (MT)</option>
+                    <option value="America/Chicago">Central Time (CT)</option>
+                    <option value="America/New_York">Eastern Time (ET)</option>
+                    <option value="Europe/London">GMT/BST (London)</option>
+                    <option value="Europe/Paris">CET/CEST (Paris)</option>
+                    <option value="Asia/Dubai">GST (Dubai)</option>
+                    <option value="Asia/Singapore">SGT (Singapore)</option>
+                    <option value="Asia/Tokyo">JST (Tokyo)</option>
+                    <option value="Australia/Sydney">AEDT/AEST (Sydney)</option>
+                  </select>
                 </div>
 
                 <div className="flex flex-col items-center justify-center py-12">

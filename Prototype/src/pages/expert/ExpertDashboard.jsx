@@ -7,6 +7,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from 'recharts'
 import ExpertCard from '@/components/common/ExpertCard'
 import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import { 
   Calendar,
   Clock,
@@ -1692,10 +1693,31 @@ const ExpertDashboard = () => {
                         </div>
                       </div>
 
-                      {/* Industry */}
+                      {/* Primary Industry */}
                       <div>
-                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Industry</label>
-                        <p className="text-xs text-gray-500 mb-4">Select all industries that apply to your work</p>
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Primary Industry</label>
+                        <p className="text-xs text-gray-500 mb-4">Choose your main industry focus</p>
+                        <select 
+                          defaultValue="Technology"
+                          className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all bg-white"
+                        >
+                          <option value="">Choose primary industry...</option>
+                          <option value="Technology">Technology</option>
+                          <option value="Education & Training">Education & Training</option>
+                          <option value="Real Estate">Real Estate</option>
+                          <option value="Legal & Consulting">Legal & Consulting</option>
+                          <option value="Healthcare">Healthcare</option>
+                          <option value="Finance">Finance</option>
+                          <option value="Marketing">Marketing</option>
+                          <option value="Design">Design</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
+
+                      {/* Other Industries */}
+                      <div>
+                        <label className="text-sm font-semibold text-gray-700 mb-2 block">Other Industries</label>
+                        <p className="text-xs text-gray-500 mb-4">Select additional industries that apply to your work</p>
                         <div className="space-y-3">
                           <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
                             <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
@@ -1710,8 +1732,8 @@ const ExpertDashboard = () => {
                             <span className="text-sm">Legal & Consulting</span>
                           </label>
                           <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
-                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" defaultChecked />
-                            <span className="text-sm">Technology</span>
+                            <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" defaultChecked disabled />
+                            <span className="text-sm text-gray-400">Technology (Primary Industry)</span>
                           </label>
                           <label className="flex items-center gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors">
                             <input type="checkbox" className="w-4 h-4 text-black border-gray-300 rounded focus:ring-0" />
@@ -1726,7 +1748,7 @@ const ExpertDashboard = () => {
                             <span className="text-sm">Other</span>
                           </label>
                         </div>
-                        <p className="text-xs text-gray-500 mt-2">Selected: 1 industry</p>
+                        <p className="text-xs text-gray-500 mt-2">Selected: 0 additional industries</p>
                       </div>
 
                       {/* Expertise */}
@@ -2015,6 +2037,28 @@ const ExpertDashboard = () => {
                     <div className="flex items-center gap-2 mb-6">
                       <Calendar className="w-5 h-5" />
                       <h3 className="text-lg font-semibold">Set Your Availability</h3>
+                    </div>
+
+                    {/* Timezone */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-black mb-2">
+                        Timezone
+                      </label>
+                      <select
+                        defaultValue="America/New_York"
+                        className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-black/5 transition-all bg-white"
+                      >
+                        <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                        <option value="America/Denver">Mountain Time (MT)</option>
+                        <option value="America/Chicago">Central Time (CT)</option>
+                        <option value="America/New_York">Eastern Time (ET)</option>
+                        <option value="Europe/London">GMT/BST (London)</option>
+                        <option value="Europe/Paris">CET/CEST (Paris)</option>
+                        <option value="Asia/Dubai">GST (Dubai)</option>
+                        <option value="Asia/Singapore">SGT (Singapore)</option>
+                        <option value="Asia/Tokyo">JST (Tokyo)</option>
+                        <option value="Australia/Sydney">AEDT/AEST (Sydney)</option>
+                      </select>
                     </div>
 
                     <div className="flex flex-col items-center justify-center py-16">
@@ -2457,6 +2501,7 @@ const ExpertDashboard = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   )
 }

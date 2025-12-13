@@ -7,6 +7,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LineChart, Line } from 'recharts'
 import ExpertCard from '@/components/common/ExpertCard'
 import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import { 
   Calendar,
   Clock,
@@ -411,7 +412,8 @@ const UserDashboard = () => {
   const tabs = [
     { id: 'upcoming', label: 'Upcoming', count: upcomingSessions.length },
     { id: 'past', label: 'Past Sessions', count: pastSessions.length },
-    { id: 'favourites', label: 'Favourites', count: favouriteExperts.length }
+    { id: 'favourites', label: 'Favourites', count: favouriteExperts.length },
+    { id: 'reviews', label: 'Reviews', count: 3 }
   ]
 
   return (
@@ -907,6 +909,101 @@ const UserDashboard = () => {
                   showVerified={expert.isVerified}
                 />
               ))}
+            </div>
+          )}
+
+          {activeTab === 'reviews' && (
+            <div className="space-y-4">
+              {/* Review 1 */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src="/api/placeholder/100/100" />
+                      <AvatarFallback>SJ</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-medium">Sarah Johnson</h4>
+                          <p className="text-sm text-gray-500">Product Strategy Session • November 15, 2024</p>
+                        </div>
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-gray-700">
+                        Sarah provided exceptional insights into our product-market fit challenges. Her experience 
+                        in scaling B2B SaaS companies was invaluable, and she gave us a clear roadmap for the next 
+                        90 days. Highly recommend!
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Review 2 */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src="/portrait-3.avif" />
+                      <AvatarFallback>MR</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-medium">Michael Rodriguez</h4>
+                          <p className="text-sm text-gray-500">Marketing Strategy Deep Dive • November 8, 2024</p>
+                        </div>
+                        <div className="flex gap-1">
+                          {[...Array(4)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          )}
+                          <Star className="w-4 h-4 text-gray-300" />
+                        </div>
+                      </div>
+                      <p className="text-gray-700">
+                        Great session with Michael on revamping our content marketing strategy. He shared practical 
+                        examples from his work with Fortune 500 companies. Would have liked more time to discuss 
+                        paid acquisition channels, but overall very valuable.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Review 3 */}
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="w-12 h-12">
+                      <AvatarImage src="/portrait-2.avif" />
+                      <AvatarFallback>ER</AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1">
+                      <div className="flex items-start justify-between mb-2">
+                        <div>
+                          <h4 className="font-medium">Emily Richardson</h4>
+                          <p className="text-sm text-gray-500">Fundraising Strategy Session • October 28, 2024</p>
+                        </div>
+                        <div className="flex gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                      </div>
+                      <p className="text-gray-700">
+                        Emily's expertise in venture capital was exactly what we needed. She reviewed our pitch deck, 
+                        helped refine our financial model, and introduced us to relevant investors in her network. 
+                        The session paid for itself many times over!
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           )}
           
@@ -1934,6 +2031,7 @@ const UserDashboard = () => {
           </div>
         </div>
       )}
+      <Footer />
     </div>
   )
 }
