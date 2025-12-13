@@ -46,7 +46,8 @@
       "durations": [
         {"duration": "15 min", "price": 500},
         {"duration": "30 min", "price": 1000},
-        {"duration": "45 min", "price": 1500}
+        {"duration": "45 min", "price": 1500},
+        {"duration": "60 min", "price": 2000}
       ]
     },
     "bundles": [

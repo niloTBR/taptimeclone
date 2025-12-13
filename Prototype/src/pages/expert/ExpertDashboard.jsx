@@ -1825,7 +1825,7 @@ const ExpertDashboard = () => {
                             <span className="text-lg font-medium">$</span>
                             <input
                               type="text"
-                              placeholder="500"
+                              placeholder="1000"
                               className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
                             />
                           </div>
@@ -1835,7 +1835,17 @@ const ExpertDashboard = () => {
                             <span className="text-lg font-medium">$</span>
                             <input
                               type="text"
-                              placeholder="500"
+                              placeholder="1500"
+                              className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
+                            />
+                          </div>
+                          
+                          <div className="flex items-center gap-4">
+                            <span className="text-sm w-20">60 min</span>
+                            <span className="text-lg font-medium">$</span>
+                            <input
+                              type="text"
+                              placeholder="2000"
                               className="w-32 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-black transition-colors"
                             />
                           </div>
