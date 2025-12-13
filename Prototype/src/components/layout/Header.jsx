@@ -1,12 +1,13 @@
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { Menu, X, LogOut, Bell } from 'lucide-react'
+import { Menu, X, LogOut, Bell, Gift } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import TapTimeLogo from '@/components/common/TapTimeLogo'
 import LoginModal from '@/components/auth/LoginModal'
 import SignupModal from '@/components/auth/SignupModal'
+import GiftModal from '@/components/common/GiftModal'
 import navigationData from '@/data/navigation.json'
 import styles from './Header.module.scss'
 
@@ -16,6 +17,7 @@ const Header = () => {
   const [isOnDarkSection, setIsOnDarkSection] = useState(false)
   const [isLoginOpen, setIsLoginOpen] = useState(false)
   const [isSignupOpen, setIsSignupOpen] = useState(false)
+  const [isGiftModalOpen, setIsGiftModalOpen] = useState(false)
   const [signupType, setSignupType] = useState('individual')
   const location = useLocation()
   const { header } = navigationData
@@ -118,6 +120,21 @@ const Header = () => {
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Button 
+                    size="sm" 
+                    className="rounded-full w-10 h-10 p-0 bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
+                    onClick={() => setIsGiftModalOpen(true)}
+                    aria-label="Gift Voucher"
+                  >
+                    <Gift className="w-4 h-4" />
+                  </Button>
+                </motion.div>
+                
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
                 >
                   <Button 
@@ -151,8 +168,30 @@ const Header = () => {
                 </motion.div>
               </>
             ) : (
-              // Regular pages: Show login/signup
+              // Regular pages: Show gift + login/signup
               <>
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Button 
+                    size="sm" 
+                    className={location.pathname === '/join-expert' || 
+                              location.pathname === '/how-it-works' ||
+                              location.pathname === '/' ||
+                              isOnDarkSection
+                      ? "rounded-full w-10 h-10 p-0 bg-transparent border-2 border-white text-white hover:bg-white hover:text-black transition-all"
+                      : "rounded-full w-10 h-10 p-0 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white transition-all"}
+                    onClick={() => setIsGiftModalOpen(true)}
+                    aria-label="Gift Voucher"
+                  >
+                    <Gift className="w-4 h-4" />
+                  </Button>
+                </motion.div>
+                
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -261,6 +300,23 @@ const Header = () => {
                   >
                     <Button
                       size="sm"
+                      className="justify-start w-full rounded-full gap-2 bg-[#efffba] text-black border border-[#efffba] hover:bg-black hover:text-white hover:border-black transition-colors"
+                      onClick={() => {
+                        setIsMobileMenuOpen(false)
+                        setIsGiftModalOpen(true)
+                      }}
+                    >
+                      <Gift className="w-4 h-4" />
+                      Gift Voucher
+                    </Button>
+                  </motion.div>
+                  <motion.div
+                    initial={{ x: -20, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ delay: (header.links.length + 1) * 0.05 }}
+                  >
+                    <Button
+                      size="sm"
                       className="justify-start w-full rounded-full border-2 border-black text-black bg-transparent hover:bg-black hover:text-white transition-colors"
                       onClick={() => {
                         setIsMobileMenuOpen(false)
@@ -273,11 +329,11 @@ const Header = () => {
                   <motion.div
                     initial={{ x: -20, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: (header.links.length + 1) * 0.05 }}
+                    transition={{ delay: (header.links.length + 2) * 0.05 }}
                   >
                     <Button
                       size="sm"
-                      className="justify-start w-full rounded-full bg-[#efffba] text-black hover:bg-black hover:text-white transition-colors"
+                      className="justify-start w-full rounded-full bg-gray-100 text-black hover:bg-black hover:text-white transition-colors"
                       onClick={() => {
                         setIsMobileMenuOpen(false)
                         setIsSignupOpen(true)
@@ -310,6 +366,12 @@ const Header = () => {
           setIsLoginOpen(true)
         }}
         defaultType={signupType}
+      />
+      
+      {/* Gift Modal */}
+      <GiftModal 
+        isOpen={isGiftModalOpen} 
+        onClose={() => setIsGiftModalOpen(false)}
       />
     </motion.header>
   )
