@@ -373,162 +373,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Sessions Section */}
-      <section className="content-section section-padding bg-gradient-to-b from-white to-gray-50">
-        <div className="page-container">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            {/* Header */}
-            <div className="section-header">
-              <SectionTitle 
-                miniTitle="Top Sessions"
-                title="Featured Sessions"
-                description="Popular sessions from our expert mentors"
-                className={styles.sectionTitle}
-              />
-            </div>
-
-            {/* Sessions Grid - Different Card Style */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Sample Sessions - In real app, this would come from data */}
-              {[
-                {
-                  id: 1,
-                  title: "Scaling Your Startup",
-                  expertName: "Sarah Chen",
-                  expertInitials: "SC",
-                  duration: "45 min",
-                  price: "$150",
-                  category: "Business",
-                  description: "Learn proven strategies for scaling your startup from 0 to 1M users"
-                },
-                {
-                  id: 2,
-                  title: "Product Design Fundamentals",
-                  expertName: "Alex Rivera",
-                  expertInitials: "AR",
-                  duration: "60 min",
-                  price: "$200",
-                  category: "Design",
-                  description: "Master the core principles of product design and user experience"
-                },
-                {
-                  id: 3,
-                  title: "Advanced React Patterns",
-                  expertName: "Mike Johnson",
-                  expertInitials: "MJ",
-                  duration: "90 min",
-                  price: "$250",
-                  category: "Technology",
-                  description: "Deep dive into advanced React patterns and performance optimization"
-                },
-                {
-                  id: 4,
-                  title: "Marketing on a Budget",
-                  expertName: "Emma Wilson",
-                  expertInitials: "EW",
-                  duration: "30 min",
-                  price: "$100",
-                  category: "Marketing",
-                  description: "Effective marketing strategies for bootstrapped startups"
-                },
-                {
-                  id: 5,
-                  title: "Fundraising 101",
-                  expertName: "David Park",
-                  expertInitials: "DP",
-                  duration: "60 min",
-                  price: "$300",
-                  category: "Finance",
-                  description: "Everything you need to know about raising your first round"
-                },
-                {
-                  id: 6,
-                  title: "Building Your Personal Brand",
-                  expertName: "Lisa Martinez",
-                  expertInitials: "LM",
-                  duration: "45 min",
-                  price: "$175",
-                  category: "Personal Development",
-                  description: "Create a compelling personal brand that opens doors"
-                }
-              ].map((session) => (
-                <Card 
-                  key={session.id}
-                  className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-gray-300"
-                >
-                  <CardContent className="p-0">
-                    {/* Session Header with Category */}
-                    <div className="p-4 pb-0">
-                      <div className="flex justify-between items-start mb-3">
-                        <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-                          {session.category}
-                        </span>
-                        <span className="text-sm font-bold text-green-600">
-                          {session.price}
-                        </span>
-                      </div>
-                      
-                      {/* Session Title */}
-                      <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
-                        {session.title}
-                      </h3>
-                      
-                      {/* Session Description */}
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {session.description}
-                      </p>
-                    </div>
-                    
-                    {/* Expert Info Bar */}
-                    <div className="border-t bg-gray-50 p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        {/* Expert Avatar Circle */}
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-semibold text-sm">
-                          {session.expertInitials}
-                        </div>
-                        
-                        {/* Expert Name and Duration */}
-                        <div>
-                          <p className="text-sm font-medium text-gray-900">
-                            {session.expertName}
-                          </p>
-                          <p className="text-xs text-gray-500 flex items-center gap-1">
-                            <Clock className="w-3 h-3" />
-                            {session.duration}
-                          </p>
-                        </div>
-                      </div>
-                      
-                      {/* Book Button */}
-                      <Button 
-                        size="sm"
-                        className="rounded-full bg-black text-white hover:bg-gray-800 px-4 h-8 text-xs"
-                      >
-                        Book Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* View All Sessions Button */}
-            <div className="text-center mt-8">
-              <Link to="/sessions">
-                <Button className="rounded-full bg-black text-white hover:bg-gray-800 px-8">
-                  View All Sessions
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Top Experts Section - Category Carousel */}
       <section className="content-section section-padding bg-gray-50">
@@ -809,6 +653,163 @@ const HomePage = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Sessions Section */}
+      <section className="content-section section-padding bg-gradient-to-b from-white to-gray-50">
+        <div className="page-container">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            {/* Header */}
+            <div className="section-header">
+              <SectionTitle 
+                miniTitle="Top Sessions"
+                title="Featured Sessions"
+                description="Popular sessions from our expert mentors"
+                className={styles.sectionTitle}
+              />
+            </div>
+
+            {/* Sessions Grid - Different Card Style */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Sample Sessions - In real app, this would come from data */}
+              {[
+                {
+                  id: 1,
+                  title: "Scaling Your Startup",
+                  expertName: "Sarah Chen",
+                  expertInitials: "SC",
+                  duration: "45 min",
+                  price: "$150",
+                  category: "Business",
+                  description: "Learn proven strategies for scaling your startup from 0 to 1M users"
+                },
+                {
+                  id: 2,
+                  title: "Product Design Fundamentals",
+                  expertName: "Alex Rivera",
+                  expertInitials: "AR",
+                  duration: "60 min",
+                  price: "$200",
+                  category: "Design",
+                  description: "Master the core principles of product design and user experience"
+                },
+                {
+                  id: 3,
+                  title: "Advanced React Patterns",
+                  expertName: "Mike Johnson",
+                  expertInitials: "MJ",
+                  duration: "90 min",
+                  price: "$250",
+                  category: "Technology",
+                  description: "Deep dive into advanced React patterns and performance optimization"
+                },
+                {
+                  id: 4,
+                  title: "Marketing on a Budget",
+                  expertName: "Emma Wilson",
+                  expertInitials: "EW",
+                  duration: "30 min",
+                  price: "$100",
+                  category: "Marketing",
+                  description: "Effective marketing strategies for bootstrapped startups"
+                },
+                {
+                  id: 5,
+                  title: "Fundraising 101",
+                  expertName: "David Park",
+                  expertInitials: "DP",
+                  duration: "60 min",
+                  price: "$300",
+                  category: "Finance",
+                  description: "Everything you need to know about raising your first round"
+                },
+                {
+                  id: 6,
+                  title: "Building Your Personal Brand",
+                  expertName: "Lisa Martinez",
+                  expertInitials: "LM",
+                  duration: "45 min",
+                  price: "$175",
+                  category: "Personal Development",
+                  description: "Create a compelling personal brand that opens doors"
+                }
+              ].map((session) => (
+                <Card 
+                  key={session.id}
+                  className="group hover:shadow-xl transition-all duration-300 cursor-pointer border-2 hover:border-gray-300"
+                >
+                  <CardContent className="p-0">
+                    {/* Session Header with Category */}
+                    <div className="p-4 pb-0">
+                      <div className="flex justify-between items-start mb-3">
+                        <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                          {session.category}
+                        </span>
+                        <span className="text-sm font-bold text-green-600">
+                          {session.price}
+                        </span>
+                      </div>
+                      
+                      {/* Session Title */}
+                      <h3 className="font-semibold text-lg mb-2 group-hover:text-blue-600 transition-colors">
+                        {session.title}
+                      </h3>
+                      
+                      {/* Session Description */}
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+                        {session.description}
+                      </p>
+                    </div>
+                    
+                    {/* Expert Info Bar */}
+                    <div className="border-t bg-gray-50 p-4 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        {/* Expert Avatar Circle */}
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-semibold text-sm">
+                          {session.expertInitials}
+                        </div>
+                        
+                        {/* Expert Name and Duration */}
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">
+                            {session.expertName}
+                          </p>
+                          <p className="text-xs text-gray-500 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {session.duration}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Book Button */}
+                      <Button 
+                        size="sm"
+                        className="rounded-full bg-black text-white hover:bg-gray-800 px-4 h-8 text-xs"
+                      >
+                        Book Now
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            {/* View All Sessions Button */}
+            <div className="text-center mt-8">
+              <Link to="/sessions">
+                <Button className="rounded-full bg-black text-white hover:bg-gray-800 px-8">
+                  View All Sessions
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
             </div>
           </motion.div>
         </div>

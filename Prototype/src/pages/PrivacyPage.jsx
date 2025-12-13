@@ -251,54 +251,6 @@ const PrivacyPage = () => {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-black text-white py-12 mt-20">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-start">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#4ade80] rounded-full"></div>
-              <span className="text-lg font-semibold">taptime</span>
-            </div>
-            
-            <div className="grid grid-cols-3 gap-12">
-              <div>
-                <h3 className="font-semibold mb-4">Company</h3>
-                <ul className="space-y-2 text-gray-400">
-                  <li>Blog</li>
-                  <li>Careers</li>
-                  <li>FAQ</li>
-                  <li>Help</li>
-                  <li>Terms</li>
-                  <li>Privacy</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="font-semibold mb-4">Resources</h3>
-                <ul className="space-y-2 text-gray-400">
-                  <li>Why TapTime?</li>
-                  <li>Book Experts</li>
-                  <li>Become Expert</li>
-                </ul>
-              </div>
-              
-              <div className="flex gap-4">
-                {/* Social icons would go here */}
-              </div>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-gray-800 flex justify-between items-center text-sm text-gray-400">
-            <p>© 2024 TapTime, Inc. All rights reserved.</p>
-            <div className="flex gap-4">
-              <span>Privacy Policy</span>
-              <span>Terms</span>
-              <span>Sitemap</span>
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   )
 }
