@@ -961,7 +961,7 @@ const UserDashboard = () => {
                         <div className="flex gap-1">
                           {[...Array(4)].map((_, i) => (
                             <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          )}
+                          ))}
                           <Star className="w-4 h-4 text-gray-300" />
                         </div>
                       </div>
