@@ -219,6 +219,18 @@ const ExpertProfilePage = () => {
                     )}
                   </div>
                 </div>
+
+                {/* Book Button */}
+                <div className="mt-6">
+                  <Button 
+                    onClick={handleBookSession}
+                    className="w-full rounded-full bg-black text-white hover:bg-gray-800 py-6 text-base font-medium transition-all"
+                  >
+                    <span className="mr-2">{expert.rate.split('/')[0]}</span>
+                    <span className="text-sm opacity-80">/{expert.rate.split('/')[1]}</span>
+                    <span className="ml-3">Book Session</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
