@@ -1,9 +1,12 @@
-import { useEffect, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Briefcase, Laptop, Palette, TrendingUp, DollarSign, Heart, ArrowRight } from 'lucide-react'
+import { Briefcase, Laptop, Palette, TrendingUp, DollarSign, Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
-  const tickerRef = useRef(null)
+  const containerRef = useRef(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
 
   // Icon mapping for categories
   const getIcon = (categoryName) => {
@@ -19,38 +22,59 @@ const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
     return <IconComponent className="w-4 h-4" />
   }
 
-  useEffect(() => {
-    const ticker = tickerRef.current
-    if (!ticker) return
-
-    const tickerContent = ticker.querySelector('.ticker-content')
-    if (!tickerContent) return
-
-    // Clone content for seamless loop
-    const clonedContent = tickerContent.cloneNode(true)
-    clonedContent.classList.add('ticker-clone')
-    ticker.appendChild(clonedContent)
-
-    return () => {
-      const clone = ticker.querySelector('.ticker-clone')
-      if (clone) {
-        clone.remove()
-      }
+  const checkScroll = () => {
+    if (containerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
     }
+  }
+
+  useEffect(() => {
+    checkScroll()
+    window.addEventListener('resize', checkScroll)
+    return () => window.removeEventListener('resize', checkScroll)
   }, [items])
 
+  const scroll = (direction) => {
+    if (containerRef.current) {
+      const scrollAmount = 300
+      const newScrollLeft = containerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount)
+      containerRef.current.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth'
+      })
+      setTimeout(checkScroll, 300)
+    }
+  }
+
   return (
-    <div className={`overflow-hidden relative ${className}`}>
-      <div 
-        ref={tickerRef}
-        className="flex animate-scroll"
+    <div className={`relative ${className}`}>
+      {/* Left Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-2 shadow-md transition-all ${
+          canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        } hover:bg-[#efffba] hover:border-[#efffba]`}
+        onClick={() => scroll('left')}
       >
-        <div className="ticker-content flex items-center min-w-max">
+        <ChevronLeft className="w-5 h-5" />
+      </Button>
+
+      {/* Scrollable Container */}
+      <div 
+        ref={containerRef}
+        className="overflow-x-auto scrollbar-hide mx-12"
+        onScroll={checkScroll}
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <div className="flex items-center gap-2 px-4 py-2">
           {items.map((item, index) => (
             <Link 
               key={index} 
               to={`/browse?category=${encodeURIComponent(item.category)}`}
-              className="group flex items-center gap-3 px-6 py-4 mx-2 whitespace-nowrap rounded-full hover:bg-[#efffba] hover:text-black transition-all duration-200 cursor-pointer"
+              className="group flex items-center gap-3 px-6 py-4 whitespace-nowrap rounded-full hover:bg-[#efffba] hover:text-black transition-all duration-200 cursor-pointer flex-shrink-0"
               onClick={(e) => {
                 if (onCategoryClick) {
                   e.preventDefault()
@@ -69,6 +93,25 @@ const ScrollingTicker = ({ items, className = '', onCategoryClick }) => {
           ))}
         </div>
       </div>
+
+      {/* Right Button */}
+      <Button
+        variant="outline"
+        size="icon"
+        className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-2 shadow-md transition-all ${
+          canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        } hover:bg-[#efffba] hover:border-[#efffba]`}
+        onClick={() => scroll('right')}
+      >
+        <ChevronRight className="w-5 h-5" />
+      </Button>
+
+      {/* CSS to hide scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </div>
   )
 }
