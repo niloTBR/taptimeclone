@@ -1,10 +1,10 @@
 const TermsPage = () => {
   return (
     <div className="min-h-screen bg-gray-50">
-      <section className="pt-24 pb-16 px-4 bg-white">
+      <section className="pt-32 pb-16 px-4 bg-white">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Terms of Service</h1>
-          <p className="text-gray-600 mb-8">Last updated: January 1, 2025</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Terms of Service</h1>
+          <p className="text-gray-600 mb-16">Last updated: January 1, 2025</p>
           
           <div className="prose prose-lg max-w-none space-y-12">
             <section>
