@@ -22,7 +22,6 @@ const ExpertProfilePage = () => {
   const { expert, about, sessions, reviews, calendar } = expertProfileData
   const [activeTab, setActiveTab] = useState('about')
   const [showShareTooltip, setShowShareTooltip] = useState(false)
-  const [showFloatingButton, setShowFloatingButton] = useState(false)
 
   const getInitials = (name) => {
     return name
@@ -59,10 +58,6 @@ const ExpertProfilePage = () => {
     return categoryMap[expertise] || 'Business & Startups'
   }
 
-  // Show floating button always on expert page
-  useEffect(() => {
-    setShowFloatingButton(true)
-  }, [])
 
   const handleBookSession = () => {
     window.location.href = `/book/${expert.id}`
@@ -355,42 +350,6 @@ const ExpertProfilePage = () => {
         </div>
       </section>
 
-      {/* Sticky Bottom Book Bar */}
-      {showFloatingButton && (
-        <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-800 shadow-lg z-50">
-          <div className="container mx-auto max-w-6xl px-4 py-4">
-            <div className="flex items-center justify-between">
-              <div className="text-left">
-                <div className="font-medium text-sm text-white">Book {expert.name.split(' ')[0]}</div>
-                <div className="text-xs text-gray-400">
-                  Next available: {calendar.availableSlots[0].date} at {calendar.availableSlots[0].slots[0]}
-                </div>
-              </div>
-              <Button 
-                onClick={handleBookSession}
-                className="rounded-full px-6 py-3 text-white flex items-center gap-2 shadow-lg transition-all duration-300 transform hover:scale-105"
-                style={{
-                  background: 'linear-gradient(-45deg, #10b981, #059669, #047857, #10b981)',
-                  backgroundSize: '400% 400%',
-                  animation: 'gradient 3s ease infinite'
-                }}
-              >
-                <span className="text-sm font-medium">{expert.rate.split('/')[0]}</span>
-                <span className="text-xs opacity-90">/{expert.rate.split('/')[1]}</span>
-                <span className="ms-1 font-medium">Book</span>
-              </Button>
-            </div>
-          </div>
-          
-          <style jsx>{`
-            @keyframes gradient {
-              0% { background-position: 0% 50%; }
-              50% { background-position: 100% 50%; }
-              100% { background-position: 0% 50%; }
-            }
-          `}</style>
-        </div>
-      )}
     </div>
   )
 }
