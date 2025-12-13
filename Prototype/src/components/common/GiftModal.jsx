@@ -242,25 +242,31 @@ const GiftModal = ({ isOpen, onClose }) => {
                 onSubmit={handleSubmit}
                 className="space-y-4"
               >
-                {/* Order Summary */}
-                <div className="bg-gray-50 p-3 rounded-lg">
-                  <h3 className="font-medium text-black mb-2">Order Summary</h3>
-                  <div className="flex justify-between items-center">
-                    <span>Gift Voucher Amount:</span>
-                    <span className="font-semibold">${getSelectedAmount()}</span>
-                  </div>
-                  <div className="flex justify-between items-center mt-1">
-                    <span>To:</span>
-                    <span className="text-sm text-gray-600">{voucherData.recipientEmail}</span>
+                {/* Order Summary Card */}
+                <div className="border-2 border-[#efffba] bg-[#efffba]/10 rounded-xl p-4">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-xs text-gray-600 uppercase tracking-wider font-medium mb-1">Gift Voucher</p>
+                      <p className="text-2xl font-bold text-black">${getSelectedAmount()}</p>
+                      <p className="text-sm text-gray-600 mt-2">
+                        <span className="text-xs">To:</span> {voucherData.recipientEmail}
+                      </p>
+                      {voucherData.senderName && (
+                        <p className="text-sm text-gray-600">
+                          <span className="text-xs">From:</span> {voucherData.senderName}
+                        </p>
+                      )}
+                    </div>
+                    <div className="w-12 h-12 rounded-full bg-[#efffba] flex items-center justify-center">
+                      <Gift className="h-6 w-6 text-black" />
+                    </div>
                   </div>
                 </div>
 
-                {/* Payment Information */}
-                <div className="space-y-4">
-                  <h3 className="font-medium text-black">Payment Information</h3>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="cardNumber" className="text-black">Card Number *</Label>
+                {/* Payment Details */}
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <Label htmlFor="cardNumber" className="text-black text-sm font-normal">Card Number</Label>
                     <div className="relative">
                       <CreditCard className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
@@ -269,42 +275,42 @@ const GiftModal = ({ isOpen, onClose }) => {
                         placeholder="1234 5678 9012 3456"
                         value={voucherData.cardNumber}
                         onChange={(e) => handleInputChange('cardNumber', e.target.value)}
-                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white"
+                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white h-9 text-sm"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="expiryDate" className="text-black">Expiry Date *</Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <Label htmlFor="expiryDate" className="text-black text-sm font-normal">Expiry Date</Label>
                       <Input
                         id="expiryDate"
                         type="text"
                         placeholder="MM/YY"
                         value={voucherData.expiryDate}
                         onChange={(e) => handleInputChange('expiryDate', e.target.value)}
-                        className="border-2 border-gray-300 focus:border-black bg-white"
+                        className="border-2 border-gray-300 focus:border-black bg-white h-9 text-sm"
                         required
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="cvv" className="text-black">CVV *</Label>
+                    <div className="space-y-1">
+                      <Label htmlFor="cvv" className="text-black text-sm font-normal">CVV</Label>
                       <Input
                         id="cvv"
                         type="text"
                         placeholder="123"
                         value={voucherData.cvv}
                         onChange={(e) => handleInputChange('cvv', e.target.value)}
-                        className="border-2 border-gray-300 focus:border-black bg-white"
+                        className="border-2 border-gray-300 focus:border-black bg-white h-9 text-sm"
                         maxLength="4"
                         required
                       />
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="billingEmail" className="text-black">Billing Email *</Label>
+                  <div className="space-y-1">
+                    <Label htmlFor="billingEmail" className="text-black text-sm font-normal">Billing Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
@@ -313,7 +319,7 @@ const GiftModal = ({ isOpen, onClose }) => {
                         placeholder="Enter billing email"
                         value={voucherData.billingEmail}
                         onChange={(e) => handleInputChange('billingEmail', e.target.value)}
-                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white"
+                        className="pl-10 border-2 border-gray-300 focus:border-black bg-white h-9 text-sm"
                         required
                       />
                     </div>
