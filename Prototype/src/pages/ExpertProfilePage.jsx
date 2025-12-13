@@ -292,8 +292,8 @@ const ExpertProfilePage = () => {
                   {about.expertise.map((skill, index) => (
                     <Badge 
                       key={index}
-                      variant="outline" 
-                      className="border-gray-300 text-gray-700 hover:border-black hover:text-black cursor-pointer transition-all px-3 py-1.5"
+                      variant="secondary" 
+                      className="bg-gray-100 text-gray-700 hover:bg-gray-200 cursor-pointer transition-all px-3 py-1.5"
                       onClick={() => {
                         console.log('Search for:', skill)
                       }}
